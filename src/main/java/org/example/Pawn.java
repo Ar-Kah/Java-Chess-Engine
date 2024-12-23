@@ -1,16 +1,16 @@
 package org.example;
 
-import java.util.Arrays;
-
 public class Pawn extends ChessPiece {
+
     public Pawn(String color, int[] position) {
         super("P", color, position);
+        super.name = "Pawn";
     }
 
     @Override
     public void move(Board board, int[] moveTo) {
-        int row = moveTo[0];
-        int column = moveTo[1];
+        int row = moveTo[1];
+        int column = moveTo[0];
         updateBoard(board, row, column);
     }
 

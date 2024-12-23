@@ -1,6 +1,7 @@
 package org.example;
 
 import java.lang.Math;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -42,23 +43,42 @@ public class GameLogic {
                 if (input.equals("q") || input.equals("quit")) {
                     break;
                 }
-                // compensate the index number by retracting 1
-                String[] values = input.split(" ");
-                int pieceRow = Integer.parseInt(values[1]); // parse row to opposite index
-                pieceRow = Math.abs(pieceRow - 8);
-                String pieveColumn = values[0];
-                int pieveColumnInt = stringToInteger(pieveColumn);
-                int wantedMoveRow = Integer.parseInt(values[3]); // parse row to opposite index
-                wantedMoveRow = Math.abs(wantedMoveRow - 8);
-                String wantedMoveColumn = values[2];
-                int wantedMoveColumnInt = stringToInteger(wantedMoveColumn);
-                int[] movingPosition = {wantedMoveRow, wantedMoveColumnInt};
-                // Find the chess piece from the position from the input
-                ChessPiece piece = board.board[pieceRow][pieveColumnInt];
+                // parse input
+                String[] inputInArray = input.split(" ");
+                String coordOfMovedPiece = inputInArray[0];
+                String[] movedPiececoords = coordOfMovedPiece.split("");
+                String coords = inputInArray[1];
+                String[] coordsWherePieceWillBeMoved = coords.split("");
 
-                piece.move(board, movingPosition);
+                // change the row from char to int
+                int columnOfMovedPiece = stringToInteger(movedPiececoords[0]);
+                // change the column index from the game view to array index using absolute value
+                int rowOfMovedPiece = Math.abs(Integer.parseInt(movedPiececoords[1]) - 8);
+
+                System.out.println(columnOfMovedPiece + " " + rowOfMovedPiece);
+                ChessPiece piece = board.board[rowOfMovedPiece][columnOfMovedPiece];
+
+                // check if the chosen coordinate is an empty space
+                if (piece instanceof Space) {
+                    System.out.println("There is no chess piece in this location");
+                    continue;
+                }
+
+                if (!isWhite && piece.color.equals("W")) {
+                    System.out.println("It is blacks turn to move");
+                    continue;
+                } else if (isWhite && piece.color.equals("B")) {
+                    System.out.println("It is whites turn to move");
+                }
+
+                System.out.println(piece.name+" "+ Arrays.toString(piece.position));
+                piece.move(board, new int[]{stringToInteger(coordsWherePieceWillBeMoved[0]),
+                        Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8)});
+
+                isWhite = !isWhite;
+
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("Invalid input!");
+                System.out.println(e.toString());
             }
         }
     }

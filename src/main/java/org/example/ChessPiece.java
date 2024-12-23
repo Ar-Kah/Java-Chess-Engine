@@ -4,6 +4,7 @@ public abstract class ChessPiece {
     protected int[] position;
     protected String character;
     protected String color;
+    protected String name;
 
     public ChessPiece(String gamePeace, String color, int[] position) {
 
