@@ -23,14 +23,14 @@ public class Board {
     public void printBoard() {
 
         System.out.println();
-        int number = 1;
+        int number = 8;
         // Example: Print the matrix
         for (ChessPiece[] row : this.board) {
             System.out.print(number + " ");
             for (ChessPiece cell : row) {
                 System.out.print(cell.character + " ");
             }
-            number++;
+            number--;
             System.out.println();
         }
         String[] alphabets = {"a", "b", "c", "d", "e", "f", "g", "h"};

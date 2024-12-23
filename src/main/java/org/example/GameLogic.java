@@ -1,8 +1,24 @@
 package org.example;
 
+import java.lang.Math;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class GameLogic {
+    final Map<String, Integer> CHARTOINT = new HashMap<>()
+    {
+        {
+            put("a", 0);
+            put("b", 1);
+            put("c", 2);
+            put("d", 3);
+            put("e", 4);
+            put("f", 5);
+            put("g", 6);
+            put("h", 7);
+        }
+    };
     boolean isWhite = true;
     private final Board board;
     public GameLogic(Board board) {
@@ -18,8 +34,6 @@ public class GameLogic {
                 System.out.println("Blacks turn to move");
             }
 
-            System.out.println("First move: ");
-
             try {
                 String input = scanner.nextLine();
                 input = input.toLowerCase();
@@ -28,20 +42,28 @@ public class GameLogic {
                 if (input.equals("q") || input.equals("quit")) {
                     break;
                 }
-
+                // compensate the index number by retracting 1
                 String[] values = input.split(" ");
-                int x = Integer.parseInt(values[0]);
-                int y = Integer.parseInt(values[1]);
-                int z = Integer.parseInt(values[2]);
-                int k = Integer.parseInt(values[3]);
-                int[] movingPosition = {z, k};
+                int pieceRow = Integer.parseInt(values[1]); // parse row to opposite index
+                pieceRow = Math.abs(pieceRow - 8);
+                String pieveColumn = values[0];
+                int pieveColumnInt = stringToInteger(pieveColumn);
+                int wantedMoveRow = Integer.parseInt(values[3]); // parse row to opposite index
+                wantedMoveRow = Math.abs(wantedMoveRow - 8);
+                String wantedMoveColumn = values[2];
+                int wantedMoveColumnInt = stringToInteger(wantedMoveColumn);
+                int[] movingPosition = {wantedMoveRow, wantedMoveColumnInt};
                 // Find the chess piece from the position from the input
-                ChessPiece piece = board.board[x][y];
+                ChessPiece piece = board.board[pieceRow][pieveColumnInt];
 
                 piece.move(board, movingPosition);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input");
             }
         }
+    }
+
+    private int stringToInteger(String character) {
+        return CHARTOINT.get(character);
     }
 }
