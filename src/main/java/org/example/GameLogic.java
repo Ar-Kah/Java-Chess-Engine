@@ -57,8 +57,8 @@ public class GameLogic {
                 ChessPiece piece = board.board[pieceRow][pieveColumnInt];
 
                 piece.move(board, movingPosition);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input");
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                System.out.println("Invalid input!");
             }
         }
     }
