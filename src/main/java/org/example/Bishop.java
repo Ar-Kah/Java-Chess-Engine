@@ -6,7 +6,7 @@ public class Bishop extends ChessPiece{
     }
 
     @Override
-    public boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
+    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate) {
         return false;
     }
 }

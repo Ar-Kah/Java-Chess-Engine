@@ -6,7 +6,16 @@ public class King extends ChessPiece{
     }
 
     @Override
-    public boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
-        return false;
+    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate) {
+        // TODO: implement check situations
+        if (rowDifferance > 2 | columnDifferance > 2) {
+            return false;
+        }
+
+        if (!(pieceToReplace instanceof Space) & pieceToReplace.color.equals(this.color)) {
+            return false;
+        }
+
+        return true;
     }
 }
