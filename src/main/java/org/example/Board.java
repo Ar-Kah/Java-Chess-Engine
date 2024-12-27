@@ -22,6 +22,11 @@ public class Board {
 
     public void printBoard() {
 
+        String[] alphabets = {"a", "b", "c", "d", "e", "f", "g", "h"};
+        System.out.print("  ");
+        for (String character: alphabets) {
+            System.out.print(character + " ");
+        }
         System.out.println();
         int number = 8;
         // Example: Print the matrix
@@ -33,12 +38,6 @@ public class Board {
             number--;
             System.out.println();
         }
-        String[] alphabets = {"a", "b", "c", "d", "e", "f", "g", "h"};
-        System.out.print("  ");
-        for (String character: alphabets) {
-            System.out.print(character + " ");
-        }
-        System.out.println();
     }
 
     private void initBlack() {

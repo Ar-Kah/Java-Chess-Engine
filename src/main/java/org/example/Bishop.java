@@ -6,13 +6,7 @@ public class Bishop extends ChessPiece{
     }
 
     @Override
-    public void move(Board board, int[] moveTo) {
-        int[][] possibleMoves = {
-                {1, -1}, {2, -2}, {3, -3}, {4, -4}, {5, -5}, {6, -6}, {7, -7},
-                {-1, -1}, {-2, -2}, {-3, -3}, {-4, -4}, {-5, -5}, {-6, -6}, {-7, -7},
-                {-1, 1}, {-2, 2}, {-3, 3}, {-4, 4}, {-5, 5}, {-6, 6}, {-7, 7},
-                {1, 1}, {2, 2}, {3, 3}, {4, 4}, {5, 5}, {6, 6}, {7, 7}
-        };
-
+    public boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
+        return false;
     }
 }

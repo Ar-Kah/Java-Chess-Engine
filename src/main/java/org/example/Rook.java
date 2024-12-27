@@ -6,6 +6,7 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    public void move(Board board, int[] moveTo) {
+    public boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
+        return false;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class GameLogic {
-    final Map<String, Integer> CHARTOINT = new HashMap<>()
+    private final Map<String, Integer> CHARTOINT = new HashMap<>()
     {
         {
             put("a", 0);
@@ -20,7 +20,12 @@ public class GameLogic {
             put("h", 7);
         }
     };
-    boolean isWhite = true;
+
+    private boolean check = false;
+    private boolean checkMate = false;
+
+    private int totalMoves = 1;
+    private boolean isWhite = true;
     private final Board board;
     public GameLogic(Board board) {
         this.board = board;
@@ -55,8 +60,9 @@ public class GameLogic {
                 // change the column index from the game view to array index using absolute value
                 int rowOfMovedPiece = Math.abs(Integer.parseInt(movedPiececoords[1]) - 8);
 
-                System.out.println(columnOfMovedPiece + " " + rowOfMovedPiece);
+                // System.out.println(rowOfMovedPiece + " " + columnOfMovedPiece);
                 ChessPiece piece = board.board[rowOfMovedPiece][columnOfMovedPiece];
+
 
                 // check if the chosen coordinate is an empty space
                 if (piece instanceof Space) {
@@ -71,14 +77,23 @@ public class GameLogic {
                     System.out.println("It is whites turn to move");
                 }
 
+
+                int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);
+                int column = stringToInteger(coordsWherePieceWillBeMoved[0]);
+                System.out.println(row+ " "+ column);
                 System.out.println(piece.name+" "+ Arrays.toString(piece.position));
-                piece.move(board, new int[]{stringToInteger(coordsWherePieceWillBeMoved[0]),
-                        Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8)});
+                boolean isValid = piece.move(board, new int[]{row, column}, check, checkMate);
+
+                if (!isValid) {
+                    continue;
+                }
 
                 isWhite = !isWhite;
+                totalMoves++;
 
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 System.out.println(e.toString());
+                run();
             }
         }
     }

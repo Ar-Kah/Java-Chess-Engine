@@ -1,5 +1,9 @@
 package org.example;
 
+/**
+ * @author Aaro Karhu
+ * University of Tampere
+ */
 public class Main {
     /**
      * This is an attempt to make a chess game and on top of it implement a minMax algorithm
