@@ -1,8 +1,10 @@
 package org.example;
 
 public class Space extends ChessPiece {
+
     public Space(int[] position) {
         super("-", "N", position);
+        super.name = "Space";
     }
 
     @Override

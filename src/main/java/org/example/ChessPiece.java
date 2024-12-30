@@ -32,7 +32,7 @@ public abstract class ChessPiece {
      * @return return true if the move was good
      */
     public final boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
-        // calculate the distance of current row and column to the wanted spot
+        int[] oldPosition = this.position;
         ChessPiece piece = board.board[moveTo[0]][moveTo[1]];
 
         boolean isValid = checkValidMove(piece, check, checkMate, board);
@@ -45,7 +45,7 @@ public abstract class ChessPiece {
         // make move visible on game board
         int row = moveTo[0];
         int column = moveTo[1];
-        updateBoard(board, row, column);
+        updateBoard(board, row, column, oldPosition);
         return true;
 
     }
@@ -58,13 +58,19 @@ public abstract class ChessPiece {
      * @param row index row where the piece will be drawn
      * @param column index column where the piece will be drawn
      */
-    protected void updateBoard(Board board, int row, int column) {
-        // move space to pawns last position
-        board.board[this.position[0]][this.position[1]] = new Space(this.position);
-        // move piece to new location
+    protected void updateBoard(Board board, int row, int column, int[] oldPosition) {
+        // Create a copy of oldPosition for the Space object
+        int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
+
+        // Move space to pawn's last position
+        board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);
+
+        // Move piece to new location
         this.position[0] = row;
         this.position[1] = column;
         board.board[row][column] = this;
+
+        // Print the updated board
         board.printBoard();
     }
 }

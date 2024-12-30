@@ -46,7 +46,6 @@ public class Pawn extends ChessPiece {
             if (newRow > 7 | newColumn > 7 | newRow < 0 | newColumn < 0) {
                 continue;
             }
-            System.out.println(newRow + " " + newColumn);
             ChessPiece piece = board.board[newRow][newColumn];
             if (piece.color.equals(this.color)) {
                 continue;
