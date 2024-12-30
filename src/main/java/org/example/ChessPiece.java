@@ -33,11 +33,9 @@ public abstract class ChessPiece {
      */
     public final boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
         // calculate the distance of current row and column to the wanted spot
-        int rowDifferance = Math.abs(this.position[0] - moveTo[0]);
-        int columnDifferance = Math.abs(this.position[1] - moveTo[1]);
         ChessPiece piece = board.board[moveTo[0]][moveTo[1]];
 
-        boolean isValid = checkValidMove(rowDifferance, columnDifferance, piece, check, checkMate, board);
+        boolean isValid = checkValidMove(piece, check, checkMate, board);
 
         if (!isValid) {
             System.out.println("Invalid move");
@@ -52,7 +50,7 @@ public abstract class ChessPiece {
 
     }
 
-    public abstract boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board);
+    public abstract boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board);
 
     /**
      * this method updated the view of the game board after a move

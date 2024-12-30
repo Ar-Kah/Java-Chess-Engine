@@ -1,6 +1,5 @@
 package org.example;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +30,7 @@ public class Pawn extends ChessPiece {
         return moves;
     }
 
-    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
+    public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
 
         List<int[]> moves = new ArrayList<>();
         int[][] pawnMoves = getValidMoves();
@@ -43,9 +42,11 @@ public class Pawn extends ChessPiece {
             int newRow = row + move[0];
             int newColumn = column + move[1];
 
-            if (newRow > 7 & newColumn > 7) {
+            // check the board bounds
+            if (newRow > 7 | newColumn > 7 | newRow < 0 | newColumn < 0) {
                 continue;
             }
+            System.out.println(newRow + " " + newColumn);
             ChessPiece piece = board.board[newRow][newColumn];
             if (piece.color.equals(this.color)) {
                 continue;
@@ -56,10 +57,14 @@ public class Pawn extends ChessPiece {
         for (int[] move: moves)  {
             System.out.println(Arrays.toString(move));
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
+                // check if first move is used
+                if (firstMove) {
+                    firstMove = false;
+                }
+                // successful move
                 return true;
             }
         }
-
         return false;
     }
 

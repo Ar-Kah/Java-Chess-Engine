@@ -19,7 +19,7 @@ public class King extends ChessPiece{
     }
 
     @Override
-    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
+    public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
         return false;
     }
 }
