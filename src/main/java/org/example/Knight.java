@@ -3,6 +3,7 @@ package org.example;
 public class Knight extends ChessPiece{
     public Knight(String color, int[] position) {
         super("N", color, position);
+        super.name = "Knight";
     }
 
     @Override

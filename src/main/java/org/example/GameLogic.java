@@ -89,7 +89,7 @@ public class GameLogic {
                 isWhite = !isWhite;
                 totalMoves++;
 
-            } catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
                 System.out.println(e.toString());
                 run();
             }

@@ -46,15 +46,26 @@ public class Pawn extends ChessPiece {
             if (newRow > 7 | newColumn > 7 | newRow < 0 | newColumn < 0) {
                 continue;
             }
+
+            // can't capture the same color piece
             ChessPiece piece = board.board[newRow][newColumn];
             if (piece.color.equals(this.color)) {
                 continue;
             }
+
+            // if moving diagonally there needs to be a capture
+            if (newColumn != column & pieceToReplace.name.equals("Space")) {
+                continue;
+            }
+
+            // can not capture head on
+            if (newColumn == column & row != newRow & !(pieceToReplace instanceof Space)) {
+                continue;
+            }
             moves.add(new int[]{newRow, newColumn});
         }
-        System.out.println(Arrays.toString(pieceToReplace.position));
+
         for (int[] move: moves)  {
-            System.out.println(Arrays.toString(move));
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
                 // check if first move is used
                 if (firstMove) {

@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
-    private final int[][] KingMoves = new int[][] {
+
+    private final int[][] kingMoves = new int[][] {
         {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}
     };
+
     public King(String color, int[] position) {
         super("K", color, position);
     }
@@ -20,7 +22,7 @@ public class King extends ChessPiece{
         int row = this.position[0];
         int column = this.position[1];
 
-        for (int[] move: KingMoves) {
+        for (int[] move: kingMoves) {
             int newRow = row + move[0];
             int newColumn = column + move[1];
 
@@ -35,11 +37,7 @@ public class King extends ChessPiece{
             }
             moves.add(new int[]{newRow, newColumn});
         }
-        for (int[] move: moves) {
-            System.out.println(Arrays.toString(move));
-        }
 
-        System.out.println(pieceToReplace.name + " " + Arrays.toString(pieceToReplace.position));
         for (int[] move: moves) {
             System.out.println(Arrays.toString(move));
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
