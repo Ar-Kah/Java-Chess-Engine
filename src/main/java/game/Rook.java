@@ -1,11 +1,12 @@
-package org.example;
+package game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop extends ChessPiece{
-    public Bishop(String color, int[] position) {
-        super("B", color, position);
+public class Rook extends ChessPiece {
+
+    public Rook(String color, int[] position) {
+        super("R", color, position);
     }
 
     @Override
@@ -15,7 +16,7 @@ public class Bishop extends ChessPiece{
         int column = this.position[1];
 
         // Check each direction independently
-        int[][] directions = {{1, 1}, {-1, 1}, {-1, -1}, {1, -1}};
+        int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         for (int[] dir : directions) {
             int newRow = row + dir[0];
             int newColumn = column + dir[1];

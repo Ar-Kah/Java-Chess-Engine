@@ -1,4 +1,4 @@
-package org.example;
+package game;
 
 /**
  * @author Aaro Karhu

@@ -1,18 +1,17 @@
-package org.example;
+package game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Knight extends ChessPiece{
+public class King extends ChessPiece{
 
-    private final int[][] knightMoves = new int[][] {
-            {2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
+    private final int[][] kingMoves = new int[][] {
+        {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}
     };
 
-    public Knight(String color, int[] position) {
-        super("N", color, position);
-        super.name = "Knight";
+    public King(String color, int[] position) {
+        super("K", color, position);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class Knight extends ChessPiece{
         int row = this.position[0];
         int column = this.position[1];
 
-        for (int[] move: knightMoves) {
+        for (int[] move: kingMoves) {
             int newRow = row + move[0];
             int newColumn = column + move[1];
 
