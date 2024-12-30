@@ -75,8 +75,8 @@ public class GameLogic {
                     continue;
                 } else if (isWhite && piece.color.equals("B")) {
                     System.out.println("It is whites turn to move");
+                    continue;
                 }
-
 
                 int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);
                 int column = stringToInteger(coordsWherePieceWillBeMoved[0]);
@@ -89,7 +89,7 @@ public class GameLogic {
                 isWhite = !isWhite;
                 totalMoves++;
 
-            } catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+            } catch (NumberFormatException | NullPointerException e) {
                 System.out.println(e.toString());
                 run();
             }

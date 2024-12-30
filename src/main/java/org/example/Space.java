@@ -9,6 +9,6 @@ public class Space extends ChessPiece {
 
     @Override
     public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
-        return false;
+        return false; // this method does not no anything because you can't move an empty space
     }
 }

@@ -1,20 +1,21 @@
 package org.example;
 
-
 public abstract class ChessPiece {
+
     // position is in format first is the horizontal index (row) and then the vertical index (column)
     protected int[] position;
+
     // character could be also named as handle
     protected String character;
     protected String color;
     protected String name;
 
-    public ChessPiece(String gamePeace, String color, int[] position) {
+    public ChessPiece(String gamePiece, String color, int[] position) {
         // white game pieces ar in lowercase
         if (color.equals("W")) {
-            this.character = gamePeace.toLowerCase();
+            this.character = gamePiece.toLowerCase();
         } else {
-            this.character = gamePeace;
+            this.character = gamePiece;
         }
         this.color = color;
         this.position = position;
@@ -50,6 +51,16 @@ public abstract class ChessPiece {
 
     }
 
+    /**
+     * This method calculates all the possible moves for the piece and the
+     * checks if a possivle move is the same as a selected move
+     *
+     * @param pieceToReplace: This is the spot where the selected piece would like to move
+     * @param check
+     * @param checkMate
+     * @param board: Instance of the game board
+     * @return true when valid move
+     */
     public abstract boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board);
 
     /**

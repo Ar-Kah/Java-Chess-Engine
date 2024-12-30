@@ -27,7 +27,7 @@ public class King extends ChessPiece{
             int newColumn = column + move[1];
 
             // check bounds of board
-            if (newRow > 7 | newColumn > 7 | newRow < 0 | newRow < 0) {
+            if (newRow > 7 | newColumn > 7 | newRow < 0 | newColumn < 0) {
                 continue;
             }
             // can't capture same color piece
