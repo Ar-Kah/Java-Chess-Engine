@@ -80,8 +80,6 @@ public class GameLogic {
 
                 int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);
                 int column = stringToInteger(coordsWherePieceWillBeMoved[0]);
-                System.out.println(row+ " "+ column);
-                System.out.println(piece.name+" "+ Arrays.toString(piece.position));
                 boolean isValid = piece.move(board, new int[]{row, column}, check, checkMate);
 
                 if (!isValid) {

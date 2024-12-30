@@ -5,7 +5,6 @@ public class King extends ChessPiece{
         super("K", color, position);
     }
 
-    @Override
     public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate) {
         // TODO: implement check situations
         if (rowDifferance > 2 | columnDifferance > 2) {
@@ -17,5 +16,10 @@ public class King extends ChessPiece{
         }
 
         return true;
+    }
+
+    @Override
+    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
+        return false;
     }
 }

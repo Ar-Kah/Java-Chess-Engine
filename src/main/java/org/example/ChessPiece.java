@@ -37,7 +37,7 @@ public abstract class ChessPiece {
         int columnDifferance = Math.abs(this.position[1] - moveTo[1]);
         ChessPiece piece = board.board[moveTo[0]][moveTo[1]];
 
-        boolean isValid = checkValidMove(rowDifferance, columnDifferance, piece, check, checkMate);
+        boolean isValid = checkValidMove(rowDifferance, columnDifferance, piece, check, checkMate, board);
 
         if (!isValid) {
             System.out.println("Invalid move");
@@ -49,9 +49,10 @@ public abstract class ChessPiece {
         int column = moveTo[1];
         updateBoard(board, row, column);
         return true;
+
     }
 
-    public abstract boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate);
+    public abstract boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board);
 
     /**
      * this method updated the view of the game board after a move

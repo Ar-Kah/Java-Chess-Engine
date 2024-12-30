@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GameLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GameLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Pawn.java" afterDir="false" />
@@ -39,16 +40,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Omistaja/Documents/GitHub/ChessMinMax Java/ChessMinMax"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />

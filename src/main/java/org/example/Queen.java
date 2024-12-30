@@ -5,8 +5,9 @@ public class Queen extends ChessPiece{
         super("Q", color, position);
     }
 
+
     @Override
-    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate) {
+    public boolean checkValidMove(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
         return false;
     }
 }
