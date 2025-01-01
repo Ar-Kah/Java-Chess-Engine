@@ -4,6 +4,8 @@ package game;
 public class Board {
 
     public ChessPiece[][] board;
+    private boolean check = false;
+    private ChessPiece checkingPiece = null;
 
     public Board() {
         this.board = new ChessPiece[8][8];
@@ -69,5 +71,21 @@ public class Board {
         this.board[7][5] = new Bishop("W", new int[]{7, 5});
         this.board[7][6] = new Knight("W", new int[]{7, 6});
         this.board[7][7] = new Rook("W", new int[]{7, 7});
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public void setCheckingPiece(ChessPiece checkingPiece) {
+        this.checkingPiece = checkingPiece;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public ChessPiece getCheckingPiece() {
+        return checkingPiece;
     }
 }

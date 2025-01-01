@@ -11,7 +11,7 @@ public class Queen extends ChessPiece{
 
 
     @Override
-    public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
+    public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
         // this is same as the rook but added directions
         List<int[]> moves = new ArrayList<>();
         int row = this.position[0];
@@ -44,6 +44,11 @@ public class Queen extends ChessPiece{
             }
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean isCheckingKing(Board board) {
         return false;
     }
 }

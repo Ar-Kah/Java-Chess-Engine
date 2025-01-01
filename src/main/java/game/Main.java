@@ -15,7 +15,7 @@ public class Main {
         Board board = new Board();
         board.printBoard();
         // run the game
-        GameLogic game = new GameLogic(board);
+        RunGame game = new RunGame(board);
         game.run();
     }
 }

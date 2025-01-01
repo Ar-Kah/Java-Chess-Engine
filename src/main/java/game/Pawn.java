@@ -1,10 +1,10 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Pawn extends ChessPiece {
-
     private boolean firstMove = true;
 
     public Pawn(String color, int[] position) {
@@ -12,59 +12,91 @@ public class Pawn extends ChessPiece {
         super.name = "Pawn";
     }
 
-    public int[][] getValidMoves() {
-        int[][] moves = new int[0][];
-        if (this.color.equals("W") & firstMove) {
-            moves = new int[][]{{-2, 0}, {-1, 0}};
+    /**
+     * Generate all the possible moves for this pawn.
+     *
+     * @param board: instance of the game board
+     * @return returns all the moves in a list of integers
+     */
+    private List<int[]> generateMoves(Board board) {
+        List<int[]> moves = new ArrayList<>();
+        int direction = this.color.equals("W") ? -1 : 1;
+        int row = this.position[0];
+        int column = this.position[1];
+
+        // single step forward
+        if (isValidMove(row + direction, column, board, true)) {
+            moves.add(new int[]{row + direction, column});
         }
-        if (this.color.equals("B") & firstMove) {
-            moves = new int[][]{{2, 0}, {1, 0}};
+
+        // on the first move you can double step forward
+        if (isValidMove(row + 2 * direction, column, board, true)) {
+            moves.add(new int[]{row + 2 * direction, column});
         }
-        if (this.color.equals("W") & !firstMove) {
-            moves = new int[][]{{-1, -1}, {-1, 1}, {-1, 0}};
+
+        // capturing diagonally
+        if (isValidMove(row + direction, column + 1, board, false)) {
+            moves.add(new int[]{row + direction, column + 1});
         }
-        if (this.color.equals("B") & !firstMove) {
-            moves = new int[][]{{1, -1}, {1, 1}, {1, 0}};
+        if (isValidMove(row + direction, column - 1, board, false)) {
+            moves.add(new int[]{row + direction, column - 1});
         }
         return moves;
     }
 
-    public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
-
-        List<int[]> moves = new ArrayList<>();
-        int[][] pawnMoves = getValidMoves();
-
-        int row = this.position[0];
-        int column = this.position[1];
-
-        for (int[] move: pawnMoves) {
-            int newRow = row + move[0];
-            int newColumn = column + move[1];
-
-            // check the board bounds
-            if (newRow > 7 | newColumn > 7 | newRow < 0 | newColumn < 0) {
-                continue;
-            }
-
-            // can't capture the same color piece
-            ChessPiece piece = board.board[newRow][newColumn];
-            if (piece.color.equals(this.color)) {
-                continue;
-            }
-
-            // if moving diagonally there needs to be a capture
-            if (newColumn != column & pieceToReplace.name.equals("Space")) {
-                continue;
-            }
-
-            // can not capture head on
-            if (newColumn == column & row != newRow & !(pieceToReplace instanceof Space)) {
-                continue;
-            }
-            moves.add(new int[]{newRow, newColumn});
+    /**
+     * Check the validity of move.
+     *
+     * @param newRow:    Row of target position.
+     * @param newColumn: Column of target position.
+     * @param board:     Instance of the game board.
+     * @param isForward: true if move is forward.
+     * @return true if move was valid.
+     */
+    private boolean isValidMove(int newRow, int newColumn, Board board, boolean isForward) {
+        // check bounds of board
+        if (newRow < 0 | newColumn < 0 | newRow > 7 | newColumn > 7) {
+            return false;
         }
 
-        for (int[] move: moves)  {
+        // can not capture when moving forward
+        ChessPiece target = board.board[newRow][newColumn];
+        if (isForward & !(target instanceof Space)) {
+            return false;
+        }
+
+        return !target.color.equals(this.color);
+    }
+
+    /**
+     * Check if the next move can capture the opponents king
+     * @param board: instance of the game board
+     * @return true if king is checked
+     */
+    public boolean isCheckingKing(Board board) {
+        List<int[]> capturingMoves = getCapturingMoves(board);
+
+        for (int[] move: capturingMoves) {
+            if (board.board[move[0]][move[1]] instanceof King) {
+                System.out.println("checking king");
+                return true; // king is checked
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * This method checks if a possible move matches with the player given target position.
+     * @param pieceToReplace: This is the spot where the selected piece would like to move
+     * @param board: Instance of the game board
+     * @return true if found a match
+     */
+    public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
+
+        List<int[]> moves = generateMoves(board);
+
+        for (int[] move : moves) {
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
                 // check if first move is used
                 if (firstMove) {
@@ -77,32 +109,20 @@ public class Pawn extends ChessPiece {
         return false;
     }
 
+    private List<int[]> getCapturingMoves(Board board) {
+        // generate next capture moves to check if king is checked
+        List<int[]> moves = new ArrayList<>();
 
-    public boolean storedMethod(int rowDifferance, int columnDifferance, ChessPiece pieceToReplace, boolean check, boolean checkMate) {
-        // check for color if pawn is trying to move back
-        if (this.color.equals("W") & this.position[0] <= pieceToReplace.position[0]) {
-            return false;
-        } else if (this.color.equals("B") & this.position[0] >= pieceToReplace.position[0]) {
-            return false;
-        }
+        int direction = this.color.equals("W") ? -1: 1;
+        int row = this.position[0];
+        int column = this.position[1];
 
-        // first move of the pawn
-        if (firstMove && rowDifferance <=2 && columnDifferance == 0) {
-            if (this.color.equals(pieceToReplace.color)) {return false;}
-            firstMove = false;
-            return true;
+        if (isValidMove(row + direction, column + 1, board, false)) {
+            moves.add(new int[] {row + direction, column + 1});
         }
-        // after the first move
-        else {
-            // if pawn is not moving forward 1. Move is invalid
-            if (rowDifferance != 1) {return false;}
-            // can not move to a place where the same color piece is already
-            // moving horizontally more than 2 is prohibited
-            if (columnDifferance > 1) {return false;}
-            // if piece is moving forward and in front is only empty space
-            if (pieceToReplace instanceof Space && columnDifferance == 0) {return true;}
-            // when capturing: replaced space can't be empty space, the pawn has to move one row to the left or right and color can't be the same
-            return !(pieceToReplace instanceof Space) && columnDifferance == 1 && !pieceToReplace.color.equals(this.color);
+        if (isValidMove(row + direction, column - 1, board, false)) {
+            moves.add(new int[] {row + direction, column - 1});
         }
+        return moves;
     }
 }

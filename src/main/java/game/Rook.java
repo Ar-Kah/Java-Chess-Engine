@@ -10,7 +10,7 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
+    public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
         List<int[]> moves = new ArrayList<>();
         int row = this.position[0];
         int column = this.position[1];
@@ -43,6 +43,11 @@ public class Rook extends ChessPiece {
             }
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean isCheckingKing(Board board) {
         return false;
     }
 }

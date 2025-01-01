@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class GameLogic {
+public class RunGame {
     private final Map<String, Integer> CHARTOINT = new HashMap<>()
     {
         {
@@ -20,13 +20,10 @@ public class GameLogic {
         }
     };
 
-    private boolean check = false;
-    private boolean checkMate = false;
-
     private int totalMoves = 1;
     private boolean isWhite = true;
     private final Board board;
-    public GameLogic(Board board) {
+    public RunGame(Board board) {
         this.board = board;
     }
 
@@ -79,7 +76,7 @@ public class GameLogic {
 
                 int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);
                 int column = stringToInteger(coordsWherePieceWillBeMoved[0]);
-                boolean isValid = piece.move(board, new int[]{row, column}, check, checkMate);
+                boolean isValid = piece.move(board, new int[]{row, column});
 
                 if (!isValid) {
                     continue;
@@ -88,7 +85,7 @@ public class GameLogic {
                 isWhite = !isWhite;
                 totalMoves++;
 
-            } catch (NumberFormatException | NullPointerException e) {
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 System.out.println(e.toString());
                 run();
             }

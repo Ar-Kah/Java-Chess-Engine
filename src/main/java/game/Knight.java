@@ -16,7 +16,7 @@ public class Knight extends ChessPiece{
     }
 
     @Override
-    public boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board) {
+    public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
 
         List<int[]> moves = new ArrayList<>();
 
@@ -46,6 +46,11 @@ public class Knight extends ChessPiece{
             }
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean isCheckingKing(Board board) {
         return false;
     }
 }

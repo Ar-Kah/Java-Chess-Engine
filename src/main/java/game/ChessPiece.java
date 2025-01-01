@@ -32,11 +32,11 @@ public abstract class ChessPiece {
      * @param moveTo coordinates where the player wants to move the given piece
      * @return return true if the move was good
      */
-    public final boolean move(Board board, int[] moveTo, boolean check, boolean checkMate) {
+    public final boolean move(Board board, int[] moveTo) {
         int[] oldPosition = this.position;
         ChessPiece piece = board.board[moveTo[0]][moveTo[1]];
 
-        boolean isValid = checkValidMove(piece, check, checkMate, board);
+        boolean isValid = canMoveTo(piece, board);
 
         if (!isValid) {
             System.out.println("Invalid move");
@@ -47,21 +47,25 @@ public abstract class ChessPiece {
         int row = moveTo[0];
         int column = moveTo[1];
         updateBoard(board, row, column, oldPosition);
+        if (isCheckingKing(board)) {
+            board.setCheckingPiece(this);
+            board.setCheck(true);
+        }
         return true;
 
     }
 
     /**
-     * This method calculates all the possible moves for the piece and the
-     * checks if a possivle move is the same as a selected move
+     * This method checks if the players given target position matches with a possible move
      *
      * @param pieceToReplace: This is the spot where the selected piece would like to move
-     * @param check
-     * @param checkMate
      * @param board: Instance of the game board
      * @return true when valid move
      */
-    public abstract boolean checkValidMove(ChessPiece pieceToReplace, boolean check, boolean checkMate, Board board);
+    public abstract boolean canMoveTo(ChessPiece pieceToReplace, Board board);
+
+    public abstract boolean isCheckingKing(Board board);
+
 
     /**
      * this method updated the view of the game board after a move
