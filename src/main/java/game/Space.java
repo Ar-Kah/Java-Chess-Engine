@@ -1,5 +1,7 @@
 package game;
 
+import java.util.List;
+
 public class Space extends ChessPiece {
 
     public Space(int[] position) {
@@ -13,7 +15,8 @@ public class Space extends ChessPiece {
     }
 
     @Override
-    public boolean isCheckingKing(Board board) {
-        return false; // can not ever check king
+    public List<int[]> getMoves(Board board) {
+        return null;
     }
+
 }

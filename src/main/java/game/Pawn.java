@@ -1,9 +1,13 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * the movement of this class it a bit different to the other classes that
+ * inherit the ChessPiece class because of the first move of the pawn when
+ * it can move 2 steps forward
+ */
 public class Pawn extends ChessPiece {
     private boolean firstMove = true;
 
@@ -74,10 +78,12 @@ public class Pawn extends ChessPiece {
      * @return true if king is checked
      */
     public boolean isCheckingKing(Board board) {
-        List<int[]> capturingMoves = getCapturingMoves(board);
+        // call get moves (for the pawn this is only the capturing moves)
+        List<int[]> capturingMoves = getMoves(board);
 
         for (int[] move: capturingMoves) {
-            if (board.board[move[0]][move[1]] instanceof King) {
+            ChessPiece piece = board.board[move[0]][move[1]];
+            if (piece instanceof King & !piece.color.equals(this.color)) {
                 System.out.println("checking king");
                 return true; // king is checked
             }
@@ -88,12 +94,12 @@ public class Pawn extends ChessPiece {
 
     /**
      * This method checks if a possible move matches with the player given target position.
-     * @param pieceToReplace: This is the spot where the selected piece would like to move
-     * @param board: Instance of the game board
+     * @param pieceToReplace:   This is the spot where the selected piece would like to move
+     * @param board:            Instance of the game board
      * @return true if found a match
      */
     public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
-
+        // here we use the generate moves to get all the available moves for the pawn
         List<int[]> moves = generateMoves(board);
 
         for (int[] move : moves) {
@@ -109,7 +115,8 @@ public class Pawn extends ChessPiece {
         return false;
     }
 
-    private List<int[]> getCapturingMoves(Board board) {
+    @Override
+    public List<int[]> getMoves(Board board) {
         // generate next capture moves to check if king is checked
         List<int[]> moves = new ArrayList<>();
 

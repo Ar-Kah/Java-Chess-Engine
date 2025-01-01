@@ -17,7 +17,20 @@ public class Knight extends ChessPiece{
 
     @Override
     public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
+        List<int[]> moves = getMoves(board);
 
+        for (int[] move: moves) {
+            System.out.println(Arrays.toString(move));
+            if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<int[]> getMoves(Board board) {
         List<int[]> moves = new ArrayList<>();
 
         int row = this.position[0];
@@ -38,19 +51,6 @@ public class Knight extends ChessPiece{
             }
             moves.add(new int[]{newRow, newColumn});
         }
-
-        for (int[] move: moves) {
-            System.out.println(Arrays.toString(move));
-            if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean isCheckingKing(Board board) {
-        return false;
+        return moves;
     }
 }

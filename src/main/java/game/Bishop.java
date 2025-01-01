@@ -10,6 +10,20 @@ public class Bishop extends ChessPiece{
 
     @Override
     public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
+        List<int[]> moves = getMoves(board);
+
+        // Determine if a specific move is valid (optional)
+        for (int[] move : moves) {
+            if (pieceToReplace.position[0] == move[0] && pieceToReplace.position[1] == move[1]) {
+                return true; // Valid move
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<int[]> getMoves(Board board) {
         List<int[]> moves = new ArrayList<>();
         int row = this.position[0];
         int column = this.position[1];
@@ -34,18 +48,7 @@ public class Bishop extends ChessPiece{
             }
         }
 
-        // Determine if a specific move is valid (optional)
-        for (int[] move : moves) {
-            if (pieceToReplace.position[0] == move[0] && pieceToReplace.position[1] == move[1]) {
-                return true; // Valid move
-            }
-        }
-
-        return false;
+        return moves;
     }
 
-    @Override
-    public boolean isCheckingKing(Board board) {
-        return false;
-    }
 }

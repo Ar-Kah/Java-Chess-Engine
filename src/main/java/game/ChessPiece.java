@@ -1,5 +1,7 @@
 package game;
 
+import java.util.List;
+
 public abstract class ChessPiece {
 
     // position is in format first is the horizontal index (row) and then the vertical index (column)
@@ -57,15 +59,32 @@ public abstract class ChessPiece {
 
     /**
      * This method checks if the players given target position matches with a possible move
-     *
+     * (abstract because of pawns first move logic)
      * @param pieceToReplace: This is the spot where the selected piece would like to move
      * @param board: Instance of the game board
      * @return true when valid move
      */
     public abstract boolean canMoveTo(ChessPiece pieceToReplace, Board board);
 
-    public abstract boolean isCheckingKing(Board board);
+    /**
+     * returns all the possible moves for given piece in its current location
+     * @param board: instance of the game board
+     * @return list of available moves
+     */
+    public abstract List<int[]> getMoves(Board board);
 
+    public boolean isCheckingKing(Board board) {
+        List<int[]> moves = this.getMoves(board);
+
+        for (int[] move: moves) {
+            ChessPiece piece = board.board[move[0]][move[1]];
+            if (piece instanceof King & !piece.color.equals(this.color)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * this method updated the view of the game board after a move

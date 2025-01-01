@@ -82,6 +82,7 @@ public class RunGame {
                     continue;
                 }
 
+
                 isWhite = !isWhite;
                 totalMoves++;
 
