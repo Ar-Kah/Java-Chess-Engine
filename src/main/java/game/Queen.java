@@ -18,6 +18,13 @@ public class Queen extends ChessPiece{
         // Determine if a specific move is valid (optional)
         for (int[] move : moves) {
             if (pieceToReplace.position[0] == move[0] && pieceToReplace.position[1] == move[1]) {
+
+                // checking piece is captured
+                if (board.getCheckingPiece() == pieceToReplace) {
+                    board.setCheckingPiece(null);
+                    board.setCheck(false);
+                }
+
                 return true; // Valid move
             }
         }

@@ -56,7 +56,6 @@ public class RunGame {
                 // change the column index from the game view to array index using absolute value
                 int rowOfMovedPiece = Math.abs(Integer.parseInt(movedPiececoords[1]) - 8);
 
-                // System.out.println(rowOfMovedPiece + " " + columnOfMovedPiece);
                 ChessPiece piece = board.board[rowOfMovedPiece][columnOfMovedPiece];
 
 

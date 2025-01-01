@@ -4,8 +4,7 @@ import java.util.List;
 
 public abstract class ChessPiece {
 
-    // position is in format first is the horizontal index (row) and then the vertical index (column)
-    protected int[] position;
+    protected int[] position;    // position is in format first is the horizontal index (row) and then the vertical index (column)
 
     // character could be also named as handle
     protected String character;
@@ -36,19 +35,40 @@ public abstract class ChessPiece {
      */
     public final boolean move(Board board, int[] moveTo) {
         int[] oldPosition = this.position;
-        ChessPiece piece = board.board[moveTo[0]][moveTo[1]];
+        ChessPiece target = board.board[moveTo[0]][moveTo[1]];
 
-        boolean isValid = canMoveTo(piece, board);
+        boolean isValid = canMoveTo(target, board);
 
         if (!isValid) {
             System.out.println("Invalid move");
             return false;
         }
 
+        // Temporarily apply the move
+        board.board[oldPosition[0]][oldPosition[1]] = new Space(oldPosition);
+        board.board[moveTo[0]][moveTo[1]] = this;
+        this.position = moveTo;
+
+        // Check if the king is still in check
+        if (board.isCheck() && board.getCheckingPiece().isCheckingKing(board)) {
+            // Revert the move
+            board.board[oldPosition[0]][oldPosition[1]] = this;
+            board.board[moveTo[0]][moveTo[1]] = target; // Reuse targetPiece
+            this.position = oldPosition;
+
+            System.out.println("King is still checked, make another move");
+            return false;
+        } else if (board.isCheck()) {
+            board.setCheck(false);
+            board.setCheckingPiece(null);
+        }
+
         // make move visible on game board
         int row = moveTo[0];
         int column = moveTo[1];
         updateBoard(board, row, column, oldPosition);
+
+        // check if the opponent's king is in check
         if (isCheckingKing(board)) {
             board.setCheckingPiece(this);
             board.setCheck(true);
@@ -79,6 +99,7 @@ public abstract class ChessPiece {
         for (int[] move: moves) {
             ChessPiece piece = board.board[move[0]][move[1]];
             if (piece instanceof King & !piece.color.equals(this.color)) {
+                System.out.println("checking king");
                 return true;
             }
         }
@@ -87,10 +108,10 @@ public abstract class ChessPiece {
     }
 
     /**
-     * this method updated the view of the game board after a move
-     * @param board pointer to the instance of the game board
-     * @param row index row where the piece will be drawn
-     * @param column index column where the piece will be drawn
+     * This method updated the view of the game board after a move
+     * @param board     pointer to the instance of the game board
+     * @param row       index row where the piece will be drawn
+     * @param column    index column where the piece will be drawn
      */
     protected void updateBoard(Board board, int row, int column, int[] oldPosition) {
         // Create a copy of oldPosition for the Space object

@@ -14,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/game/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Queen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Rook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/RunGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/RunGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Space.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Space.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -104,12 +104,19 @@ public class Pawn extends ChessPiece {
 
         for (int[] move : moves) {
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
+
+                // checking piece is captured
+                if (board.getCheckingPiece() == pieceToReplace) {
+                    board.setCheckingPiece(null);
+                    board.setCheck(false);
+                }
+
                 // check if first move is used
                 if (firstMove) {
                     firstMove = false;
                 }
-                // successful move
-                return true;
+
+                return true;    // successful move
             }
         }
         return false;

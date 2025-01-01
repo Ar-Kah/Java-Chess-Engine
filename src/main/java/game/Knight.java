@@ -22,7 +22,13 @@ public class Knight extends ChessPiece{
         for (int[] move: moves) {
             System.out.println(Arrays.toString(move));
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
-                return true;
+                // checking piece is captured
+                if (board.getCheckingPiece() == pieceToReplace) {
+                    board.setCheckingPiece(null);
+                    board.setCheck(false);
+                }
+
+                return true; // successful move
             }
         }
 
