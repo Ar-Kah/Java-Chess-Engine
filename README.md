@@ -15,6 +15,8 @@ After giving the input the program will first check if you have selected the rig
 After verifying the piece that you want to move he program calculates all the possible moves for the piece and checks if your input move maches with the possible ones.
 Assuming you picked a valid move the gameboard will update and it is the opponents time to move.
 
+## Program logic ##
+
 ### Cheking logic ###
 
 After a valid move the program will check if the oponents king is checked in this new location by calculating the possible moves for a second time and if a second move is able to capture the king then there is a cheking situation
