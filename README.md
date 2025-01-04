@@ -28,6 +28,10 @@ I came up with this idea to test my coding skills and try to make a MinMax algo 
 I hope this project will revive my passion for coding and problem solving. Currently on the date of typing this (4.1.2025) I have used these resourses a hand full of times. AI for minor bug fixes and syntax checking in the begining of the project. Some move calculating methods for individual chess pieces
 where optimized with the help of ChatGPT. I will try to mark the spots where I have used some kind of help to indicate for my self and for potential employers to see what I can do on my own and what is my limit currently.
 
+## Runing the code ##
+
+This project was made in Intellij IDEA as a maven project. After making a maven project, it is ready for running.
+
 ### External libreries ###
 
 I use the junit library for testin
