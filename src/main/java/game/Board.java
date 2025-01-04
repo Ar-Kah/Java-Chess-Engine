@@ -22,24 +22,34 @@ public class Board {
         }
     }
 
-    public void printBoard() {
-
-        String[] alphabets = {"a", "b", "c", "d", "e", "f", "g", "h"};
-        System.out.print("  ");
-        for (String character: alphabets) {
-            System.out.print(character + " ");
+    // Initialize an empty board
+    public void initEmptyBoard() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                this.board[row][col] = new Space(new int[]{row, col});
+            }
         }
-        System.out.println();
+    }
+
+    public void printBoard() {
+        System.out.print("  |----------------|\n");
         int number = 8;
         // Example: Print the matrix
         for (ChessPiece[] row : this.board) {
-            System.out.print(number + " ");
+            System.out.print(number + " |");
             for (ChessPiece cell : row) {
                 System.out.print(cell.character + " ");
             }
             number--;
-            System.out.println();
+            System.out.println("|");
         }
+        String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        System.out.print("  |----------------|\n");
+        System.out.print("   ");
+        for (String character: alphabets) {
+            System.out.print(character + " ");
+        }
+        System.out.println();
     }
 
     private void initBlack() {

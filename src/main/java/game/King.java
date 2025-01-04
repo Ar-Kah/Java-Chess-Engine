@@ -41,7 +41,6 @@ public class King extends ChessPiece{
         if (!hasCastled & !hasMoved) {
             List<int[]> castleMoves = getMovesForCastling(board);
             for (int[] move : castleMoves) {
-                System.out.println(move);
                 if (move[0] == target.position[0] & move[1] == target.position[1]) {
                     // move the rook
                     // this is really shit coding but don't know a better way atm
@@ -95,7 +94,6 @@ public class King extends ChessPiece{
         List<int[]> castleMoves = new ArrayList<>();
         int[] directions = {1, -1};
         int startingRow = this.color.equals("W") ? 7 : 0;
-        if (this.position[0] != startingRow) return castleMoves; // this will be empty
 
         for (int direction: directions) {
             int newColumn = direction + this.position[1];
@@ -131,7 +129,7 @@ public class King extends ChessPiece{
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
                 ChessPiece chessPiece = board.board[i][j];
-                if (!chessPiece.color.equals(this.color)) continue;     // don't calculate the move for same colored pieces
+                if (chessPiece.color.equals(this.color)) continue;     // don't calculate the move for same colored pieces
                 if (chessPiece instanceof Space) continue;              // can not calculate moves for spaces
 
                 notSafeMoves.addAll(chessPiece.getMoves(board));
