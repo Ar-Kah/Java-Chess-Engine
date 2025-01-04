@@ -3,8 +3,11 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Rook class for calculating moves and storing important information
+ */
 public class Rook extends ChessPiece {
-
+    public boolean hasMoved = false;
     public Rook(String color, int[] position) {
         super("R", color, position);
     }
@@ -22,7 +25,7 @@ public class Rook extends ChessPiece {
                     board.setCheckingPiece(null);
                     board.setCheck(false);
                 }
-
+                this.hasMoved = true;
                 return true; // Valid move
             }
         }
@@ -30,6 +33,13 @@ public class Rook extends ChessPiece {
         return false;
     }
 
+    /**
+     * Method to calculate all possible moves for a rook
+     * This method was partially optimized with the help of ChatGPT
+     *
+     * @param board: instance of the game board
+     * @return list of moves
+     */
     public List<int[]> getMoves(Board board) {
         List<int[]> moves = new ArrayList<>();
         int row = this.position[0];

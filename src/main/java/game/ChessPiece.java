@@ -3,12 +3,9 @@ package game;
 import java.util.List;
 
 public abstract class ChessPiece {
-
     protected int[] position;    // position is in format first is the horizontal index (row) and then the vertical index (column)
-
-    // character could be also named as handle
-    protected String character;
-    protected String color;
+    protected String character;  // character could be also named as handle
+    protected String color;      // White or black
     protected String name;
 
     public ChessPiece(String gamePiece, String color, int[] position) {

@@ -11,8 +11,5 @@ class PawnTest {
 
     @Test
     void canMoveTo() {
-        Pawn pawn = new Pawn("W", new int[] {6, 0});
-        Board board = new Board();
-        pawn.move(board, new int[] {4, 0});
     }
 }

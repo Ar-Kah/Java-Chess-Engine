@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
+    private boolean hasMoved = false;
+    private boolean hasCastled = false;
     private final int[][] kingMoves = new int[][] {
         {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}
     };
@@ -26,7 +28,7 @@ public class King extends ChessPiece{
                     board.setCheckingPiece(null);
                     board.setCheck(false);
                 }
-
+                hasMoved = true;
                 return true;
             }
         }
@@ -61,4 +63,38 @@ public class King extends ChessPiece{
         return moves;
     }
 
+    /**
+     * Check the possibility to castle
+     * @param board instance of the board
+     * @return returns available castle options
+     */
+    private List<int[]> canCastle(Board board) {
+        // before doing anything check if the king has already castled to save resources
+        if (hasCastled) return null;
+
+        List<int[]> castleMoves = new ArrayList<>();
+
+        // if the kings position is not on the last row with white king can't castle
+        if (!(this.position[0] == 7 & this.color.equals("W"))) return null;
+
+        int[] directions = {1, -1};
+        int row = this.position[0];
+
+        for (int direction: directions) {
+            int newColumn = direction + this.position[1];
+            while(newColumn <= 7 & newColumn >= 0) {
+                ChessPiece piece = board.board[row][newColumn];
+                if (piece instanceof Bishop | piece instanceof Knight) {
+                    break; // if there is a bishop or knight on ether side cant castle
+                }
+                if (piece instanceof Rook & piece.position[1] == 7) {
+                    castleMoves.add(new int[] {row, 6});
+                }
+
+                newColumn += direction;
+            }
+        }
+
+        return castleMoves;
+    }
 }

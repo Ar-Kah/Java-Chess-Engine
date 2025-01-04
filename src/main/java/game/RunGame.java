@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class RunGame {
+    /*
+    this hashmap is used to change the input value from a character
+    to an integer for indexing the 2d Array of the game board
+     */
     private final Map<String, Integer> CHARTOINT = new HashMap<>()
     {
         {
@@ -21,12 +25,16 @@ public class RunGame {
     };
 
     private int totalMoves = 1;
-    private boolean isWhite = true;
+    private boolean isWhite = true;     // oscillator for turns
     private final Board board;
     public RunGame(Board board) {
         this.board = board;
     }
 
+    /**
+     * In this method we take the input of the players and convert the input to a format our program understands.
+     * Then we try moving the pieces and check for validity.
+     */
     public void run() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -47,43 +55,43 @@ public class RunGame {
                 // parse input
                 String[] inputInArray = input.split(" ");
                 String coordOfMovedPiece = inputInArray[0];
-                String[] movedPiececoords = coordOfMovedPiece.split("");
+                String[] movedPieceCoordsSplit = coordOfMovedPiece.split("");
                 String coords = inputInArray[1];
                 String[] coordsWherePieceWillBeMoved = coords.split("");
 
                 // change the row from char to int
-                int columnOfMovedPiece = stringToInteger(movedPiececoords[0]);
-                // change the column index from the game view to array index using absolute value
-                int rowOfMovedPiece = Math.abs(Integer.parseInt(movedPiececoords[1]) - 8);
+                int columnOfMovedPiece = stringToInteger(movedPieceCoordsSplit[0]);
+                // change the column index from the game view in the terminal to array indexing using absolute values
+                int rowOfMovedPiece = Math.abs(Integer.parseInt(movedPieceCoordsSplit[1]) - 8);
 
-                ChessPiece piece = board.board[rowOfMovedPiece][columnOfMovedPiece];
-
+                ChessPiece movedPiece = board.board[rowOfMovedPiece][columnOfMovedPiece]; // try to declare
 
                 // check if the chosen coordinate is an empty space
-                if (piece instanceof Space) {
+                if (movedPiece instanceof Space) {
                     System.out.println("There is no chess piece in this location");
                     continue;
                 }
 
-                if (!isWhite && piece.color.equals("W")) {
+                // check for correct color
+                if (!isWhite && movedPiece.color.equals("W")) {
                     System.out.println("It is blacks turn to move");
                     continue;
-                } else if (isWhite && piece.color.equals("B")) {
+                } else if (isWhite && movedPiece.color.equals("B")) {
                     System.out.println("It is whites turn to move");
                     continue;
                 }
 
-                int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);
-                int column = stringToInteger(coordsWherePieceWillBeMoved[0]);
-                boolean isValid = piece.move(board, new int[]{row, column});
+                int column = stringToInteger(coordsWherePieceWillBeMoved[0]);               // change the row from character to integer
+                int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);   // here we repeat the indexing thing we did on line 65
+                boolean isValid = movedPiece.move(board, new int[]{row, column});           // try moving the piece
 
                 if (!isValid) {
-                    continue;
+                    continue;           // invalid move
                 }
 
 
-                isWhite = !isWhite;
-                totalMoves++;
+                isWhite = !isWhite;     // change side
+                totalMoves++;           // add a move
 
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 System.out.println(e.toString());
