@@ -27,3 +27,17 @@ The opponent that is checked can not make an illegal move if the king is checked
 I came up with this idea to test my coding skills and try to make a MinMax algo for chess by utilizing as least as possble 3rd party resourses like AI or Stack Overflow. I got into a habit of using mostly only AI to help me code, which made coding stale and boring for me.
 I hope this project will revive my passion for coding and problem solving. Currently on the date of typing this (4.1.2025) I have used these resourses a hand full of times. AI for minor bug fixes and syntax checking in the begining of the project. Some move calculating methods for individual chess pieces
 where optimized with the help of ChatGPT. I will try to mark the spots where I have used some kind of help to indicate for my self and for potential employers to see what I can do on my own and what is my limit currently.
+
+### External libreries ###
+
+I use the junit library for testin
+
+pom.xml
+```
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.9.1</version>
+    <scope>test</scope>
+</dependency>
+```
