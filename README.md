@@ -22,7 +22,7 @@ Assuming you picked a valid move the gameboard will update and it is the opponen
 After a valid move the program will check if the oponents king is checked in this new location by calculating the possible moves for a second time and if a second move is able to capture the king then there is a cheking situation
 The opponent that is checked can not make an illegal move if the king is checked. Possible moves are only to move the king to a safe place or capture the checking piece.
 
-#### Objective of this project ####
+## Objective of this project ##
 
 I came up with this idea to test my coding skills and try to make a MinMax algo for chess by utilizing as least as possble 3rd party resourses like AI or Stack Overflow. I got into a habit of using mostly only AI to help me code, which made coding stale and boring for me.
 I hope this project will revive my passion for coding and problem solving. Currently on the date of typing this (4.1.2025) I have used these resourses a hand full of times. AI for minor bug fixes and syntax checking in the begining of the project. Some move calculating methods for individual chess pieces
