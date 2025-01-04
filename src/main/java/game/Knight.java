@@ -20,7 +20,6 @@ public class Knight extends ChessPiece{
         List<int[]> moves = getMoves(board);
 
         for (int[] move: moves) {
-            System.out.println(Arrays.toString(move));
             if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
                 // checking piece is captured
                 if (board.getCheckingPiece() == pieceToReplace) {

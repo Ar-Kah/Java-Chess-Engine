@@ -2,11 +2,14 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class King extends ChessPiece{
     private boolean hasMoved = false;
     private boolean hasCastled = false;
+    private Rook rookWhenCastling = null;
+    private int[] positionOfRookWhenCastling = {};
     private final int[][] kingMoves = new int[][] {
         {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}
     };
@@ -16,20 +19,39 @@ public class King extends ChessPiece{
     }
 
     @Override
-    public boolean canMoveTo(ChessPiece pieceToReplace, Board board) {
+    public boolean canMoveTo(ChessPiece target, Board board) {
         List<int[]> moves = getMoves(board);
+        List<int[]> unsafeMoves = getUnsafeMoves(board);
 
+        for (int[] move: unsafeMoves) {
+            if (move[0] == target.position[0] & move[1] == target.position[1]) {
+                return false;
+            }
+        }
+
+        // check for normal moves
         for (int[] move: moves) {
-            System.out.println(Arrays.toString(move));
-            if (move[0] == pieceToReplace.position[0] & move[1] == pieceToReplace.position[1]) {
-
-                // checking piece is captured
-                if (board.getCheckingPiece() == pieceToReplace) {
-                    board.setCheckingPiece(null);
-                    board.setCheck(false);
-                }
+            if (move[0] == target.position[0] & move[1] == target.position[1]) {
                 hasMoved = true;
                 return true;
+            }
+        }
+
+        // check for castling moves
+        if (!hasCastled & !hasMoved) {
+            List<int[]> castleMoves = getMovesForCastling(board);
+            for (int[] move : castleMoves) {
+                System.out.println(move);
+                if (move[0] == target.position[0] & move[1] == target.position[1]) {
+                    // move the rook
+                    // this is really shit coding but don't know a better way atm
+                    board.board[rookWhenCastling.position[0]][rookWhenCastling.position[1]] = new Space(new int[] {rookWhenCastling.position[0], rookWhenCastling.position[1]});
+                    board.board[positionOfRookWhenCastling[0]][positionOfRookWhenCastling[1]] = rookWhenCastling;
+
+                    hasMoved = true;
+                    hasCastled = true;
+                    return true;
+                }
             }
         }
 
@@ -68,33 +90,53 @@ public class King extends ChessPiece{
      * @param board instance of the board
      * @return returns available castle options
      */
-    private List<int[]> canCastle(Board board) {
-        // before doing anything check if the king has already castled to save resources
-        if (hasCastled) return null;
+    private List<int[]> getMovesForCastling(Board board) {
 
         List<int[]> castleMoves = new ArrayList<>();
-
-        // if the kings position is not on the last row with white king can't castle
-        if (!(this.position[0] == 7 & this.color.equals("W"))) return null;
-
         int[] directions = {1, -1};
-        int row = this.position[0];
+        int startingRow = this.color.equals("W") ? 7 : 0;
+        if (this.position[0] != startingRow) return castleMoves; // this will be empty
 
         for (int direction: directions) {
             int newColumn = direction + this.position[1];
             while(newColumn <= 7 & newColumn >= 0) {
-                ChessPiece piece = board.board[row][newColumn];
-                if (piece instanceof Bishop | piece instanceof Knight) {
-                    break; // if there is a bishop or knight on ether side cant castle
-                }
-                if (piece instanceof Rook & piece.position[1] == 7) {
-                    castleMoves.add(new int[] {row, 6});
+                ChessPiece piece = board.board[startingRow][newColumn];
+                if (piece instanceof Bishop | piece instanceof Knight | piece instanceof Queen) {
+                    break ; // if there is a bishop or knight on ether side cant castle
                 }
 
+                // check if rook has moved
+                if (piece instanceof Rook) {
+                    if (!(((Rook) piece).hasMoved)) {
+                        if (newColumn < 4) {
+                            castleMoves.add(new int[] {startingRow, 2}); // if the rook is on the left
+                            rookWhenCastling = (Rook) board.board[startingRow][0];
+                            positionOfRookWhenCastling = new int[] {startingRow, 3};
+                        } else {
+                            castleMoves.add(new int[] {startingRow, 6}); // if the rook is on the right
+                            rookWhenCastling = (Rook) board.board[startingRow][7];
+                            positionOfRookWhenCastling = new int[] {startingRow, 5};
+                        }
+                    }
+                }
                 newColumn += direction;
             }
         }
-
         return castleMoves;
+    }
+
+    private List<int[]> getUnsafeMoves(Board board) {
+        List<int[]> notSafeMoves = new ArrayList<>();
+
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
+                ChessPiece chessPiece = board.board[i][j];
+                if (!chessPiece.color.equals(this.color)) continue;     // don't calculate the move for same colored pieces
+                if (chessPiece instanceof Space) continue;              // can not calculate moves for spaces
+
+                notSafeMoves.addAll(chessPiece.getMoves(board));
+            }
+        }
+        return notSafeMoves;
     }
 }

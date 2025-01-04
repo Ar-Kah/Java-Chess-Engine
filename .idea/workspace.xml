@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Rook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/RunGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/RunGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/game/PawnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/PawnTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,6 +25,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
