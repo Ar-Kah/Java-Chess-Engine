@@ -8,8 +8,6 @@ import java.util.List;
 public class King extends ChessPiece{
     private boolean hasMoved = false;
     private boolean hasCastled = false;
-    private Rook rookWhenCastling = null;
-    private int[] positionOfRookWhenCastling = {};
     private final int[][] kingMoves = new int[][] {
         {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}
     };
@@ -42,18 +40,25 @@ public class King extends ChessPiece{
             List<int[]> castleMoves = getMovesForCastling(board);
             for (int[] move : castleMoves) {
                 if (move[0] == target.position[0] & move[1] == target.position[1]) {
-                    // move the rook
-                    // this is really shit coding but don't know a better way atm
-                    board.board[rookWhenCastling.position[0]][rookWhenCastling.position[1]] = new Space(new int[] {rookWhenCastling.position[0], rookWhenCastling.position[1]});
-                    board.board[positionOfRookWhenCastling[0]][positionOfRookWhenCastling[1]] = rookWhenCastling;
-
+                    if (move[1] == 2) {
+                        // check the move to the left
+                        Rook rook = (Rook) board.board[move[0]][0];
+                        board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 0});
+                        board.board[move[0]][3] = rook;
+                        rook.position = new int[] {move[0], 3};
+                    } else {
+                        // check the move to the right
+                        Rook rook = (Rook) board.board[move[0]][7];
+                        board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 7});
+                        board.board[move[0]][5] = rook;
+                        rook.position = new int[] {move[0], 5};
+                    }
                     hasMoved = true;
                     hasCastled = true;
                     return true;
                 }
             }
         }
-
         return false;
     }
 
@@ -108,12 +113,8 @@ public class King extends ChessPiece{
                     if (!(((Rook) piece).hasMoved)) {
                         if (newColumn < 4) {
                             castleMoves.add(new int[] {startingRow, 2}); // if the rook is on the left
-                            rookWhenCastling = (Rook) board.board[startingRow][0];
-                            positionOfRookWhenCastling = new int[] {startingRow, 3};
                         } else {
                             castleMoves.add(new int[] {startingRow, 6}); // if the rook is on the right
-                            rookWhenCastling = (Rook) board.board[startingRow][7];
-                            positionOfRookWhenCastling = new int[] {startingRow, 5};
                         }
                     }
                 }
