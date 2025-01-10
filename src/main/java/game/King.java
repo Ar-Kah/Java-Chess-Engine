@@ -1,8 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class King extends ChessPiece{
@@ -21,6 +19,10 @@ public class King extends ChessPiece{
         List<int[]> moves = getMoves(board);
         List<int[]> unsafeMoves = getUnsafeMoves(board);
 
+        /*
+        UNIQUE FOR KING:
+        can't move to an unsafe location
+         */
         for (int[] move: unsafeMoves) {
             if (move[0] == target.position[0] & move[1] == target.position[1]) {
                 return false;

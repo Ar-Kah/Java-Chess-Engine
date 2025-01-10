@@ -58,23 +58,7 @@
       <recent name="game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.KingTest.testBlackCastlingRight">
-    <configuration name="BoardTest.testInitEmptyBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.BoardTest" />
-      <option name="METHOD_NAME" value="testInitEmptyBoard" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.KingTest.testKingUnsafeMove">
     <configuration name="KingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChessMinMax" />
       <extension name="coverage">
@@ -106,22 +90,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KingTest.testCastling" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
-      <option name="METHOD_NAME" value="testCastling" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="KingTest.testCastlingLeft" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChessMinMax" />
       <extension name="coverage">
@@ -138,13 +106,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="KingTest.testForIllegalMoves" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
+      <option name="METHOD_NAME" value="testForIllegalMoves" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KingTest.testKingUnsafeMove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
+      <option name="METHOD_NAME" value="testKingUnsafeMove" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.KingTest.testKingUnsafeMove" />
+        <item itemvalue="JUnit.KingTest.testForIllegalMoves" />
         <item itemvalue="JUnit.KingTest.testBlackCastlingRight" />
         <item itemvalue="JUnit.KingTest.testCastlingLeft" />
         <item itemvalue="JUnit.KingTest" />
-        <item itemvalue="JUnit.KingTest.testCastling" />
-        <item itemvalue="JUnit.BoardTest.testInitEmptyBoard" />
       </list>
     </recent_temporary>
   </component>
