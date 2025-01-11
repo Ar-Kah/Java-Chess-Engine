@@ -1,6 +1,6 @@
 # Chess game #
 
-#### this is my effort of implementing a chess engine using a MinMaxing algorythem ####
+#### this is my effort of implementing a chess engine ####
 
 Currently the program has implemented the game logic of chess as ground work before it is possible to implement the bot to play aggainst.
 
