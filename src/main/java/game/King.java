@@ -1,9 +1,11 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
+    private int recursionDept = 0;
     private boolean hasMoved = false;
     private boolean hasCastled = false;
     private final int[][] kingMoves = new int[][] {
@@ -17,50 +19,32 @@ public class King extends ChessPiece{
     @Override
     public boolean canMoveTo(ChessPiece target, Board board) {
         List<int[]> moves = getMoves(board);
-        List<int[]> unsafeMoves = getUnsafeMoves(board);
+        int rowForCastling = this.color.equals("W") ? 7 : 0;
 
-        /*
-        UNIQUE FOR KING:
-        can't move to an unsafe location
-         */
-        for (int[] move: unsafeMoves) {
-            if (move[0] == target.position[0] & move[1] == target.position[1]) {
-                return false;
-            }
-        }
-
-        // check for normal moves
         for (int[] move: moves) {
+            // check if move hit the target position
             if (move[0] == target.position[0] & move[1] == target.position[1]) {
+                // check if move was for castling
+                if (move[0] == rowForCastling & move[1] == 2) {
+                    Rook rook = (Rook) board.board[move[0]][0];
+                    board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 0});
+                    board.board[move[0]][3] = rook;
+                    rook.position = new int[] {move[0], 3};
+                    hasCastled = true;
+
+                } else if (move[0] == rowForCastling & move[1] == 6) {
+                    Rook rook = (Rook) board.board[move[0]][7];
+                    board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 7});
+                    board.board[move[0]][5] = rook;
+                    rook.position = new int[] {move[0], 5};
+                    hasCastled = true;
+                }
+
                 hasMoved = true;
                 return true;
             }
         }
 
-        // check for castling moves
-        if (!hasCastled & !hasMoved) {
-            List<int[]> castleMoves = getMovesForCastling(board);
-            for (int[] move : castleMoves) {
-                if (move[0] == target.position[0] & move[1] == target.position[1]) {
-                    if (move[1] == 2) {
-                        // check the move to the left
-                        Rook rook = (Rook) board.board[move[0]][0];
-                        board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 0});
-                        board.board[move[0]][3] = rook;
-                        rook.position = new int[] {move[0], 3};
-                    } else {
-                        // check the move to the right
-                        Rook rook = (Rook) board.board[move[0]][7];
-                        board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 7});
-                        board.board[move[0]][5] = rook;
-                        rook.position = new int[] {move[0], 5};
-                    }
-                    hasMoved = true;
-                    hasCastled = true;
-                    return true;
-                }
-            }
-        }
         return false;
     }
 
@@ -82,11 +66,15 @@ public class King extends ChessPiece{
             }
             // can't capture same color piece
             ChessPiece piece = board.board[newRow][newColumn];
-            if (piece.color.equals(this.color)) {
-                continue;
-            }
+            if (piece.color.equals(this.color)) continue;
             moves.add(new int[]{newRow, newColumn});
         }
+
+        // get castling moves and add them if there are any and remove unsafe moves
+        List<int[]> castlingMoves = getMovesForCastling(board);
+        List<int[]> unsafeMoves = getUnsafeMoves(board);
+        moves.addAll(castlingMoves);
+        moves.removeIf(move -> unsafeMoves.stream().anyMatch(unsafe -> Arrays.equals(move, unsafe)));
 
         return moves;
     }
@@ -97,6 +85,9 @@ public class King extends ChessPiece{
      * @return returns available castle options
      */
     private List<int[]> getMovesForCastling(Board board) {
+
+        if (hasCastled) return new ArrayList<>();
+        if (hasMoved) return new ArrayList<>();
 
         List<int[]> castleMoves = new ArrayList<>();
         int[] directions = {1, -1};
@@ -127,17 +118,51 @@ public class King extends ChessPiece{
     }
 
     private List<int[]> getUnsafeMoves(Board board) {
-        List<int[]> notSafeMoves = new ArrayList<>();
+        /*
+        in this method I have used AI to help me solve a stack overflow problem
+        which came from an infinite recursion when checking for moves
+        from the other king
+         */
+
+        List<int[]> unsafeMoves = new ArrayList<>();
 
         for (int i = 0; i <= 7; i++) {
             for (int j = 0; j <= 7; j++) {
                 ChessPiece chessPiece = board.board[i][j];
-                if (chessPiece.color.equals(this.color)) continue;     // don't calculate the move for same colored pieces
-                if (chessPiece instanceof Space) continue;              // can not calculate moves for spaces
+                if (chessPiece.color.equals(this.color)) continue;  // Skip same-colored pieces
+                if (chessPiece instanceof Space) continue;          // Skip empty spaces
 
-                notSafeMoves.addAll(chessPiece.getMoves(board));
+                // Skip the opposing King's moves
+                if (chessPiece instanceof King) {
+                    // Opponent King: Add only squares directly adjacent to it, skipping recursion
+                    unsafeMoves.addAll(getAdjacentSquares(chessPiece.position));
+                    continue;
+                }
+
+                // For other pieces, calculate moves normally
+                unsafeMoves.addAll(chessPiece.getMoves(board));
             }
         }
-        return notSafeMoves;
+
+        return unsafeMoves;
     }
+
+    private List<int[]> getAdjacentSquares(int[] position) {
+        List<int[]> adjacentSquares = new ArrayList<>();
+        int row = position[0];
+        int column = position[1];
+
+        for (int[] move : kingMoves) {
+            int newRow = row + move[0];
+            int newColumn = column + move[1];
+
+            // Check bounds of the board
+            if (newRow < 0 || newRow > 7 || newColumn < 0 || newColumn > 7) continue;
+
+            adjacentSquares.add(new int[]{newRow, newColumn});
+        }
+
+        return adjacentSquares;
+    }
+
 }

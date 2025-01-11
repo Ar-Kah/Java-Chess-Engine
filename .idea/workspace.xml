@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/game/RunGameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/RunGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/RunGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/game/GameLogicTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/game/KingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/KingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +61,7 @@
       <recent name="game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.KingTest.testKingUnsafeMove">
+  <component name="RunManager" selected="JUnit.KingTest">
     <configuration name="KingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChessMinMax" />
       <extension name="coverage">
@@ -70,38 +73,6 @@
       <option name="PACKAGE_NAME" value="game" />
       <option name="MAIN_CLASS_NAME" value="game.KingTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="KingTest.testBlackCastlingRight" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
-      <option name="METHOD_NAME" value="testBlackCastlingRight" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="KingTest.testCastlingLeft" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
-      <option name="METHOD_NAME" value="testCastlingLeft" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,13 +109,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RunGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.RunGameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunGameTest.testForStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.RunGameTest" />
+      <option name="METHOD_NAME" value="testForStaleMate" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.KingTest.testKingUnsafeMove" />
-        <item itemvalue="JUnit.KingTest.testForIllegalMoves" />
-        <item itemvalue="JUnit.KingTest.testBlackCastlingRight" />
-        <item itemvalue="JUnit.KingTest.testCastlingLeft" />
         <item itemvalue="JUnit.KingTest" />
+        <item itemvalue="JUnit.RunGameTest" />
+        <item itemvalue="JUnit.KingTest.testKingUnsafeMove" />
+        <item itemvalue="JUnit.RunGameTest.testForStaleMate" />
+        <item itemvalue="JUnit.KingTest.testForIllegalMoves" />
       </list>
     </recent_temporary>
   </component>

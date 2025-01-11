@@ -1,9 +1,8 @@
 package game;
 
 import java.lang.Math;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class RunGame {
     /*
@@ -45,13 +44,12 @@ public class RunGame {
             }
 
             try {
+
                 String input = scanner.nextLine();
                 input = input.toLowerCase();
 
                 // quit the game loop when given a quit command
-                if (input.equals("q") || input.equals("quit")) {
-                    break;
-                }
+                if (input.equals("q") || input.equals("quit")) break;
                 // parse input
                 String[] inputInArray = input.split(" ");
                 String coordOfMovedPiece = inputInArray[0];
@@ -89,12 +87,11 @@ public class RunGame {
                     continue;           // invalid move
                 }
 
-
                 isWhite = !isWhite;     // change side
                 totalMoves++;           // add a move
 
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
-                System.out.println(e.toString());
+                System.out.println(e);
                 run();
             }
         }
@@ -102,5 +99,23 @@ public class RunGame {
 
     private int stringToInteger(String character) {
         return CHARTOINT.get(character);
+    }
+
+    public boolean checkForStaleMate() {
+        // start by getting the color of the side trying to move and parse it to string format
+        String color = isWhite ? "W" : "B";
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                // start checking for legal moves
+                ChessPiece piece = board.board[i][j];
+                if (!color.equals(piece.color)) continue; // skip different colored pieces which include empty spaces
+
+                List<int[]> moves = piece.getMoves(board);
+                // if we have even one legal move then there is no stalemate
+                if (!moves.isEmpty()) return false;
+            }
+        }
+
+        return true;
     }
 }

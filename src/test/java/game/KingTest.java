@@ -94,7 +94,7 @@ class KingTest {
         board.board[0][4] = new King("B", new int[] {0, 4});
         board.board[0][5] = new Bishop("B", new int[] {0, 5});
         board.board[1][4] = new Pawn("W", new int[] {1, 4});
-
+        board.printBoard();
         // try to move king to an unsafe position
         Assertions.assertFalse(board.board[0][4].move(board, new int[] {0, 3}));
     }
