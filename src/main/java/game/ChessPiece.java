@@ -41,38 +41,34 @@ public abstract class ChessPiece {
             return false;
         }
 
-        // Temporarily apply the move
+        // Check if the move leaves the king in check
+        if (isKingCheckedAfterMove(board, moveTo)) {
+            System.out.println("Invalid move, own king would be checked");
+            return false;
+        }
+
+        // Perform the move
         board.board[oldPosition[0]][oldPosition[1]] = new Space(oldPosition);
         board.board[moveTo[0]][moveTo[1]] = this;
         this.position = moveTo;
 
-        // Check if the king is still in check
-        if (board.isCheck() && board.getCheckingPiece().isCheckingKing(board)) {
-            // Revert the move
-            board.board[oldPosition[0]][oldPosition[1]] = this;
-            board.board[moveTo[0]][moveTo[1]] = target; // Reuse targetPiece
-            this.position = oldPosition;
-
-            System.out.println("King is still checked, make another move");
-            return false;
-        } else if (board.isCheck()) {
+        // Check if the opponent's king is in check
+        if (isCheckingKing(board)) {
+            board.setCheckingPiece(this);
+            board.setCheck(true);
+        } else {
             board.setCheck(false);
             board.setCheckingPiece(null);
         }
 
-        // make move visible on game board
-        int row = moveTo[0];
-        int column = moveTo[1];
-        updateBoard(board, row, column, oldPosition);
-
-        // check if the opponent's king is in check
-        if (isCheckingKing(board)) {
-            board.setCheckingPiece(this);
-            board.setCheck(true);
+        // Update the board
+        updateBoard(board, moveTo[0], moveTo[1], oldPosition);
+        if (board.isCheck()) {
+            System.out.println("King is checked");
         }
         return true;
-
     }
+
 
     /**
      * This method checks if the players given target position matches with a possible move
@@ -92,11 +88,10 @@ public abstract class ChessPiece {
 
     public boolean isCheckingKing(Board board) {
         List<int[]> moves = this.getMoves(board);
-
+        if (moves == null) return false;
         for (int[] move: moves) {
             ChessPiece piece = board.board[move[0]][move[1]];
             if (piece instanceof King & !piece.color.equals(this.color)) {
-                System.out.println("checking king");
                 return true;
             }
         }
@@ -125,4 +120,77 @@ public abstract class ChessPiece {
         // Print the updated board
         board.printBoard();
     }
+
+    /**
+     * This method checks if moving a piece unintentionally checks your own king
+     * @param clonedBoard   cloned board of simulated move
+     * @return              true if own king is checked
+     */
+    private boolean unsafeMove(Board clonedBoard) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                ChessPiece piece = clonedBoard.board[i][j];
+                if (piece.color.equals(this.color) | piece instanceof Space) continue;
+                if (piece.isCheckingKing(clonedBoard)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isKingCheckedAfterMove(Board board, int[] moveTo) {
+        // Save the original state of the board
+        ChessPiece originalTarget = board.board[moveTo[0]][moveTo[1]];
+        int[] originalPosition = this.position.clone();
+
+        // Simulate the move
+        board.board[originalPosition[0]][originalPosition[1]] = new Space(originalPosition);
+        board.board[moveTo[0]][moveTo[1]] = this;
+        this.position = moveTo;
+
+        // Check if own king is in check
+        King ownKing = findKing(this.color, board);
+        boolean isInCheck = false;
+        if (ownKing != null) {
+            isInCheck = ownKing.isUnderAttack(board);
+        }
+
+        // Revert the move
+        board.board[originalPosition[0]][originalPosition[1]] = this;
+        board.board[moveTo[0]][moveTo[1]] = originalTarget;
+        this.position = originalPosition;
+
+        return isInCheck;
+    }
+
+    public King findKing(String color, Board board) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board.board[i][j];
+                if (piece instanceof King && piece.color.equals(color)) {
+                    return (King) piece;
+                }
+            }
+        }
+        return null; // If no king is found (shouldn't happen in a valid game)
+    }
+    public boolean isUnderAttack(Board board) {
+        for (int i = 0; i < board.board.length; i++) {
+            for (int j = 0; j < board.board[i].length; j++) {
+                ChessPiece piece = board.board[i][j];
+                // Check if the piece is an opponent and can attack the king's position
+                if (piece != null && !piece.color.equals(this.color)) {
+                    List<int[]> moves = piece.getMoves(board);
+                    if (moves != null) {
+                        for (int[] move : moves) {
+                            if (move[0] == this.position[0] && move[1] == this.position[1]) {
+                                return true; // King is under attack
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }

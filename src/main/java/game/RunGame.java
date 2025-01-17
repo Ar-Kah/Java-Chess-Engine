@@ -90,7 +90,7 @@ public class RunGame {
                 isWhite = !isWhite;     // change side
                 totalMoves++;           // add a move
 
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 System.out.println(e);
                 run();
             }
