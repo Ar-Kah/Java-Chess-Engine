@@ -31,7 +31,7 @@ I hope this project will revive my passion for coding and problem solving. Curre
 
 #### further update ####
 
-The point of this project is not to make the worlds fastest chess engine, but to try to make a working one, have fun while implementing the project will and learniong new cool stuff. This will also be a part of my bachelors thesis in Tampere university.
+The goal of this project is not to create the world's fastest chess engine, but to develop a functional one, enjoy the process of implementation, and explore exciting new concepts. Additionally, this project will contribute to my bachelor’s thesis at Tampere University.
 
 ## Runing the code ##
 
