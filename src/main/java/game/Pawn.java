@@ -65,11 +65,11 @@ public class Pawn extends ChessPiece {
 
         // can not capture when moving forward
         ChessPiece target = board.board[newRow][newColumn];
-        if (isForward & !(target instanceof Space)) {
-            return false;
-        }
+        if (!isForward && !(target instanceof Space)) return true;
 
-        return !target.color.equals(this.color);
+        if (isForward && target instanceof Space) return true;
+
+        return false;
     }
 
     /**

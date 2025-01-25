@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/RunGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/RunGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/game/RunGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/RunGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Pawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
       <recent name="game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RunGameTest.testKingWouldBeChecked">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="ChessMinMax" />
@@ -136,8 +134,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RunGameTest.testKingWouldBeChecked" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.RunGameTest.testKingWouldBeChecked" />
         <item itemvalue="JUnit.game in ChessMinMax" />
         <item itemvalue="JUnit.KingTest.testKingUnsafeMove" />
         <item itemvalue="JUnit.KingTest" />
