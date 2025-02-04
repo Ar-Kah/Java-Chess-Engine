@@ -16,9 +16,7 @@ class QueenTest {
         Queen queen = (Queen) board.board[3][4];
         List<int[]> moves = board.board[3][4].getMoves(board);
         board.printBoard();
-        int[] oldPosition = queen.position;;
-        for (int[] move: moves) {
 
-        }
+
     }
 }

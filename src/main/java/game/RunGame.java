@@ -24,7 +24,7 @@ public class RunGame {
             put("h", 7);
         }
     };
-    private boolean playWithBot = false;
+    private boolean playWithBot = true;
     private boolean gameOver = false;
     private int totalMoves = 1;
     private boolean isWhite = true;     // oscillator for turns
@@ -55,7 +55,7 @@ public class RunGame {
             // this is for when you are playing against a bot
             if (playWithBot && !isWhite) {
 
-                MinMax.minimax(board, 3, true, "B");
+                MinMax.findBestMove(board, "B");
 
                 isWhite = true;
                 totalMoves++;

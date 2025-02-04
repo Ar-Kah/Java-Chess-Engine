@@ -215,6 +215,34 @@ public abstract class ChessPiece {
         return false;
     }
 
+    /**
+     * Simulates a move by temporarily placing the piece on a target square.
+     * Reverts the board state after the simulation completes.
+     *
+     * @param board     The game board instance.
+     * @param moveTo    The target position to simulate the move [row, column].
+     * @return The cloned board state after simulating the move.
+     */
+    public Board simulateMove(Board board, int[] moveTo) {
+        // Clone the board to avoid altering the real game state
+        Board simulatedBoard = board.clone();
+
+        // Save the original state of the move
+        int[] originalPosition = this.position.clone();
+        ChessPiece targetPiece = simulatedBoard.board[moveTo[0]][moveTo[1]];
+
+        // Simulate the move on the cloned board
+        simulatedBoard.board[originalPosition[0]][originalPosition[1]] = new Space(originalPosition);
+        simulatedBoard.board[moveTo[0]][moveTo[1]] = this;
+        this.position = moveTo;
+
+        // Revert this piece's position in the simulation after returning the new board
+        this.position = originalPosition;
+
+        return simulatedBoard;
+    }
+
+
     public String getColor() {
         return color;
     }
