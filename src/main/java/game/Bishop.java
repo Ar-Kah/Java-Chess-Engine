@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends ChessPiece{
+    public int value = 3;
     public Bishop(String color, int[] position) {
         super("B", color, position);
     }

@@ -52,6 +52,7 @@ public abstract class ChessPiece {
         board.board[moveTo[0]][moveTo[1]] = this;
         this.position = moveTo;
 
+
         // Check if the opponent's king is in check
         if (isCheckingKing(board)) {
             board.setCheckingPiece(this);
@@ -100,14 +101,27 @@ public abstract class ChessPiece {
     }
 
     /**
-     * This method updated the view of the game board after a move
-     * @param board     pointer to the instance of the game board
-     * @param row       index row where the piece will be drawn
-     * @param column    index column where the piece will be drawn
+     * This method updates the view of the game board after a move,
+     * including promotion and en passant capture.
+     *
+     * @param board     Pointer to the instance of the game board
+     * @param row       Index row where the piece will be drawn
+     * @param column    Index column where the piece will be drawn
+     * @param oldPosition Previous position of the moving piece
      */
     protected void updateBoard(Board board, int row, int column, int[] oldPosition) {
         // Create a copy of oldPosition for the Space object
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
+
+        // Handle en passant capture logic
+        if (this instanceof Pawn && board.enPassantActive) {
+            int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
+
+            if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
+                // Remove the pawn that was captured by en passant
+                board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
+            }
+        }
 
         // Move space to pawn's last position
         board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);
@@ -115,7 +129,15 @@ public abstract class ChessPiece {
         // Move piece to new location
         this.position[0] = row;
         this.position[1] = column;
-        board.board[row][column] = this;
+
+        int lastRow = this.color.equals("W") ? 0 : 7;
+
+        if (this instanceof Pawn && lastRow == row) {
+            // Pawn promotion to Queen
+            board.board[row][column] = new Queen(this.color, new int[]{row, column});
+        } else {
+            board.board[row][column] = this;
+        }
 
         // Print the updated board
         board.printBoard();
@@ -193,4 +215,7 @@ public abstract class ChessPiece {
         return false;
     }
 
+    public String getColor() {
+        return color;
+    }
 }

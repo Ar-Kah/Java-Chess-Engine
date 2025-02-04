@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Queen extends ChessPiece{
+    public int value = 9;
     public Queen(String color, int[] position) {
         super("Q", color, position);
         super.name = "Queen";
@@ -41,10 +42,12 @@ public class Queen extends ChessPiece{
 
         // Check each direction independently
         int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}, {1, 1}, {-1, 1}, {-1, -1}, {1, -1}};
+
         for (int[] dir : directions) {
             int newRow = row + dir[0];
             int newColumn = column + dir[1];
 
+            // Keep moving in this direction while it's within the board bounds
             while (newRow >= 0 && newRow <= 7 && newColumn >= 0 && newColumn <= 7) {
                 if (!(board.board[newRow][newColumn] instanceof Space)) {
                     // If it's an opponent's piece, add move and stop
@@ -53,11 +56,16 @@ public class Queen extends ChessPiece{
                     }
                     break; // Path is blocked
                 }
+
                 moves.add(new int[]{newRow, newColumn});
+
+                // Update row and column to move in the same direction
                 newRow += dir[0];
                 newColumn += dir[1];
             }
         }
+
         return moves;
     }
+
 }

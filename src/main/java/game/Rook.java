@@ -7,6 +7,7 @@ import java.util.List;
  * Rook class for calculating moves and storing important information
  */
 public class Rook extends ChessPiece {
+    public int value = 5;
     public boolean hasMoved = false;
     public Rook(String color, int[] position) {
         super("R", color, position);

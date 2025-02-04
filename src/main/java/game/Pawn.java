@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * the movement of this class it a bit different to the other classes that
+ * The movement of this class it a bit different to the other classes that
  * inherit the ChessPiece class because of the first move of the pawn when
  * it can move 2 steps forward
  */
 public class Pawn extends ChessPiece {
+    public int value = 1;
     private boolean firstMove = true;
 
     public Pawn(String color, int[] position) {
@@ -45,6 +46,12 @@ public class Pawn extends ChessPiece {
         if (isValidMove(row + direction, column - 1, board, false)) {
             moves.add(new int[]{row + direction, column - 1});
         }
+
+        if (board.enPassantActive && board.enPassant != null && Math.abs(board.enPassant.position[0] - this.position[0]) == 0
+                && Math.abs(board.enPassant.position[1] - column) == 1) {
+            moves.add(new int[] {row + direction, board.enPassant.position[1]});
+        }
+
         return moves;
     }
 
@@ -84,7 +91,6 @@ public class Pawn extends ChessPiece {
         for (int[] move: capturingMoves) {
             ChessPiece piece = board.board[move[0]][move[1]];
             if (piece instanceof King & !piece.color.equals(this.color)) {
-                System.out.println("checking king");
                 return true; // king is checked
             }
         }
@@ -114,6 +120,12 @@ public class Pawn extends ChessPiece {
                 // check if first move is used
                 if (firstMove) {
                     firstMove = false;
+                }
+
+                if (Math.abs(move[0] - this.position[0]) == 2) {
+                    board.enPassant = this;
+                    board.enPassantActive = true;
+                    board.turnsAfterEnPassant = 0;
                 }
 
                 return true;    // successful move

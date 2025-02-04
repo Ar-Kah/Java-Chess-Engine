@@ -1,5 +1,7 @@
 package game;
 
+import game.bot.MinMax;
+
 import java.lang.Math;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -22,7 +24,8 @@ public class RunGame {
             put("h", 7);
         }
     };
-
+    private boolean playWithBot = false;
+    private boolean gameOver = false;
     private int totalMoves = 1;
     private boolean isWhite = true;     // oscillator for turns
     private final Board board;
@@ -36,11 +39,26 @@ public class RunGame {
      */
     public void run() {
         while (true) {
+            if (checkForStaleMate()) {
+                System.out.println("Game ended in a stalemate.");
+                gameOver = true;
+                return;
+            }
+
             Scanner scanner = new Scanner(System.in);
             if (isWhite) {
                 System.out.println("Whites turn to move: ");
             } else {
                 System.out.println("Blacks turn to move");
+            }
+
+            // this is for when you are playing against a bot
+            if (playWithBot && !isWhite) {
+
+                MinMax.minimax(board, 3, true, "B");
+
+                isWhite = true;
+                totalMoves++;
             }
 
             try {
@@ -49,7 +67,7 @@ public class RunGame {
                 input = input.toLowerCase();
 
                 // quit the game loop when given a quit command
-                if (input.equals("q") || input.equals("quit")) break;
+                if (input.equals("q") || input.equals("quit")) return;
                 // parse input
                 String[] inputInArray = input.split(" ");
                 String coordOfMovedPiece = inputInArray[0];
@@ -81,17 +99,27 @@ public class RunGame {
 
                 int column = stringToInteger(coordsWherePieceWillBeMoved[0]);               // change the row from character to integer
                 int row = Math.abs(Integer.parseInt(coordsWherePieceWillBeMoved[1]) - 8);   // here we repeat the indexing thing we did on line 65
-                boolean isValid = movedPiece.move(board, new int[]{row, column});           // try moving the piece
+                boolean isValid = movedPiece.move(board, new int[] {row, column});          // try moving the piece
 
                 if (!isValid) {
                     continue;           // invalid move
                 }
 
+                // Handle enPassant rules after a move
+                if (board.enPassantActive) {
+                    if (board.enPassant.color.equals(isWhite ? "B" : "W")) {
+                        // Opponent made a move without capturing en passant; reset
+                        board.enPassantActive = false;
+                        board.enPassant = null;
+                    }
+                }
+
+
                 isWhite = !isWhite;     // change side
                 totalMoves++;           // add a move
 
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(e);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+                System.out.println("Invalid input! Try again.");
                 run();
             }
         }
@@ -104,8 +132,8 @@ public class RunGame {
     public boolean checkForStaleMate() {
         // start by getting the color of the side trying to move and parse it to string format
         String color = isWhite ? "W" : "B";
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 // start checking for legal moves
                 ChessPiece piece = board.board[i][j];
                 if (!color.equals(piece.color)) continue; // skip different colored pieces which include empty spaces
@@ -115,7 +143,12 @@ public class RunGame {
                 if (!moves.isEmpty()) return false;
             }
         }
+        if (board.isCheck()) {
+            board.setCheckMate(true);
+            return false;
+        }
 
+        board.setStaleMate(true);
         return true;
     }
 }

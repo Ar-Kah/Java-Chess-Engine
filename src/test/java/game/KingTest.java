@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 class KingTest {
     @Test
     void testWhiteCastlingRight() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard();
         // test white king castling
         for (int i = 0; i < 8; i++) {
@@ -22,7 +22,7 @@ class KingTest {
 
     @Test
     void testWhiteCastlingLeft() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard();
         // test white king castling
         for (int i = 0; i < 8; i++) {
@@ -38,7 +38,7 @@ class KingTest {
 
     @Test
     void testBlackCastlingLeft() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard();
         // test white king castling
         for (int i = 0; i < 8; i++) {
@@ -54,7 +54,7 @@ class KingTest {
 
     @Test
     void testBlackCastlingRight() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard();
         // test white king castling
         for (int i = 0; i < 8; i++) {
@@ -70,7 +70,7 @@ class KingTest {
 
     @Test
     void testForIllegalMoves() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard();
         for (int i = 0; i < 8; i++) {
             board.board[1][i] = new Pawn("B", new int[]{1, i}); // white pawns
@@ -86,7 +86,7 @@ class KingTest {
 
     @Test
     void testKingUnsafeMove() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard(); // make empty board
         // init pieces
         board.board[0][0] = new Rook("B", new int[] {0, 0});

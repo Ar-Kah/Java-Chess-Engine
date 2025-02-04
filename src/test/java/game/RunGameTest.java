@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class RunGameTest {
     @Test
     void testForStaleMate() {
-        Board board = new Board();
+        Board board = new Board(false);
         board.initEmptyBoard();
 
         // make a stalemate situation
@@ -24,7 +24,7 @@ class RunGameTest {
      */
     @Test
     void testKingWouldBeChecked() {
-        Board board = new Board();
+        Board board = new Board(true);
 
         ChessPiece piece = board.board[6][4];
         Assertions.assertTrue(piece.move(board, new int[] {4, 4}));

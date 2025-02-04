@@ -12,7 +12,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // make an instance of the game board
-        Board board = new Board();
+        Board board = new Board(true);
         board.printBoard();
         // run the game
         RunGame game = new RunGame(board);

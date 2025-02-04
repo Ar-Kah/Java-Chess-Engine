@@ -5,13 +5,19 @@ public class Board {
 
     public ChessPiece[][] board;
     private boolean check = false;
+    private boolean checkMate = false;
+    private boolean staleMate = false;
     private ChessPiece checkingPiece = null;
-
-    public Board() {
+    public ChessPiece enPassant = null;
+    public int turnsAfterEnPassant = 0;
+    public boolean enPassantActive = false;
+    public Board(boolean init) {
         this.board = new ChessPiece[8][8];
-        initBlack();
-        initSpace();
-        initWhite();
+        if (init) {
+            initBlack();
+            initSpace();
+            initWhite();
+        }
     }
 
     private void initSpace() {
@@ -83,6 +89,43 @@ public class Board {
         this.board[7][7] = new Rook("W", new int[]{7, 7});
     }
 
+    @Override
+    public Board clone() {
+        Board clonedBoard = new Board(false);
+
+        // Deep copy of the board state
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[i].length; j++) {
+                ChessPiece piece = this.board[i][j];
+
+                if (piece instanceof Space) {
+                    clonedBoard.board[i][j] = new Space(piece.position.clone());
+                } else if (piece instanceof Pawn) {
+                    clonedBoard.board[i][j] = new Pawn(piece.toString(), piece.position.clone());
+                } else if (piece instanceof Rook) {
+                    clonedBoard.board[i][j] = new Rook(piece.toString(), piece.position.clone());
+                } else if (piece instanceof Knight) {
+                    clonedBoard.board[i][j] = new Knight(piece.toString(), piece.position.clone());
+                } else if (piece instanceof Bishop) {
+                    clonedBoard.board[i][j] = new Bishop(piece.toString(), piece.position.clone());
+                } else if (piece instanceof Queen) {
+                    clonedBoard.board[i][j] = new Queen(piece.toString(), piece.position.clone());
+                } else if (piece instanceof King) {
+                    clonedBoard.board[i][j] = new King(piece.toString(), piece.position.clone());
+                }
+            }
+        }
+
+        // Copy other board state variables
+        clonedBoard.setEnPassant(this.enPassant != null ? new Pawn(this.enPassant.color, this.enPassant.position.clone()) : null);
+        clonedBoard.enPassantActive = this.enPassantActive;
+        clonedBoard.setCheckingPiece(this.checkingPiece);
+        clonedBoard.setCheck(this.isCheck());
+
+        return clonedBoard;
+    }
+
+
     public void setCheck(boolean check) {
         this.check = check;
     }
@@ -95,7 +138,27 @@ public class Board {
         return check;
     }
 
+    public void setCheckMate(boolean checkMate) {
+        this.checkMate = checkMate;
+    }
+
+    public boolean isCheckMate() {
+        return checkMate;
+    }
+
+    public boolean isStaleMate() {
+        return staleMate;
+    }
+
+    public void setStaleMate(boolean staleMate) {
+        this.staleMate = staleMate;
+    }
+
     public ChessPiece getCheckingPiece() {
         return checkingPiece;
+    }
+
+    public void setEnPassant(ChessPiece enPassant) {
+        this.enPassant = enPassant;
     }
 }
