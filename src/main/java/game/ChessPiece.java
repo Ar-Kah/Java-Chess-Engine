@@ -113,13 +113,15 @@ public abstract class ChessPiece {
         // Create a copy of oldPosition for the Space object
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
 
-        // Handle en passant capture logic
         if (this instanceof Pawn && board.enPassantActive) {
             int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
 
             if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
                 // Remove the pawn that was captured by en passant
                 board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
+                // Reset en passant state
+                board.enPassantActive = false;
+                board.enPassant = null;
             }
         }
 
@@ -132,15 +134,12 @@ public abstract class ChessPiece {
 
         int lastRow = this.color.equals("W") ? 0 : 7;
 
-        if (this instanceof Pawn && lastRow == row) {
+        if (this instanceof Pawn && lastRow == row && Math.abs(row - oldPosition[0]) == 1) {
             // Pawn promotion to Queen
             board.board[row][column] = new Queen(this.color, new int[]{row, column});
         } else {
             board.board[row][column] = this;
         }
-
-        // Print the updated board
-        board.printBoard();
     }
 
     /**
@@ -214,6 +213,8 @@ public abstract class ChessPiece {
         }
         return false;
     }
+
+    public abstract int getValue();
 
     public abstract ChessPiece clone();
 

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
+    public int value = 0;
     private boolean hasMoved = false;
     private boolean hasCastled = false;
     private final int[][] kingMoves = new int[][] {
@@ -162,6 +163,11 @@ public class King extends ChessPiece{
         }
 
         return adjacentSquares;
+    }
+
+    @Override
+    public int getValue() {
+        return value;
     }
 
     @Override

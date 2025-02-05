@@ -3,7 +3,6 @@ package game;
 import game.bot.MinMax;
 
 import java.lang.Math;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class RunGame {
@@ -24,7 +23,7 @@ public class RunGame {
             put("h", 7);
         }
     };
-    private boolean playWithBot = false;
+    private final boolean playWithBot = true;
     private boolean gameOver = false;
     private int totalMoves = 1;
     private boolean isWhite = true;     // oscillator for turns
@@ -55,6 +54,8 @@ public class RunGame {
             // this is for when you are playing against a bot
             if (playWithBot && !isWhite) {
 
+                MinMax minMax = new MinMax(board);
+                board.printBoard();
                 isWhite = true;
                 totalMoves++;
             }
@@ -112,6 +113,7 @@ public class RunGame {
                     }
                 }
 
+                board.printBoard();
 
                 isWhite = !isWhite;     // change side
                 totalMoves++;           // add a move

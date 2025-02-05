@@ -1,10 +1,10 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Knight extends ChessPiece{
+    public int value = 3;
     private final int[][] knightMoves = new int[][] {
             {2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}
     };
@@ -61,5 +61,10 @@ public class Knight extends ChessPiece{
     @Override
     public ChessPiece clone() {
         return new Knight(this.color, this.position.clone());
+    }
+
+    @Override
+    public int getValue() {
+        return value;
     }
 }

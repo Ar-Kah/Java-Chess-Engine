@@ -72,4 +72,9 @@ public class Rook extends ChessPiece {
     public ChessPiece clone() {
         return new Rook(this.color, this.position.clone());
     }
+
+    @Override
+    public int getValue() {
+        return value;
+    }
 }

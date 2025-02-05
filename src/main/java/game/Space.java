@@ -3,7 +3,7 @@ package game;
 import java.util.List;
 
 public class Space extends ChessPiece {
-
+    public int value = 0;
     public Space(int[] position) {
         super("-", "N", position);
         super.name = "Space";
@@ -22,5 +22,10 @@ public class Space extends ChessPiece {
     @Override
     public ChessPiece clone() {
         return new Space(this.position.clone());
+    }
+
+    @Override
+    public int getValue() {
+        return value;
     }
 }

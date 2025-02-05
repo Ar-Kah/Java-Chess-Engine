@@ -3,6 +3,7 @@ package game.bot;
 import game.Board;
 import game.ChessPiece;
 import game.Pawn;
+import game.Space;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,17 @@ public class MinMax {
                 if (moves == null) continue;
 
                 for (int[] move: moves) {
+                    ChessPiece originalPiece = clonedBoard.board[move[0]][move[1]];
+                    int[] originalPosition = {piece.position[0], piece.position[1]};
+
                     piece.updateBoard(clonedBoard, move[0], move[1], piece.position);
 
                     int score = minimax(clonedBoard, DEPTH, false);
+
+                    // Restore state after simulation
+                    clonedBoard.board[move[0]][move[1]] = originalPiece;
+                    clonedBoard.board[originalPosition[0]][originalPosition[1]] = piece;
+                    piece.position = originalPosition;
                     if (score > bestScore) {
                         bestPiece = piece;
                         bestMove = move;
@@ -51,7 +60,6 @@ public class MinMax {
                 }
             }
         }
-        System.out.println("actual move: ");
         assert bestPiece != null;
         bestPiece.updateBoard(board, bestMove[0], bestMove[1], bestPiece.position);
     }
@@ -60,7 +68,7 @@ public class MinMax {
         if (depth == 0) {
             return evaluateBoard(board);
         }
-        System.out.println("depth: " + depth % 3 + 1);
+
         if (isMaximizing) {
             int maxEval = Integer.MIN_VALUE;
             for (int i = 0; i < 8; i++) {
@@ -82,9 +90,17 @@ public class MinMax {
                     if (moves == null) continue;
 
                     for (int[] move: moves) {
+                        ChessPiece originalPiece = boardClone.board[move[0]][move[1]];
+                        int[] originalPosition = {piece.position[0], piece.position[1]};
+
                         piece.updateBoard(boardClone, move[0], move[1], piece.position);
                         int eval = minimax(boardClone, depth - 1, false);
                         maxEval = Math.max(eval, maxEval);
+
+                        // Restore state after simulation
+                        boardClone.board[move[0]][move[1]] = originalPiece;
+                        boardClone.board[originalPosition[0]][originalPosition[1]] = piece;
+                        piece.position = originalPosition;
                     }
                 }
             }
@@ -110,9 +126,17 @@ public class MinMax {
                     if (moves == null) continue;
 
                     for (int[] move: moves) {
+                        ChessPiece originalPiece = boardClone.board[move[0]][move[1]];
+                        int[] originalPosition = {piece.position[0], piece.position[1]};
+
                         piece.updateBoard(boardClone, move[0],move[1], piece.position);
                         int eval = minimax(boardClone, depth - 1, true);
                         minEval = Math.min(eval, minEval);
+
+                        // Restore state after simulation
+                        boardClone.board[move[0]][move[1]] = originalPiece;
+                        boardClone.board[originalPosition[0]][originalPosition[1]] = piece;
+                        piece.position = originalPosition;
                     }
                 }
             }
@@ -123,6 +147,22 @@ public class MinMax {
     }
 
     private int evaluateBoard(Board board) {
-        return 0;
+        int blackScore = 0;
+        int whiteScore = 0;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board.board[i][j];
+
+                if (piece instanceof Space) continue;
+
+                if (piece.getColor().equals("B")) {
+                    blackScore += piece.getValue();
+                } else {
+                    whiteScore += piece.getValue();
+                }
+            }
+        }
+        return blackScore - whiteScore;
     }
 }

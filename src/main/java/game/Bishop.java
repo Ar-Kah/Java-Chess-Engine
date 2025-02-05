@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends ChessPiece{
-    public int value = 3;
+    private int value = 3;
     public Bishop(String color, int[] position) {
         super("B", color, position);
     }
@@ -28,6 +28,11 @@ public class Bishop extends ChessPiece{
         }
 
         return false;
+    }
+
+    @Override
+    public int getValue() {
+        return value;
     }
 
     @Override

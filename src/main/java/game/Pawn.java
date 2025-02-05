@@ -158,4 +158,9 @@ public class Pawn extends ChessPiece {
         clone.firstMove = this.firstMove;
         return clone;
     }
+
+    @Override
+    public int getValue() {
+        return value;
+    }
 }
