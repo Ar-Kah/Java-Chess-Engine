@@ -89,38 +89,22 @@ public class Board {
         this.board[7][7] = new Rook("W", new int[]{7, 7});
     }
 
-    @Override
-    public Board clone() {
+
+    public static Board clone(Board board) {
         Board clonedBoard = new Board(false);
 
-        // Deep copy of the board state
-        for (int i = 0; i < this.board.length; i++) {
-            for (int j = 0; j < this.board[i].length; j++) {
-                ChessPiece piece = this.board[i][j];
-
-                if (piece instanceof Space) {
-                    clonedBoard.board[i][j] = new Space(piece.position.clone());
-                } else if (piece instanceof Pawn) {
-                    clonedBoard.board[i][j] = new Pawn(piece.toString(), piece.position.clone());
-                } else if (piece instanceof Rook) {
-                    clonedBoard.board[i][j] = new Rook(piece.toString(), piece.position.clone());
-                } else if (piece instanceof Knight) {
-                    clonedBoard.board[i][j] = new Knight(piece.toString(), piece.position.clone());
-                } else if (piece instanceof Bishop) {
-                    clonedBoard.board[i][j] = new Bishop(piece.toString(), piece.position.clone());
-                } else if (piece instanceof Queen) {
-                    clonedBoard.board[i][j] = new Queen(piece.toString(), piece.position.clone());
-                } else if (piece instanceof King) {
-                    clonedBoard.board[i][j] = new King(piece.toString(), piece.position.clone());
-                }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece toBeCloned = board.board[i][j];
+                clonedBoard.board[i][j] = toBeCloned.clone();
             }
         }
 
-        // Copy other board state variables
-        clonedBoard.setEnPassant(this.enPassant != null ? new Pawn(this.enPassant.color, this.enPassant.position.clone()) : null);
-        clonedBoard.enPassantActive = this.enPassantActive;
-        clonedBoard.setCheckingPiece(this.checkingPiece);
-        clonedBoard.setCheck(this.isCheck());
+        clonedBoard.setStaleMate(board.staleMate);
+        clonedBoard.setCheckMate(board.checkMate);
+        clonedBoard.setEnPassant(board.enPassant);
+        clonedBoard.setStaleMate(board.staleMate);
+        clonedBoard.setCheck(board.check);
 
         return clonedBoard;
     }

@@ -23,7 +23,7 @@ public class Pawn extends ChessPiece {
      * @param board: instance of the game board
      * @return returns all the moves in a list of integers
      */
-    private List<int[]> generateMoves(Board board) {
+    public List<int[]> generateMoves(Board board) {
         List<int[]> moves = new ArrayList<>();
         int direction = this.color.equals("W") ? -1 : 1;
         int row = this.position[0];
@@ -72,7 +72,7 @@ public class Pawn extends ChessPiece {
 
         // can not capture when moving forward
         ChessPiece target = board.board[newRow][newColumn];
-        if (!isForward && !(target instanceof Space)) return true;
+        if (!isForward && !(target instanceof Space) && !target.getColor().equals(this.color)) return true;
 
         if (isForward && target instanceof Space) return true;
 
@@ -150,5 +150,12 @@ public class Pawn extends ChessPiece {
             moves.add(new int[] {row + direction, column - 1});
         }
         return moves;
+    }
+
+    @Override
+    public ChessPiece clone() {
+        Pawn clone = new Pawn(this.color, this.position.clone());
+        clone.firstMove = this.firstMove;
+        return clone;
     }
 }

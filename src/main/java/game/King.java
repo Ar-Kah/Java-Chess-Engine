@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
-    private int recursionDept = 0;
     private boolean hasMoved = false;
     private boolean hasCastled = false;
     private final int[][] kingMoves = new int[][] {
@@ -165,4 +164,11 @@ public class King extends ChessPiece{
         return adjacentSquares;
     }
 
+    @Override
+    public ChessPiece clone() {
+        King clone = new King(this.color, this.position.clone());
+        clone.hasCastled = this.hasCastled;
+        clone.hasMoved = this.hasMoved;
+        return clone;
+    }
 }

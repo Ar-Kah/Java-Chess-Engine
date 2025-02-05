@@ -19,4 +19,8 @@ public class Space extends ChessPiece {
         return null;
     }
 
+    @Override
+    public ChessPiece clone() {
+        return new Space(this.position.clone());
+    }
 }

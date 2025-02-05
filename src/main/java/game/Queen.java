@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Queen extends ChessPiece{
-    public int value = 9;
     public Queen(String color, int[] position) {
         super("Q", color, position);
         super.name = "Queen";
@@ -68,4 +67,8 @@ public class Queen extends ChessPiece{
         return moves;
     }
 
+    @Override
+    public ChessPiece clone() {
+        return new Queen(this.color, this.position.clone());
+    }
 }

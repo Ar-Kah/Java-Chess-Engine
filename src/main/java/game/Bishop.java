@@ -59,4 +59,8 @@ public class Bishop extends ChessPiece{
         return moves;
     }
 
+    @Override
+    public ChessPiece clone() {
+        return new Bishop(this.color, this.position.clone());
+    }
 }

@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/game/bot/MinMaxTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Rook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/RunGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/RunGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Space.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Space.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/bot/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/bot/MinMax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/game/QueenTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/QueenTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/game/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/BoardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,10 +66,11 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="game.bot" />
       <recent name="game" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.MinMaxTest.testInit">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="ChessMinMax" />
@@ -70,6 +80,38 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.boardCloning" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.BoardTest" />
+      <option name="METHOD_NAME" value="boardCloning" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MinMaxTest.testInit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.bot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game.bot" />
+      <option name="MAIN_CLASS_NAME" value="game.bot.MinMaxTest" />
+      <option name="METHOD_NAME" value="testInit" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -85,37 +127,6 @@
       <option name="PACKAGE_NAME" value="game" />
       <option name="MAIN_CLASS_NAME" value="game.QueenTest" />
       <option name="METHOD_NAME" value="testQueenMovement" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.RunGameTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunGameTest.testForStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.RunGameTest" />
-      <option name="METHOD_NAME" value="testForStaleMate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -137,11 +148,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MinMaxTest.testInit" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.BoardTest.boardCloning" />
         <item itemvalue="JUnit.QueenTest.testQueenMovement" />
         <item itemvalue="JUnit.game in ChessMinMax" />
-        <item itemvalue="JUnit.RunGameTest" />
-        <item itemvalue="JUnit.RunGameTest.testForStaleMate" />
       </list>
     </recent_temporary>
   </component>

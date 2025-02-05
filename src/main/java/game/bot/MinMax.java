@@ -2,126 +2,127 @@ package game.bot;
 
 import game.Board;
 import game.ChessPiece;
-import game.Main;
+import game.Pawn;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 public class MinMax {
 
-    public static void findBestMove(Board board, String maximizingColor) {
+    private final int DEPTH = 3;
+    private final String MAXING = "B";
+
+    public MinMax(Board board) {
+        init(board);
+    }
+
+    public void init(Board board) {
+
         int bestScore = Integer.MIN_VALUE;
         int[] bestMove = null;
         ChessPiece bestPiece = null;
 
-        // Iterate over all pieces and moves
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board.board[row][col];
-                if (piece == null || !piece.getColor().equals(maximizingColor)) continue;
 
-                List<int[]> possibleMoves = piece.getMoves(board);
-                if (possibleMoves == null) continue;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Board clonedBoard = Board.clone(board);
+                ChessPiece piece = clonedBoard.board[i][j];
 
-                for (int[] move : possibleMoves) {
-                    Board clonedBoard = board.clone();
+                if (!piece.getColor().equals(MAXING)) continue;
 
-                    // Simulate the move
-                    piece.simulateMove(clonedBoard, move);
+                List<int[]> moves = new ArrayList<>();
+                if (piece instanceof Pawn) {
+                    moves = ((Pawn) piece).generateMoves(clonedBoard);
+                } else {
+                    moves = piece.getMoves(board);
+                }
 
-                    // Evaluate using minimax
-                    int score = minimax(clonedBoard, 3, false, maximizingColor);
+                if (moves == null) continue;
 
-                    // Keep track of the best move
+                for (int[] move: moves) {
+                    piece.updateBoard(clonedBoard, move[0], move[1], piece.position);
+
+                    int score = minimax(clonedBoard, DEPTH, false);
                     if (score > bestScore) {
-                        bestScore = score;
-                        bestMove = move;
                         bestPiece = piece;
+                        bestMove = move;
+                        bestScore = score;
                     }
                 }
             }
         }
-
-        if (bestMove != null && bestPiece != null) {
-            System.out.println("Best move for " + bestPiece + ": " + Arrays.toString(bestMove));
-        }
+        System.out.println("actual move: ");
         assert bestPiece != null;
-        bestPiece.move(board, bestMove);
+        bestPiece.updateBoard(board, bestMove[0], bestMove[1], bestPiece.position);
     }
 
-    public static int minimax(Board board, int depth, boolean isMaximizingPlayer, String maximizingColor) {
-        if (depth == 0 || board.isCheckMate() || board.isStaleMate()) {
+    private int minimax(Board board, int depth, boolean isMaximizing) {
+        if (depth == 0) {
             return evaluateBoard(board);
         }
-
-        if (isMaximizingPlayer) {
+        System.out.println("depth: " + depth % 3 + 1);
+        if (isMaximizing) {
             int maxEval = Integer.MIN_VALUE;
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    ChessPiece piece = board.board[row][col];
-                    if (piece == null || !piece.getColor().equals(maximizingColor)) continue;
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    Board boardClone = Board.clone(board);
+                    ChessPiece piece = boardClone.board[i][j];
 
-                    List<int[]> moves = piece.getMoves(board);
+                    if (!piece.getColor().equals(MAXING)) {
+                        continue;
+                    }
+
+                    List<int[]> moves = new ArrayList<>();
+                    if (piece instanceof Pawn) {
+                        moves = ((Pawn) piece).generateMoves(boardClone); // special case for pawns
+                    } else {
+                        moves = piece.getMoves(boardClone); // for others
+                    }
+
                     if (moves == null) continue;
 
-                    for (int[] move : moves) {
-                        Board clonedBoard = board.clone();
-                        piece.simulateMove(clonedBoard, move);
-                        int eval = minimax(clonedBoard, depth - 1, false, maximizingColor);
-                        maxEval = Math.max(maxEval, eval);
+                    for (int[] move: moves) {
+                        piece.updateBoard(boardClone, move[0], move[1], piece.position);
+                        int eval = minimax(boardClone, depth - 1, false);
+                        maxEval = Math.max(eval, maxEval);
                     }
                 }
             }
+
             return maxEval;
+
         } else {
             int minEval = Integer.MAX_VALUE;
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    ChessPiece piece = board.board[row][col];
-                    if (piece == null || piece.getColor().equals(maximizingColor)) continue;
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    Board boardClone = Board.clone(board);
+                    ChessPiece piece = boardClone.board[i][j];
 
-                    List<int[]> moves = piece.getMoves(board);
+                    if (piece.getColor().equals(MAXING)) continue;
+
+                    List<int[]> moves = new ArrayList<>();
+                    if (piece instanceof Pawn) {
+                        moves = ((Pawn) piece).generateMoves(boardClone);
+                    } else {
+                        moves = piece.getMoves(boardClone);
+                    }
+
                     if (moves == null) continue;
 
-                    for (int[] move : moves) {
-                        Board clonedBoard = board.clone();
-                        piece.simulateMove(clonedBoard, move);
-                        int eval = minimax(clonedBoard, depth - 1, true, maximizingColor);
-                        minEval = Math.min(minEval, eval);
+                    for (int[] move: moves) {
+                        piece.updateBoard(boardClone, move[0],move[1], piece.position);
+                        int eval = minimax(boardClone, depth - 1, true);
+                        minEval = Math.min(eval, minEval);
                     }
                 }
             }
+
             return minEval;
+
         }
     }
 
-    private static int evaluateBoard(Board board) {
-        // Placeholder evaluation function
-        // Example logic: positive for white advantage, negative for black advantage
-        int evaluationScore = 0;
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = board.board[row][col];
-                if (piece == null) continue;
-
-                int pieceValue = getPieceValue(piece);
-                evaluationScore += piece.getColor().equals("W") ? pieceValue : -pieceValue;
-            }
-        }
-
-        return evaluationScore;
-    }
-
-    private static int getPieceValue(ChessPiece piece) {
-        switch (piece.toString().toLowerCase()) {
-            case "p": return 1;    // Pawn
-            case "n": return 3;    // Knight
-            case "b": return 3;    // Bishop
-            case "r": return 5;    // Rook
-            case "q": return 9;    // Queen
-            case "k": return 100;  // King
-            default: return 0;
-        }
+    private int evaluateBoard(Board board) {
+        return 0;
     }
 }
