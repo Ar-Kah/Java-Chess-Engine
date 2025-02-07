@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
-    public int value = 0;
+    public int value = 90;
     private boolean hasMoved = false;
     private boolean hasCastled = false;
     private final int[][] kingMoves = new int[][] {

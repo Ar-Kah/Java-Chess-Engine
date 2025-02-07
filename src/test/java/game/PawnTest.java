@@ -85,6 +85,7 @@ class PawnTest {
         board.board[6][3].move(board, new int[] {4, 3});
         board.board[1][3].move(board, new int[] {3, 3});
         board.board[6][4].move(board, new int[] {4, 4});
+        board.board[1][4].move(board, new int[] {3, 4});
         board.printBoard();
         board.board[4][4].move(board, new int[] {3, 3});
         board.printBoard();

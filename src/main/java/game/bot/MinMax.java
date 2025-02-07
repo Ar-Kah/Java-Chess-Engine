@@ -104,7 +104,6 @@ public class MinMax {
                     }
                 }
             }
-
             return maxEval;
 
         } else {
@@ -140,9 +139,7 @@ public class MinMax {
                     }
                 }
             }
-
             return minEval;
-
         }
     }
 
