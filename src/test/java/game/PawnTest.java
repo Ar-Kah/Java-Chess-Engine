@@ -63,7 +63,9 @@ class PawnTest {
 
         board.printBoard();
         Assertions.assertTrue(board.board[1][0].move(board, new int[] {3, 0}));
+        board.printBoard();
         Assertions.assertTrue(board.board[3][1].move(board, new int[] {2, 0}));
+        board.printBoard();
         System.out.println("_Test completed_");
     }
 

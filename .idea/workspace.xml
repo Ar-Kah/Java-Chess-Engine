@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/game/PawnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/PawnTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/game/QueenTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/QueenTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/game/bot/MinMaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/bot/MinMaxTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +58,7 @@
       <recent name="game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RunGameTest.testForStaleMate">
+  <component name="RunManager" selected="JUnit.PawnTest.enPassantWhite">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="ChessMinMax" />
@@ -71,6 +68,22 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PawnTest.enPassantWhite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.PawnTest" />
+      <option name="METHOD_NAME" value="enPassantWhite" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -121,27 +134,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="game.bot in ChessMinMax" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.bot.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game.bot" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PawnTest.enPassantWhite" />
         <item itemvalue="JUnit.RunGameTest.testForStaleMate" />
         <item itemvalue="JUnit.QueenTest.testQueenMovement" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.game in ChessMinMax" />
-        <item itemvalue="JUnit.game.bot in ChessMinMax" />
       </list>
     </recent_temporary>
   </component>
