@@ -44,21 +44,32 @@ public class RunGame {
                 return;
             }
 
+            if (board.isCheck()) {
+                if (checkForStaleMate()) {
+                    String winner = isWhite ? "Black" : "White";
+                    System.out.println(winner + " has won by checkmate!");
+                    board.setCheckMate(true);
+                    gameOver = true;
+                    return;
+                }
+            }
+
             Scanner scanner = new Scanner(System.in);
             if (isWhite) {
                 System.out.println("Whites turn to move: ");
-            } else {
+
+            } else if(playWithBot) {
                 System.out.println("Blacks turn to move: ");
-            }
 
-            // this is for when you are playing against a bot
-            if (playWithBot && !isWhite) {
-
+                //
                 MinMax minMax = new MinMax(board);
                 board.printBoard();
                 isWhite = true;
                 totalMoves++;
+            } else {
+                System.out.println("Blacks turn to move: ");
             }
+
 
             try {
 

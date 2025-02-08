@@ -4,7 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends ChessPiece{
-    private int value = 3;
+    private final int value = 3;
+
+    private final double[][] placeValueWhite = {
+            {-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0},
+            {-1.0,  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+            {-1.0, 0.0, 0.5, 1.0, 1.0, 0.5, 0.0, -1.0},
+            {-1.0, 0.5, 0.5, 1.0, 1.0, 0.5, 0.5, -1.0},
+            {-1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, -1.0},
+            {-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0},
+            {-1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -1.0},
+            {-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0}
+    };
+
+    private final double[][] placeValueBlack = {
+            {-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0},
+            {-1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -1.0},
+            {-1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0},
+            {-1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, -1.0},
+            {-1.0, 0.5, 0.5, 1.0, 1.0, 0.5, 0.5, -1.0},
+            {-1.0, 0.0, 0.5, 1.0, 1.0, 0.5, 0.0, -1.0},
+            {-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+            {-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0}
+    };
+
+
     public Bishop(String color, int[] position) {
         super("B", color, position);
     }
@@ -67,5 +91,14 @@ public class Bishop extends ChessPiece{
     @Override
     public ChessPiece clone() {
         return new Bishop(this.color, this.position.clone());
+    }
+
+    @Override
+    public double getPlaceValueWhite(int[] position) {
+        return placeValueWhite[position[0]][position[1]];
+    }
+    @Override
+    public double getPlaceValueBlack(int[] position) {
+        return placeValueBlack[position[0]][position[1]];
     }
 }

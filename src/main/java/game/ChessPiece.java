@@ -116,13 +116,13 @@ public abstract class ChessPiece {
         if (this instanceof Pawn && board.enPassantActive) {
             int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
 
-            if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
+            /*if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
                 // Remove the pawn that was captured by en passant
                 board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
                 // Reset en passant state
                 board.enPassantActive = false;
                 board.enPassant = null;
-            }
+            }*/
         }
 
         // Move space to pawn's last position
@@ -215,6 +215,9 @@ public abstract class ChessPiece {
     }
 
     public abstract int getValue();
+
+    public abstract double getPlaceValueWhite(int[] position);
+    public abstract double getPlaceValueBlack(int[] position);
 
     public abstract ChessPiece clone();
 

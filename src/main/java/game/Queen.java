@@ -5,6 +5,29 @@ import java.util.List;
 
 public class Queen extends ChessPiece{
     private int value = 9;
+
+    private final double[][] placeValueWhite = {
+            {-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0},
+            {-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+            {-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0},
+            {-0.5, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5},
+            {0.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5},
+            {-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0},
+            {-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+            {-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0}
+    };
+
+    private final double[][] placeValueBlack = {
+            {-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0},
+            {-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+            {-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0},
+            {0.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5},
+            {-0.5, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5},
+            {-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0},
+            {-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0},
+            {-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0}
+    };
+
     public Queen(String color, int[] position) {
         super("Q", color, position);
         super.name = "Queen";
@@ -76,5 +99,13 @@ public class Queen extends ChessPiece{
     @Override
     public int getValue() {
         return value;
+    }
+    @Override
+    public double getPlaceValueWhite(int[] position) {
+        return placeValueWhite[position[0]][position[1]];
+    }
+    @Override
+    public double getPlaceValueBlack(int[] position) {
+        return placeValueBlack[position[0]][position[1]];
     }
 }

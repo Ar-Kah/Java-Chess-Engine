@@ -28,4 +28,14 @@ public class Space extends ChessPiece {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public double getPlaceValueWhite(int[] position) {
+        return 0;
+    }
+
+    @Override
+    public double getPlaceValueBlack(int[] position) {
+        return 0;
+    }
 }

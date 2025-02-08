@@ -9,25 +9,31 @@ import java.util.List;
  * it can move 2 steps forward
  */
 public class Pawn extends ChessPiece {
-    public int value = 1;
+    private final int value = 1;
 
     // values for placement for the minimax evaluation function
-    private final double[][] placeValueWhite = {{0.0, 0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0},
+    private final double[][] placeValueWhite = {
+            {0.0, 0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0},
             {5.0, 5.0, 5.0, 5.0, 5.0 ,5.0, 5.0, 5.0},
             {1.0, 1.0, 2.0, 3.0, 3.0 ,2.0, 1.0, 1.0},
             {0.5, 0.5, 1.0, 2.5, 2.5 ,1.0, 0.5, 0.5},
             {0.0, 0.0, 0.0, 2.0, 2.0 ,0.0, 0.0, 0.0},
             {0.5, -0.5, -1.0, 0.0, 0.0 ,-1.0, -0.5, 0.5},
             {0.5, 1.0, 1.0, -2.0, -2.0 ,1.0, 1.0, 0.5},
-            {0.0, 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0, 0.0}};
-    private final double[][] placeValueBlack = {{0.0, 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0, 0.0},
+            {0.0, 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0, 0.0}
+    };
+
+    private final double[][] placeValueBlack = {
+            {0.0, 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0, 0.0},
             {0.5, 1.0, 1.0, -2.0, -2.0 ,1.0, 1.0, 0.5},
             {0.5, -0.5, -1.0, 0.0, 0.0 ,-1.0, -0.5, 0.5},
             {0.0, 0.0, 0.0, 2.0, 2.0 ,0.0, 0.0, 0.0},
             {0.5, 0.5, 1.0, 2.5, 2.5 ,1.0, 0.5, 0.5},
             {1.0, 1.0, 2.0, 3.0, 3.0 ,2.0, 1.0, 1.0},
             {5.0, 5.0, 5.0, 5.0, 5.0 ,5.0, 5.0, 5.0},
-            {0.0, 0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0}};
+            {0.0, 0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0}
+    };
+
     private boolean firstMove = true;
 
     public Pawn(String color, int[] position) {
@@ -53,10 +59,12 @@ public class Pawn extends ChessPiece {
         }
 
         // on the first move you can double step forward
-        if (isValidMove(row + 2 * direction, column, board, true)) {
-            moves.add(new int[]{row + 2 * direction, column});
+        if (firstMove) {
+            if (isValidMove(row + 2 * direction, column, board, true)) {
+                moves.add(new int[]{row + 2 * direction, column});
+            }
         }
-
+        
         // capturing diagonally
         if (isValidMove(row + direction, column + 1, board, false)) {
             moves.add(new int[]{row + direction, column + 1});
@@ -180,11 +188,13 @@ public class Pawn extends ChessPiece {
         return value;
     }
 
-    public double[][] getPlaceValueWhite() {
-        return placeValueWhite;
+    @Override
+    public double getPlaceValueWhite(int[] position) {
+        return placeValueWhite[position[0]][position[1]];
     }
 
-    public double[][] getPlaceValueBlack() {
-        return placeValueBlack;
+    @Override
+    public double getPlaceValueBlack(int[] position) {
+        return placeValueBlack[position[0]][position[1]];
     }
 }

@@ -7,7 +7,30 @@ import java.util.List;
  * Rook class for calculating moves and storing important information
  */
 public class Rook extends ChessPiece {
-    public int value = 5;
+    private final int value = 5;
+
+    private final double[][] placeValueWhite = {
+            {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+            {0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0}
+    };
+
+    private final double[][] placeValueBlack = {
+            {0.0, 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5},
+            {0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5},
+            {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    };
+
     public boolean hasMoved = false;
     public Rook(String color, int[] position) {
         super("R", color, position);
@@ -76,5 +99,13 @@ public class Rook extends ChessPiece {
     @Override
     public int getValue() {
         return value;
+    }
+    @Override
+    public double getPlaceValueWhite(int[] position) {
+        return placeValueWhite[position[0]][position[1]];
+    }
+    @Override
+    public double getPlaceValueBlack(int[] position) {
+        return placeValueBlack[position[0]][position[1]];
     }
 }
