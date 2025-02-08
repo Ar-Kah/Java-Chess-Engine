@@ -10,6 +10,24 @@ import java.util.List;
  */
 public class Pawn extends ChessPiece {
     public int value = 1;
+
+    // values for placement for the minimax evaluation function
+    private final double[][] placeValueWhite = {{0.0, 0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0},
+            {5.0, 5.0, 5.0, 5.0, 5.0 ,5.0, 5.0, 5.0},
+            {1.0, 1.0, 2.0, 3.0, 3.0 ,2.0, 1.0, 1.0},
+            {0.5, 0.5, 1.0, 2.5, 2.5 ,1.0, 0.5, 0.5},
+            {0.0, 0.0, 0.0, 2.0, 2.0 ,0.0, 0.0, 0.0},
+            {0.5, -0.5, -1.0, 0.0, 0.0 ,-1.0, -0.5, 0.5},
+            {0.5, 1.0, 1.0, -2.0, -2.0 ,1.0, 1.0, 0.5},
+            {0.0, 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0, 0.0}};
+    private final double[][] placeValueBlack = {{0.0, 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0, 0.0},
+            {0.5, 1.0, 1.0, -2.0, -2.0 ,1.0, 1.0, 0.5},
+            {0.5, -0.5, -1.0, 0.0, 0.0 ,-1.0, -0.5, 0.5},
+            {0.0, 0.0, 0.0, 2.0, 2.0 ,0.0, 0.0, 0.0},
+            {0.5, 0.5, 1.0, 2.5, 2.5 ,1.0, 0.5, 0.5},
+            {1.0, 1.0, 2.0, 3.0, 3.0 ,2.0, 1.0, 1.0},
+            {5.0, 5.0, 5.0, 5.0, 5.0 ,5.0, 5.0, 5.0},
+            {0.0, 0.0, 0.0, 0.0, 0.0 ,0.0, 0.0, 0.0}};
     private boolean firstMove = true;
 
     public Pawn(String color, int[] position) {
@@ -74,9 +92,7 @@ public class Pawn extends ChessPiece {
         ChessPiece target = board.board[newRow][newColumn];
         if (!isForward && !(target instanceof Space) && !target.getColor().equals(this.color)) return true;
 
-        if (isForward && target instanceof Space) return true;
-
-        return false;
+        return isForward && target instanceof Space;
     }
 
     /**
@@ -162,5 +178,13 @@ public class Pawn extends ChessPiece {
     @Override
     public int getValue() {
         return value;
+    }
+
+    public double[][] getPlaceValueWhite() {
+        return placeValueWhite;
+    }
+
+    public double[][] getPlaceValueBlack() {
+        return placeValueBlack;
     }
 }
