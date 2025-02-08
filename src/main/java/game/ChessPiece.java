@@ -43,7 +43,7 @@ public abstract class ChessPiece {
 
         // Check if the move leaves the king in check
         if (isKingCheckedAfterMove(board, moveTo)) {
-            System.out.println("Invalid move, own king would be checked");
+            System.out.println("Invalid move, your king would be checked or is checked currently");
             return false;
         }
 

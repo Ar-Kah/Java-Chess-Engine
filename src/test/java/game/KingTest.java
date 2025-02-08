@@ -18,6 +18,8 @@ class KingTest {
         board.board[7][4] = new King("W", new int[] {7, 4});
         board.printBoard();     // try to move white king to the right
         Assertions.assertTrue(board.board[7][4].move(board, new int[] {7, 6}));
+        board.printBoard();
+
     }
 
     @Test
@@ -34,6 +36,7 @@ class KingTest {
         board.board[7][4] = new King("W", new int[] {7, 4});
         board.printBoard();     // try to move white king to the left
         Assertions.assertTrue(board.board[7][4].move(board, new int[] {7, 2}));
+        board.printBoard();
     }
 
     @Test
@@ -50,6 +53,7 @@ class KingTest {
         board.board[0][4] = new King("B", new int[] {0, 4});
         board.printBoard();     // try to move black king to the left
         Assertions.assertTrue(board.board[0][4].move(board, new int[] {0, 2}));
+        board.printBoard();
     }
 
     @Test
@@ -66,6 +70,7 @@ class KingTest {
         board.board[0][4] = new King("B", new int[] {0, 4});
         board.printBoard();     // try to move black king to the right
         Assertions.assertTrue(board.board[0][4].move(board, new int[] {0, 6}));
+        board.printBoard();
     }
 
     @Test

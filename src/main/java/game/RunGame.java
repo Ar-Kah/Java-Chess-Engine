@@ -54,6 +54,11 @@ public class RunGame {
                 }
             }
 
+            String color = isWhite ? "Whites" : "Blacks";
+            if (board.isCheck()) {
+                System.out.println(color + " king is checked");
+            }
+
             Scanner scanner = new Scanner(System.in);
             if (isWhite) {
                 System.out.println("Whites turn to move: ");
@@ -66,6 +71,7 @@ public class RunGame {
                 board.printBoard();
                 isWhite = true;
                 totalMoves++;
+                continue;
             } else {
                 System.out.println("Blacks turn to move: ");
             }

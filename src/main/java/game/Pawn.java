@@ -64,7 +64,7 @@ public class Pawn extends ChessPiece {
                 moves.add(new int[]{row + 2 * direction, column});
             }
         }
-        
+
         // capturing diagonally
         if (isValidMove(row + direction, column + 1, board, false)) {
             moves.add(new int[]{row + direction, column + 1});

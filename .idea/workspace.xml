@@ -6,16 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Rook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/RunGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/RunGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/Space.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Space.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/bot/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/bot/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/game/KingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/KingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +75,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="KingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PawnTest.enPassantWhite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChessMinMax" />
       <extension name="coverage">
@@ -129,27 +138,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="game in ChessMinMax" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.KingTest" />
         <item itemvalue="JUnit.PawnTest.enPassantWhite" />
         <item itemvalue="JUnit.RunGameTest.testForStaleMate" />
         <item itemvalue="JUnit.QueenTest.testQueenMovement" />
-        <item itemvalue="JUnit.game in ChessMinMax" />
       </list>
     </recent_temporary>
   </component>
