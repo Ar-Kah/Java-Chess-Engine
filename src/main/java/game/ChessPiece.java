@@ -52,7 +52,6 @@ public abstract class ChessPiece {
         board.board[moveTo[0]][moveTo[1]] = this;
         this.position = moveTo;
 
-
         // Check if the opponent's king is in check
         if (isCheckingKing(board)) {
             board.setCheckingPiece(this);
@@ -64,9 +63,6 @@ public abstract class ChessPiece {
 
         // Update the board
         updateBoard(board, moveTo[0], moveTo[1], oldPosition);
-        if (board.isCheck()) {
-            System.out.println("King is checked");
-        }
         return true;
     }
 
@@ -101,8 +97,8 @@ public abstract class ChessPiece {
     }
 
     /**
-     * This method updates the view of the game board after a move,
-     * including promotion and en passant capture.
+     * This method is primarily used to move in the minimax algorithm
+     * but is also called in for the player when he/she moves
      *
      * @param board     Pointer to the instance of the game board
      * @param row       Index row where the piece will be drawn
@@ -110,12 +106,18 @@ public abstract class ChessPiece {
      * @param oldPosition Previous position of the moving piece
      */
     public void updateBoard(Board board, int row, int column, int[] oldPosition) {
+
+        // I know this is done twice when the player moves a piece, but to not get bugs when the bot castles we need to call this. I could not think of anything else for now.
+        if (this instanceof King) {
+            canMoveTo(board.board[row][column], board);
+        }
+
         // Create a copy of oldPosition for the Space object
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
 
+        // TODO: fix the en passant bug "will eat random stuff and the en passant piece does not update correctly"
         if (this instanceof Pawn && board.enPassantActive) {
             int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
-
             /*if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
                 // Remove the pawn that was captured by en passant
                 board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
@@ -139,6 +141,10 @@ public abstract class ChessPiece {
             board.board[row][column] = new Queen(this.color, new int[]{row, column});
         } else {
             board.board[row][column] = this;
+        }
+
+        if (board.isCheck()) {
+            System.out.println("King is checked");
         }
     }
 

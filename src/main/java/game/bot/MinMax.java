@@ -46,7 +46,7 @@ public class MinMax {
 
                     piece.updateBoard(clonedBoard, move[0], move[1], piece.position);
 
-                    double score = minimax(clonedBoard, DEPTH, false);
+                    double score = minimax(clonedBoard, DEPTH, Double.MIN_VALUE, Double.MAX_VALUE, false);
 
                     // Restore state after simulation
                     clonedBoard.board[move[0]][move[1]] = originalPiece;
@@ -64,10 +64,10 @@ public class MinMax {
         bestPiece.updateBoard(board, bestMove[0], bestMove[1], bestPiece.position);
     }
 
-    private double minimax(Board board, int depth, boolean isMaximizing) {
+    private double minimax(Board board, int depth, double alpha, double beta, boolean isMaximizing) {
         if (board.isCheckMate()) {
             // if the winner is white
-            if (!isMaximizing) return Integer.MIN_VALUE;
+            if (isMaximizing) return Integer.MIN_VALUE;
             // winner is black
             return Integer.MAX_VALUE;
         }
@@ -103,13 +103,16 @@ public class MinMax {
                         int[] originalPosition = {piece.position[0], piece.position[1]};
 
                         piece.updateBoard(boardClone, move[0], move[1], piece.position);
-                        double eval = minimax(boardClone, depth - 1, false);
+                        double eval = minimax(boardClone, depth - 1, alpha, beta, false);
                         maxEval = Math.max(eval, maxEval);
 
                         // Restore state after simulation
                         boardClone.board[move[0]][move[1]] = originalPiece;
                         boardClone.board[originalPosition[0]][originalPosition[1]] = piece;
                         piece.position = originalPosition;
+
+                        if (maxEval > beta) break; // beta cutoff
+                        alpha = Math.max(alpha, maxEval);
                     }
                 }
             }
@@ -138,13 +141,16 @@ public class MinMax {
                         int[] originalPosition = {piece.position[0], piece.position[1]};
 
                         piece.updateBoard(boardClone, move[0],move[1], piece.position);
-                        double eval = minimax(boardClone, depth - 1, true);
+                        double eval = minimax(boardClone, depth - 1, alpha, beta, true);
                         minEval = Math.min(eval, minEval);
 
                         // Restore state after simulation
                         boardClone.board[move[0]][move[1]] = originalPiece;
                         boardClone.board[originalPosition[0]][originalPosition[1]] = piece;
                         piece.position = originalPosition;
+
+                        if (minEval < alpha) break;
+                        beta = Math.min(beta, minEval);
                     }
                 }
             }

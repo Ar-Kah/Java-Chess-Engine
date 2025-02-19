@@ -18,6 +18,23 @@ class RunGameTest {
         Assertions.assertTrue(game.checkForStaleMate());
     }
 
+    @Test
+    void testForCheckMate() {
+        Board board = new Board(false);
+        board.initEmptyBoard();
+
+        // make a stalemate situation
+        board.board[0][0] = new King("B", new int[] {0, 0});
+        board.board[7][1] = new King("W", new int[] {7, 1});
+        board.board[2][3] = new Queen("W", new int[] {2, 3});
+        board.board[6][1] = new Rook("W", new int[] {6, 2});
+        board.printBoard();
+        board.board[2][3].move(board, new int[] {0, 1});
+        board.printBoard();
+        RunGame game = new RunGame(board);
+        Assertions.assertTrue(game.checkForCheckMate("B"));
+    }
+
     /**
      * Check if moving a peace to a location where your own
      * king would be checked is an invalid move aka. returns False.

@@ -50,14 +50,14 @@ public class King extends ChessPiece{
             if (move[0] == target.position[0] & move[1] == target.position[1]) {
                 // check if move was for castling
                 if (move[0] == rowForCastling & move[1] == 2) {
-                    Rook rook = (Rook) board.board[move[0]][0];
+                    ChessPiece rook = board.board[move[0]][0];
                     board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 0});
                     board.board[move[0]][3] = rook;
                     rook.position = new int[] {move[0], 3};
                     hasCastled = true;
 
                 } else if (move[0] == rowForCastling & move[1] == 6) {
-                    Rook rook = (Rook) board.board[move[0]][7];
+                    ChessPiece rook = board.board[move[0]][7];
                     board.board[rook.position[0]][rook.position[1]] = new Space(new int[] {move[0], 7});
                     board.board[move[0]][5] = rook;
                     rook.position = new int[] {move[0], 5};

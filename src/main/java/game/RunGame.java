@@ -44,15 +44,14 @@ public class RunGame {
                 return;
             }
 
-            if (board.isCheck()) {
-                if (checkForStaleMate()) {
-                    String winner = isWhite ? "Black" : "White";
-                    System.out.println(winner + " has won by checkmate!");
-                    board.setCheckMate(true);
-                    gameOver = true;
-                    return;
-                }
-            }
+            /*if (checkForCheckMate()) {
+                String winner = isWhite ? "Black" : "White";
+                System.out.println(winner + " has won by checkmate!");
+                board.setCheckMate(true);
+                gameOver = true;
+                return;
+            }*/
+
 
             String color = isWhite ? "Whites" : "Blacks";
             if (board.isCheck()) {
@@ -66,7 +65,6 @@ public class RunGame {
             } else if(playWithBot) {
                 System.out.println("Blacks turn to move: ");
 
-                //
                 MinMax minMax = new MinMax(board);
                 board.printBoard();
                 isWhite = true;
@@ -159,10 +157,6 @@ public class RunGame {
                 // if we have even one legal move then there is no stalemate
                 if (!moves.isEmpty()) return false;
             }
-        }
-        if (board.isCheck()) {
-            board.setCheckMate(true);
-            return false;
         }
 
         board.setStaleMate(true);
