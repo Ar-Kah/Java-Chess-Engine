@@ -65,6 +65,15 @@ public class MinMax {
     }
 
     private double minimax(Board board, int depth, boolean isMaximizing) {
+        if (board.isCheckMate()) {
+            // if the winner is white
+            if (!isMaximizing) return Integer.MIN_VALUE;
+            // winner is black
+            return Integer.MAX_VALUE;
+        }
+
+        if (board.isStaleMate()) return 0; // draw
+
         if (depth == 0) {
             return evaluateBoard(board);
         }
