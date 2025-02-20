@@ -2,7 +2,7 @@
 
 #### this is my effort of implementing a chess engine ####
 
-Currently the program has implemented the game logic of chess as ground work before it is possible to implement the bot to play aggainst.
+Update 20.2.2025, kurrently you can play aggains the bot there could still be some minor bugs in the game and the game does not notify checkmate conditions but other wise it is playable and the bot is capable to beat me in a game of chess.
 
 ## how to play ##
 #### player input ####
