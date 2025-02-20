@@ -1,8 +1,10 @@
 # Chess game #
 
-#### this is my effort of implementing a chess engine ####
+#### Java chess engine ####
 
-Update 20.2.2025, kurrently you can play aggains the bot there could still be some minor bugs in the game and the game does not notify checkmate conditions but other wise it is playable and the bot is capable to beat me in a game of chess.
+### Minimax and alpha beta pruning ###
+
+Update 20.2.2025, currently you can play aggains the bot there could still be some minor bugs in the game and the game does not notify checkmate conditions but other wise it is playable and the bot is capable to beat me in a game of chess.
 
 ## how to play ##
 #### player input ####
@@ -23,8 +25,6 @@ After a valid move the program will check if the oponents king is checked in thi
 The opponent that is checked can not make an illegal move if the king is checked. Possible moves are only to move the king to a safe place or capture the checking piece.
 
 ## Objective of this project ##
-
-
 
 I came up with this idea to test my coding skills and try to make a MinMax algo for chess by utilizing as least as possble 3rd party resourses like AI or Stack Overflow. I got into a habit of using mostly only AI to help me code, which made coding stale and boring for me.
 I hope this project will revive my passion for coding and problem solving. Currently on the date of typing this (4.1.2025) I have used these resourses a hand full of times. AI for minor bug fixes and syntax checking in the begining of the project. Some move calculating methods for individual chess pieces
