@@ -81,6 +81,7 @@ class PawnTest {
         Assertions.assertTrue(board.board[0][0].move(board, new int[] {2, 2}));
     }
 
+
     @Test
     void moveTest() {
         Board board = new Board(true);
