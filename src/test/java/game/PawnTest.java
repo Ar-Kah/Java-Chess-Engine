@@ -92,4 +92,24 @@ class PawnTest {
         board.board[4][4].move(board, new int[] {3, 3});
         board.printBoard();
     }
+
+    @Test
+    void pawnMovementTest() {
+        Board board = new Board(false);
+        board.initEmptyBoard();
+
+        board.board[6][3] = new Pawn("W", new int[] {6, 3});
+        board.printBoard();
+        System.out.println("move D2 to D4...");
+        Assertions.assertTrue(board.board[6][3].move(board, new int[] {4, 3}));
+        board.printBoard();
+
+        board.initEmptyBoard();
+        System.out.println("new board");
+        board.board[6][3] = new Pawn("W", new int[] {6, 3});
+        board.board[5][3] = new Pawn("W", new int[] {4, 3});
+        System.out.println("move D2 to D4...");
+        board.printBoard();
+        Assertions.assertFalse(board.board[6][3].move(board, new int[] {4, 3}));
+    }
 }

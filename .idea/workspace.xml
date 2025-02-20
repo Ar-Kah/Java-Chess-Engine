@@ -7,8 +7,8 @@
     <list default="true" id="e968fcb0-c518-4df7-8a22-166ff324e59f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/bot/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/bot/MinMax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/game/RunGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/RunGameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/game/PawnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/game/PawnTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,22 +74,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KingTest.testKingUnsafeMove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ChessMinMax" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="game" />
-      <option name="MAIN_CLASS_NAME" value="game.KingTest" />
-      <option name="METHOD_NAME" value="testKingUnsafeMove" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="PawnTest.moveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChessMinMax" />
       <extension name="coverage">
@@ -101,6 +85,22 @@
       <option name="PACKAGE_NAME" value="game" />
       <option name="MAIN_CLASS_NAME" value="game.PawnTest" />
       <option name="METHOD_NAME" value="moveTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PawnTest.pawnMovementTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChessMinMax" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="game" />
+      <option name="MAIN_CLASS_NAME" value="game.PawnTest" />
+      <option name="METHOD_NAME" value="pawnMovementTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -141,10 +141,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.PawnTest.pawnMovementTest" />
         <item itemvalue="JUnit.PawnTest.moveTest" />
         <item itemvalue="JUnit.RunGameTest.testForCheckMate" />
         <item itemvalue="JUnit.RunGameTest.testForStaleMate" />
-        <item itemvalue="JUnit.KingTest.testKingUnsafeMove" />
       </list>
     </recent_temporary>
   </component>
