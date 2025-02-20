@@ -137,6 +137,10 @@ public abstract class ChessPiece {
         } else {
             board.board[row][column] = this;
         }
+
+        if (board.isCheck()) {
+            System.out.println("King is checked");
+        }
     }
 
     /**
