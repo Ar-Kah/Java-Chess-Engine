@@ -2,6 +2,9 @@
 
 ## Minimax and alpha beta pruning ##
 
+The program uses a 2D array to store each of the different chess pieces. Using this datastructure the bot can find moves relativly fast as a maximum depth of 3.
+
+#### updates on the project ####
 Update 20.2.2025, currently you can play aggains the bot there could still be some minor bugs in the game and the game does not notify checkmate conditions but other wise it is playable and the bot is capable to beat me in a game of chess.
 
 ## how to play ##
