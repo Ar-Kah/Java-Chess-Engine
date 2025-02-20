@@ -107,11 +107,6 @@ public abstract class ChessPiece {
      */
     public void updateBoard(Board board, int row, int column, int[] oldPosition) {
 
-        // I know this is done twice when the player moves a piece, but to not get bugs when the bot castles we need to call this. I could not think of anything else for now.
-        if (this instanceof King) {
-            canMoveTo(board.board[row][column], board);
-        }
-
         // Create a copy of oldPosition for the Space object
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
 
