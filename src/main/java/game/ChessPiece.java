@@ -192,7 +192,7 @@ public abstract class ChessPiece {
         this.position = moveTo;
 
         // Check if own king is in check
-        King ownKing = findKing(this.color, board);
+        King ownKing = Board.findKing(this.color, board);
         boolean isInCheck = false;
         if (ownKing != null) {
             isInCheck = ownKing.isUnderAttack(board);
@@ -206,23 +206,6 @@ public abstract class ChessPiece {
         return isInCheck;
     }
 
-    /**
-     * Helper method to find the king.
-     * @param color     color of the player who is taking the turn
-     * @param board     current game board
-     * @return instance of King
-     */
-    private King findKing(String color, Board board) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                ChessPiece piece = board.board[i][j];
-                if (piece instanceof King && piece.color.equals(color)) {
-                    return (King) piece;
-                }
-            }
-        }
-        return null; // If no king is found (shouldn't happen in a valid game)
-    }
 
     /**
      * Checks if the king is under attack after a move.

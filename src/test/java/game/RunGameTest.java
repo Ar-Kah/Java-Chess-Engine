@@ -58,4 +58,23 @@ class RunGameTest {
         ChessPiece piece5 = board.board[6][5];
         Assertions.assertFalse(piece5.move(board, new int[] {5, 5}));
     }
+
+    @Test
+    void checkmateTest() {
+        Board board = new Board(false);
+        board.initEmptyBoard();
+
+        board.board[0][5] = new Rook("B", new int[] {0, 5});
+        board.board[1][5] = new Pawn("B", new int[] {1, 5});
+        board.board[1][7] = new King("B", new int[] {1, 7});
+        board.board[1][6] = new Pawn("B", new int[] {1, 6});
+
+        board.board[1][4] = new Knight("W", new int[] {1, 4});
+        board.board[3][7] = new Rook("W", new int[] {3, 7});
+        board.board[7][7] = new King("W", new int[] {7, 7});
+        board.printBoard();
+        RunGame game = new RunGame(board);
+        board.setCheck(true);
+        Assertions.assertTrue(game.checkForCheckmate());
+    }
 }
