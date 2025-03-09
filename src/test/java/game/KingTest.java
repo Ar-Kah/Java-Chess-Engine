@@ -69,7 +69,7 @@ class KingTest {
         board.board[0][7] = new Rook("B", new int[] {0, 7});
         board.board[0][4] = new King("B", new int[] {0, 4});
         board.printBoard();     // try to move black king to the right
-        board.board[0][4].updateBoard(board, 0, 6, new int[] {0, 4});
+        board.board[0][4].move(board, new int[] {0, 6});
         board.printBoard();
     }
 
