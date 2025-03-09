@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinMax {
-    private int calculations = 0;
+
     private final int DEPTH = 3; // depth of search for the minimax
     private final String MAXING = "B"; // black is the maximizing player
 
@@ -50,6 +50,7 @@ public class MinMax {
                     int[] originalPosition = {piece.position[0], piece.position[1]};
 
                     piece.updateBoard(clonedBoard, move[0], move[1], piece.position);
+
                     double score = minimax(clonedBoard, DEPTH, Double.MIN_VALUE, Double.MAX_VALUE, false);
 
                     // Restore state after simulation
@@ -66,7 +67,6 @@ public class MinMax {
         }
         assert bestPiece != null;
         bestPiece.move(board, bestMove);
-        System.out.println(calculations);
     }
 
     /**
@@ -79,13 +79,12 @@ public class MinMax {
      * @return min or max eval
      */
     private double minimax(Board board, int depth, double alpha, double beta, boolean isMaximizing) {
-        calculations++;
-        /*if (board.isCheckMate()) {
+        if (board.isCheckMate()) {
             // if the winner is white
             if (isMaximizing) return Integer.MIN_VALUE;
             // winner is black
             return Integer.MAX_VALUE;
-        }*/
+        }
 
         if (board.isStaleMate()) return 0; // draw
 
