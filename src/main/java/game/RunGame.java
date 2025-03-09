@@ -143,49 +143,6 @@ public class RunGame {
         return CHARTOINT.get(character);
     }
 
-    /**
-     * method for checking for checkmate in the game
-     * @return true if checkmate
-     */
-    public boolean checkForCheckmate() {
-
-        // can't continue without game being a check situation
-        if (!board.isCheck()) {
-            return false;
-        }
-
-        String color = isWhite ? "W" : "B";
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-
-                ChessPiece piece = board.board[1][j];
-                // skip same colored pieces. This includes spaces.
-                if (color.equals(piece.color)) continue;
-                List<int[]> moves = new ArrayList<>();
-                moves = piece.getMoves(board);
-                if (moves == null) continue;
-
-                // get the opponents king
-                String opponentsColor;
-                if (color.equals("W")) opponentsColor = "B";
-                else opponentsColor = "W";
-
-                // try all moves to remove the check and if this is not possible declare checkmate
-                for (int[] move : moves) {
-                    // clone the board to check if move removes check
-                    Board clonedBoard = Board.clone(board);
-                    piece.move(clonedBoard, move);
-                    King opponentsKing = Board.findKing(opponentsColor, clonedBoard);
-                    assert opponentsKing != null;
-                    if (!opponentsKing.isUnderAttack(clonedBoard)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
     public boolean checkForStaleMate() {
         // start by getting the color of the side trying to move and parse it to string format
         String color = isWhite ? "W" : "B";
