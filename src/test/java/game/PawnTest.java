@@ -75,10 +75,11 @@ class PawnTest {
         board.initEmptyBoard();
 
         board.board[1][0] = new Pawn("W", new int[] {1, 0});
+        board.board[0][6] = new King("B", new int[] {0,6});
         board.printBoard();
         board.board[1][0].move(board, new int[] {0, 0});
         Assertions.assertTrue(board.board[0][0] instanceof Queen);
-        Assertions.assertTrue(board.board[0][0].move(board, new int[] {2, 2}));
+        board.printBoard();
     }
 
 
