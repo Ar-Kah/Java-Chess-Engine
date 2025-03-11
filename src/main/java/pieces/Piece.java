@@ -24,13 +24,16 @@ public class Piece {
             e.printStackTrace();
         }
     }
-    protected int sheetScale = sheet.getWidth()/6;
+    protected int sheetScale = sheet.getWidth() / 6;
     Image sprite;
     Board board;
 
     public Piece(Board board) {
         this.board = board;
     }
+
+    public boolean isValidMovement(int col, int row) {return true;}
+    public boolean moveCollidesWithPiece(int col, int row) {return false;}
 
     public void paint(Graphics2D g2d) {
         g2d.drawImage(sprite, xPos, yPos, null);

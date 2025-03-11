@@ -18,4 +18,5 @@ public class King extends Piece {
 
         this.sprite = sheet.getSubimage(1, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.tileSize, board.tileSize, BufferedImage.SCALE_SMOOTH);
     }
+
 }
