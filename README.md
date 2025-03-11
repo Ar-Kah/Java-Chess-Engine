@@ -20,7 +20,7 @@ Assuming you picked a valid move the gameboard will update and it is the opponen
 
 The program uses standard moving logic as in chess. Bot decision making is dome by a minimax search tree and alpha beta pruning. After finding a endstate for the game or a max depth the bot will evaluate who good the current board is relative to the maximizing player and minimizing.
 
-### Board evaluation ###
+### GUI.Board evaluation ###
 
 The board evaluation is don by calculating and adding all the values of the players side and subtracting the oppionents. Also piece placement is been taken in account. I have used the same weight values as in this article: Madake, J., Deotale, C., Charde, G., & Bhatlawande, S. (2023) ___CHESS AI: Machine Learning and Minimax Based Chess Engine.___
 
