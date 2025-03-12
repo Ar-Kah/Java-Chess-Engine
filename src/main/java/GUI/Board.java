@@ -15,6 +15,7 @@ public class Board extends JPanel {
     public Piece selectedPiece;
     ArrayList<Piece> pieceList = new ArrayList<Piece>();
     public int enPassantTile = -1;
+    CheckScanner checkScanner = new CheckScanner(this);
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -23,6 +24,15 @@ public class Board extends JPanel {
         this.addMouseMotionListener(input);
 
         addPieces();
+    }
+
+    Piece findKing(boolean isWhite) {
+        for (Piece piece: pieceList) {
+            if (isWhite == piece.isWhite && piece.name.equals("King")) {
+                return piece;
+            }
+        }
+        return null; // should not be possible in a valid game
     }
 
     public void addPieces() {
@@ -50,7 +60,7 @@ public class Board extends JPanel {
         pieceList.add(new Bishop(this, 2, 7, true));
         pieceList.add(new Bishop(this, 5, 7, true));
         pieceList.add(new Queen(this, 3, 7, true));
-        pieceList.add(new King(this, 4,7, true));
+        pieceList.add(new King(this, 4,4, true));
     }
 
 
@@ -102,6 +112,9 @@ public class Board extends JPanel {
         }
 
         if (move.piece.moveCollidesWithPiece(move.newCol, move.newRow)) {
+            return false;
+        }
+        if (checkScanner.isKingChecked(move)) {
             return false;
         }
 
