@@ -14,6 +14,7 @@ public class Board extends JPanel {
     Input input = new Input(this);
     public Piece selectedPiece;
     ArrayList<Piece> pieceList = new ArrayList<Piece>();
+    public int enPassantTile = -1;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -79,6 +80,10 @@ public class Board extends JPanel {
         }
     }
 
+    public int getTileNum(int col, int row) {
+        return row * rows + col;
+    }
+
     public Piece getPiece(int col, int row) {
         for (Piece piece: pieceList) {
             if (piece.col == col && piece.row == row) {
@@ -109,6 +114,10 @@ public class Board extends JPanel {
     }
 
     public void makeMove(Move move) {
+        if (move.piece.name.equals("Pawn")) {
+            movePawn(move);
+            return;
+        }
         move.piece.col = move.newCol;
         move.piece.row = move.newRow;
         move.piece.xPos = move.newCol * tileSize;
@@ -117,10 +126,44 @@ public class Board extends JPanel {
         // change boolean if first move
         move.piece.isFirstMove = false;
 
-        capture(move);
+        capture(move.capture);
     }
 
-    public void capture(Move move) {
-        pieceList.remove(move.capture);
+    private void movePawn(Move move) {
+        // en passant
+        int colorIndex = move.piece.isWhite ? 1 : -1;
+
+        if (getTileNum(move.newCol, move.newRow) == enPassantTile) {
+            move.capture = getPiece(move.newCol, move.newRow + colorIndex);
+        }
+        if (Math.abs(move.piece.row - move.newRow) == 2) {
+            enPassantTile = getTileNum(move.newCol, move.newRow + colorIndex);
+        } else {
+            enPassantTile = -1;
+        }
+        // pawn promotion
+        colorIndex = move.piece.isWhite ? 0 : 7;
+        if (move.newRow == colorIndex) {
+            promotePawn(move);
+        }
+
+        move.piece.col = move.newCol;
+        move.piece.row = move.newRow;
+        move.piece.xPos = move.newCol * tileSize;
+        move.piece.yPos = move.newRow * tileSize;
+
+        // change boolean if first move
+        move.piece.isFirstMove = false;
+
+        capture(move.capture);
+    }
+
+    private void promotePawn(Move move) {
+        pieceList.add(new Queen(this, move.newCol, move.newRow, move.piece.isWhite));
+        capture(move.piece);
+    }
+
+    public void capture(Piece piece) {
+        pieceList.remove(piece);
     }
 }
