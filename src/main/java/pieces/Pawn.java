@@ -19,6 +19,7 @@ public class Pawn extends Piece {
         this.sprite = sheet.getSubimage(5 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.tileSize, board.tileSize, BufferedImage.SCALE_SMOOTH);
     }
     public boolean isValidMovement(int col, int row) {
+        if (!isWithinBoard(col ,row)) return false;
         int colorIndex = isWhite ? 1 : -1;
 
         // push pawn 1

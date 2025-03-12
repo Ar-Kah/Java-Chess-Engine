@@ -33,6 +33,10 @@ public class Piece {
         this.board = board;
     }
 
+    public boolean isWithinBoard(int targetCol, int targetRow) {
+        return targetCol <= 7 && targetCol >= 0 && targetRow <= 7 && targetRow >= 0;
+    }
+
     public boolean isValidMovement(int col, int row) {return true;}
     public boolean moveCollidesWithPiece(int col, int row) {return false;}
 

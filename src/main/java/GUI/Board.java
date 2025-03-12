@@ -5,6 +5,8 @@ import pieces.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Board extends JPanel {
     public int tileSize = 85;
@@ -15,7 +17,9 @@ public class Board extends JPanel {
     public Piece selectedPiece;
     ArrayList<Piece> pieceList = new ArrayList<Piece>();
     public int enPassantTile = -1;
-    CheckScanner checkScanner = new CheckScanner(this);
+    public CheckScanner checkScanner = new CheckScanner(this);
+    private boolean isWhiteToMove = true;
+    private boolean isGameOver = false;
 
     public Board() {
         this.setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -36,7 +40,7 @@ public class Board extends JPanel {
     }
 
     public void addPieces() {
-        // black side
+//        // black side
         for (int i = 0; i < 8; i++) {
             pieceList.add(new Pawn(this, i, 1, false));
         }
@@ -60,7 +64,7 @@ public class Board extends JPanel {
         pieceList.add(new Bishop(this, 2, 7, true));
         pieceList.add(new Bishop(this, 5, 7, true));
         pieceList.add(new Queen(this, 3, 7, true));
-        pieceList.add(new King(this, 4,4, true));
+        pieceList.add(new King(this, 4,7, true));
     }
 
 
@@ -104,6 +108,13 @@ public class Board extends JPanel {
     }
 
     public boolean isValidMove(Move move) {
+        if (isGameOver) {
+            return false;
+        }
+
+        if (move.piece.isWhite != isWhiteToMove) {
+            return false;
+        }
         if (sameTeam(move.piece, move.capture)) {
             return false;
         }
@@ -129,7 +140,8 @@ public class Board extends JPanel {
     public void makeMove(Move move) {
         if (move.piece.name.equals("Pawn")) {
             movePawn(move);
-            return;
+        } else if (move.piece.name.equals("King")) {
+            moveKing(move);
         }
         move.piece.col = move.newCol;
         move.piece.row = move.newRow;
@@ -140,6 +152,35 @@ public class Board extends JPanel {
         move.piece.isFirstMove = false;
 
         capture(move.capture);
+
+        isWhiteToMove = !isWhiteToMove;
+        updateGameState();
+    }
+
+    private void updateGameState() {
+        Piece king = findKing(isWhiteToMove);
+        if (checkScanner.isGameOver(king)) {
+            if (checkScanner.isKingChecked(new Move(this, king, king.col, king.row))) {
+                System.out.println(isWhiteToMove ? "Black wins" : "White wins");
+            } else {
+                System.out.println("Stalemate!");
+            }
+            isGameOver = true;
+        } else if (insufficientMaterial(true) && insufficientMaterial(false)) {
+            System.out.println("Insufficient material!");
+            isGameOver = true;
+        }
+    }
+
+    private boolean insufficientMaterial(boolean isWhite) {
+        ArrayList<String> names = pieceList.stream()
+                .filter(p -> p.isWhite == isWhite)
+                .map(p -> p.name)
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (names.contains("Queen") || names.contains("Pawn") || names.contains("Rook")) {
+            return false;
+        }
+        return names.size() < 3;
     }
 
     private void movePawn(Move move) {
@@ -159,16 +200,20 @@ public class Board extends JPanel {
         if (move.newRow == colorIndex) {
             promotePawn(move);
         }
+    }
 
-        move.piece.col = move.newCol;
-        move.piece.row = move.newRow;
-        move.piece.xPos = move.newCol * tileSize;
-        move.piece.yPos = move.newRow * tileSize;
-
-        // change boolean if first move
-        move.piece.isFirstMove = false;
-
-        capture(move.capture);
+    private void moveKing(Move move) {
+        if (Math.abs(move.piece.col - move.newCol) == 2) {
+            Piece rook;
+            if (move.piece.col < move.newCol) {
+                rook = getPiece(7, move.piece.row);
+                rook.col = 5;
+            } else {
+                rook = getPiece(0, move.piece.row);
+                rook.col = 3;
+            }
+            rook.xPos = rook.col * tileSize;
+        }
     }
 
     private void promotePawn(Move move) {
