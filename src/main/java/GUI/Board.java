@@ -114,6 +114,9 @@ public class Board extends JPanel {
         move.piece.xPos = move.newCol * tileSize;
         move.piece.yPos = move.newRow * tileSize;
 
+        // change boolean if first move
+        move.piece.isFirstMove = false;
+
         capture(move);
     }
 
