@@ -1,6 +1,7 @@
 package game;
 
 public class Board {
+    private long enPassantPawn = 0x0000000000000000L;
     private long whitePawns;
     private long whiteKnights;
     private long whiteBishops;
@@ -99,10 +100,15 @@ public class Board {
     }
 
     public boolean movePiece(String move, boolean isWhite) {
+        if (move.length() < 4) {
+            System.out.println("Invalid input");
+            return false;
+        }
+
         int from = (move.charAt(1) - '1') * 8 + (move.charAt(0) - 'a');
         int to = (move.charAt(3) - '1') * 8 + (move.charAt(2) - 'a');
 
-        System.out.println(from + " " + to);
+//        System.out.println(from + " " + to);
         long fromMask = 1L << from;
         long toMask = 1L << to;
         if ((allPieces & fromMask) == 0) {
@@ -119,18 +125,37 @@ public class Board {
             return false;
         }
 
+        /*TODO there needs to be a checker when capturing the enPassant piece it needs to be deleted as well (13.3.2025)*/
         if ((whitePawns & fromMask) != 0) {
-//            if (Pawn.isValidMove(fromMask, toMask, isWhite)) {
-//                moveWhitePawn(fromMask, toMask);
-//            }
+            // check move legality
+            if ((Pawn.legalMovesWhite(fromMask, blackPieces, allPieces, enPassantPawn) & toMask) != 0) {
+                whitePawns &= ~fromMask;    // delete the starting point of the pawn
+                whitePawns |= toMask;       // move the pawn to the target position
+                if (fromMask << 16 == toMask) {
+                    enPassantPawn |= toMask;
+                } else {
+                    enPassantPawn = 0x0000000000000000L; // enPassant not active
+                }
+            } else {
+                return false; // wasn't a legal move
+            }
+        } else if ((blackPawns & fromMask) != 0) {
+            // check for move legality
+            if ((Pawn.legalMovesBlack(fromMask, whitePieces, allPieces, enPassantPawn) & toMask) != 0) {
+                blackPawns &= ~fromMask;
+                blackPawns |= toMask;
+                if (fromMask >> 16 == toMask) {
+                    enPassantPawn |= toMask;
+                } else {
+                    enPassantPawn = 0x0000000000000000L; // mark enPassant as not active
+                }
+            } else {
+                return false; // wasn't a legal move
+            }
         }
-        updateOccupancy();
+
+        updateOccupancy();  // update new bitboards to all-, black- and whitePieces
         return true;
     }
 
-
-    private void moveWhitePawn(long fromMask, long toMask) {
-        whitePawns &= ~fromMask;
-        whitePawns |= toMask;
-    }
 }
