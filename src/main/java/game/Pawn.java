@@ -1,8 +1,11 @@
 package game;
 
 public class Pawn {
-
+    private static final long FILE_A = 0x0101010101010101L;
+    private static final long FILE_H = 0x8080808080808080L;
     public static long legalMovesWhite(long pawn, long blackPieces, long allPieces, long enPassant) {
+
+
         // one square
         long moveForward = pawn << 8;
         long moveForward2 = pawn << 16;
@@ -19,10 +22,12 @@ public class Pawn {
             }
             legalmoves |= moveForward;
         }
-        if ((captureRight & blackPieces) != 0) {
+        // capture right when there is a black piece and not on H file
+        if ((captureRight & blackPieces) != 0 && (pawn & FILE_H) == 0) {
             legalmoves |= captureRight;
         }
-        if ((captureLeft & blackPieces) != 0) {
+        // capture left when there is a black piece and not on A file
+        if ((captureLeft & blackPieces) != 0 && (pawn & FILE_A) == 0)  {
             legalmoves |= captureLeft;
         }
         if ((pawn << 1 == enPassant) && (enPassant & blackPieces) != 0) {
@@ -31,7 +36,7 @@ public class Pawn {
         if ((pawn >> 1 == enPassant) && (enPassant & blackPieces) != 0) {
             legalmoves |= captureLeft;
         }
-
+        Board.printBitboard(legalmoves);
         return legalmoves;
     }
 
@@ -52,10 +57,10 @@ public class Pawn {
             }
             legalmoves |= moveForward;
         }
-        if ((captureRight & whitePieces) != 0) {
+        if ((captureRight & whitePieces) != 0 && (pawn & FILE_A) == 0) {
             legalmoves |= captureRight;
         }
-        if ((captureLeft & whitePieces) != 0) {
+        if ((captureLeft & whitePieces) != 0 && (pawn & FILE_H) == 0) {
             legalmoves |= captureLeft;
         }
         if ((pawn << 1 == enPassant) && (enPassant & whitePieces) != 0) {

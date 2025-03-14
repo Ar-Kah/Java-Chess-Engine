@@ -29,7 +29,7 @@ public class GameLoop {
                     return; // Exit the game loop
                 }
 
-                isGood = board.movePiece(move, isWhite);
+                isGood = board.formatInput(move, isWhite);
                 if (!isGood) {
                     System.out.println("Invalid move. Try again.");
                 }

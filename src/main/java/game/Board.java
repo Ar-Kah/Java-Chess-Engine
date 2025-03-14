@@ -99,7 +99,7 @@ public class Board {
         System.out.println("\n--------------------\n");
     }
 
-    public boolean movePiece(String move, boolean isWhite) {
+    public boolean formatInput(String move, boolean isWhite) {
         if (move.length() < 4) {
             System.out.println("Invalid input");
             return false;
@@ -125,12 +125,16 @@ public class Board {
             return false;
         }
 
-        /*TODO there needs to be a checker when capturing the enPassant piece it needs to be deleted as well (13.3.2025)*/
+        /*TODO there needs to be a checker when capturing
+           the enPassant piece it needs to be deleted as well (13.3.2025)*/
+
+        /*TODO I need to figure out how to iterate all of the moves for a future minimax algo (14.3.2025)*/
         if ((whitePawns & fromMask) != 0) {
             // check move legality
             if ((Pawn.legalMovesWhite(fromMask, blackPieces, allPieces, enPassantPawn) & toMask) != 0) {
                 whitePawns &= ~fromMask;    // delete the starting point of the pawn
                 whitePawns |= toMask;       // move the pawn to the target position
+                removeCapturedPiece(toMask, isWhite);
                 if (fromMask << 16 == toMask) {
                     enPassantPawn |= toMask;
                 } else {
@@ -144,6 +148,7 @@ public class Board {
             if ((Pawn.legalMovesBlack(fromMask, whitePieces, allPieces, enPassantPawn) & toMask) != 0) {
                 blackPawns &= ~fromMask;
                 blackPawns |= toMask;
+                removeCapturedPiece(toMask, isWhite);
                 if (fromMask >> 16 == toMask) {
                     enPassantPawn |= toMask;
                 } else {
@@ -152,10 +157,44 @@ public class Board {
             } else {
                 return false; // wasn't a legal move
             }
+        } else if (isWhite && (whiteKnights & fromMask) != 0) {
+            if ((Knight.legalMoves(fromMask, blackPieces, allPieces) & toMask) != 0) {
+                whiteKnights &= ~fromMask;
+                whiteKnights |= toMask;
+                enPassantPawn = 0x0000000000000000L;
+                removeCapturedPiece(toMask, true);
+            } else {
+                return false;
+            }
+        } else if (!isWhite && (blackKnights & fromMask) != 0) {
+            if ((Knight.legalMoves(fromMask, whitePieces, allPieces) & toMask) != 0) {
+                blackKnights &= ~fromMask;
+                blackKnights |= toMask;
+                enPassantPawn = 0x0000000000000000L;
+                removeCapturedPiece(toMask, false);
+            } else {
+                return false;
+            }
         }
 
         updateOccupancy();  // update new bitboards to all-, black- and whitePieces
         return true;
     }
-
+    private void removeCapturedPiece(long toMask, boolean isWhite) {
+        if (!isWhite) {
+            if ((whitePawns & toMask) != 0) whitePawns &= ~toMask;
+            else if ((whiteKnights & toMask) != 0) whiteKnights &= ~toMask;
+            else if ((whiteBishops & toMask) != 0) whiteBishops &= ~toMask;
+            else if ((whiteRooks & toMask) != 0) whiteRooks &= ~toMask;
+            else if ((whiteQueens & toMask) != 0) whiteQueens &= ~toMask;
+            else if ((whiteKing & toMask) != 0) whiteKing &= ~toMask;
+        } else {
+            if ((blackPawns & toMask) != 0) blackPawns &= ~toMask;
+            else if ((blackKnights & toMask) != 0) blackKnights &= ~toMask;
+            else if ((blackBishops & toMask) != 0) blackBishops &= ~toMask;
+            else if ((blackRooks & toMask) != 0) blackRooks &= ~toMask;
+            else if ((blackQueens & toMask) != 0) blackQueens &= ~toMask;
+            else if ((blackKing & toMask) != 0) blackKing &= ~toMask;
+        }
+    }
 }

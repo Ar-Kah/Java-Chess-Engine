@@ -15,4 +15,14 @@ public class PawnTest {
         long moves = Pawn.legalMovesWhite(pawn, otherPiece, allPiece, enPassant);
         Board.printBitboard(moves);
     }
+    @Test
+    void pawnLegalMoves2() {
+        long enPassant = 0x0000000000000000L;
+        long allPiece = 0x0000000000000000L;
+        long otherPiece = 0xffff000000000000L;
+        long pawn  = 0x0000010000000000L;
+        Board.printBitboard(pawn);
+        long moves = Pawn.legalMovesWhite(pawn, otherPiece, allPiece, enPassant);
+        Board.printBitboard(moves);
+    }
 }
