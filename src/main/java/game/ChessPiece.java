@@ -140,10 +140,6 @@ public abstract class ChessPiece {
         if (this instanceof Pawn && lastRow == row && Math.abs(row - oldPosition[0]) == 1) {
             // Pawn promotion to Queen
             board.board[row][column] = new Queen(this.color, new int[]{row, column});
-            if (board.board[row][column].isCheckingKing(board)) {
-                board.setCheckingPiece(this);
-                board.setCheck(true);
-            }
         } else {
             board.board[row][column] = this;
         }
