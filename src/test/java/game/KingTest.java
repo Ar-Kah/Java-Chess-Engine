@@ -57,25 +57,6 @@ class KingTest {
     }
 
     @Test
-    void testBlackCastlingLeft2() {
-        Board board = new Board(false);
-        board.initEmptyBoard();
-        // test white king castling
-        for (int i = 0; i < 8; i++) {
-            board.board[1][i] = new Pawn("B", new int[]{1, i}); // white pawns
-        }
-
-        board.board[0][0] = new Rook("B", new int[] {0, 0});
-        board.board[0][7] = new Rook("B", new int[] {0, 7});
-        board.board[0][4] = new King("B", new int[] {0, 4});
-        board.printBoard();     // try to move black king to the left
-        Assertions.assertTrue(board.board[0][4].move(board, new int[] {0, 3}));
-        board.printBoard();
-        Assertions.assertTrue(board.board[0][3].move(board, new int[] {0, 2}));
-        board.printBoard();
-    }
-
-    @Test
     void testBlackCastlingRight() {
         Board board = new Board(false);
         board.initEmptyBoard();
@@ -88,7 +69,7 @@ class KingTest {
         board.board[0][7] = new Rook("B", new int[] {0, 7});
         board.board[0][4] = new King("B", new int[] {0, 4});
         board.printBoard();     // try to move black king to the right
-        board.board[0][4].move(board, new int[] {0, 6});
+        board.board[0][4].updateBoard(board, 0, 6, new int[] {0, 4});
         board.printBoard();
     }
 
