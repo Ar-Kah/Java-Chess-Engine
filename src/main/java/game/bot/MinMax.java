@@ -35,7 +35,6 @@ public class MinMax {
 
                 if (!piece.getColor().equals(MAXING)) continue;
 
-                // we need to call a different method for pawn
                 List<int[]> moves = new ArrayList<>();
                 if (piece instanceof Pawn) {
                     moves = ((Pawn) piece).generateMoves(clonedBoard);
@@ -103,7 +102,6 @@ public class MinMax {
                         continue;
                     }
 
-                    // we need to call a different method for pawn
                     List<int[]> moves = new ArrayList<>();
                     if (piece instanceof Pawn) {
                         moves = ((Pawn) piece).generateMoves(boardClone); // special case for pawns
@@ -142,7 +140,6 @@ public class MinMax {
 
                     if (piece.getColor().equals(MAXING)) continue;
 
-                    // we need to call a different method for pawn
                     List<int[]> moves = new ArrayList<>();
                     if (piece instanceof Pawn) {
                         moves = ((Pawn) piece).generateMoves(boardClone);
