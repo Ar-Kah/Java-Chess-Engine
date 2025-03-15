@@ -61,7 +61,7 @@ public class MinMax {
             }
         }
         assert bestPiece != null;
-        bestPiece.move(board, bestMove);
+        bestPiece.updateBoard(board, bestMove[0], bestMove[1], bestPiece.position);
     }
 
     private double minimax(Board board, int depth, double alpha, double beta, boolean isMaximizing) {
@@ -172,7 +172,7 @@ public class MinMax {
                     blackScore += piece.getPlaceValueBlack(piece.position);
                     blackScore += piece.getValue();
                 } else {
-                    whiteScore -= piece.getPlaceValueWhite(piece.position);
+                    whiteScore += piece.getPlaceValueWhite(piece.position);
                     whiteScore += piece.getValue();
                 }
             }

@@ -32,7 +32,7 @@ class RunGameTest {
         board.board[2][3].move(board, new int[] {0, 1});
         board.printBoard();
         RunGame game = new RunGame(board);
-        // Assertions.assertTrue(game.checkForCheckMate("B"));
+        Assertions.assertTrue(game.checkForCheckMate("B"));
     }
 
     /**
