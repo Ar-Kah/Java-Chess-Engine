@@ -197,4 +197,63 @@ public class Board {
             else if ((blackKing & toMask) != 0) blackKing &= ~toMask;
         }
     }
+
+    public void generateAllMoves(boolean isWhite) {
+        long myPawns = isWhite ? whitePawns : blackPawns;
+        long myKnights = isWhite ? whiteKnights : blackKnights;
+        long myBishops = isWhite ? whiteBishops : blackBishops;
+        long myRooks = isWhite ? whiteRooks : blackRooks;
+        long myQueens = isWhite ? whiteQueens : blackQueens;
+        long myKing = isWhite ? whiteKing : blackKing;
+
+        // Iterate over all pieces and generate their legal moves
+        iteratePieceMoves(myPawns, "Pawn", isWhite);
+        iteratePieceMoves(myKnights, "Knight", isWhite);
+        iteratePieceMoves(myBishops, "Bishop", isWhite);
+        iteratePieceMoves(myRooks, "Rook", isWhite);
+        iteratePieceMoves(myQueens, "Queen", isWhite);
+        iteratePieceMoves(myKing, "King", isWhite);
+    }
+
+    private void iteratePieceMoves(long pieceBitboard, String pieceType, boolean isWhite) {
+        while (pieceBitboard != 0) {
+            int fromSquare = Long.numberOfTrailingZeros(pieceBitboard); // Get LSB index
+            long fromMask = 1L << fromSquare;  // Convert to bit mask
+
+            long possibleMoves = getMovesForPiece(pieceType, fromMask, isWhite); // Get move bitboard
+
+            // Iterate over possible moves
+            while (possibleMoves != 0) {
+                int toSquare = Long.numberOfTrailingZeros(possibleMoves);
+                long toMask = 1L << toSquare;
+
+                System.out.println(pieceType + " moves from " + squareToAlgebraic(fromSquare) +
+                        " to " + squareToAlgebraic(toSquare));
+
+                possibleMoves &= possibleMoves - 1; // Remove processed move
+            }
+
+            pieceBitboard &= pieceBitboard - 1; // Remove processed piece
+        }
+    }
+
+    // Convert bitboard index to algebraic notation
+    private String squareToAlgebraic(int square) {
+        int file = square % 8;
+        int rank = square / 8;
+        return (char) ('a' + file) + Integer.toString(rank + 1);
+    }
+
+    private long getMovesForPiece(String pieceType, long fromMask, boolean isWhite) {
+        switch (pieceType) {
+            case "Pawn":
+                return isWhite ? Pawn.legalMovesWhite(fromMask, blackPieces, allPieces, enPassantPawn)
+                        : Pawn.legalMovesBlack(fromMask, whitePieces, allPieces, enPassantPawn);
+            case "Knight":
+                return Knight.legalMoves(fromMask, isWhite ? blackPieces : whitePieces, allPieces);
+            // Add bishop, rook, queen, king move generation...
+        }
+        return 0L;
+    }
+
 }
