@@ -24,7 +24,6 @@ public class RunGame {
         }
     };
     private final boolean playWithBot = true;
-    private boolean gameOver = false;
     private int totalMoves = 1;
     private boolean isWhite = true;     // oscillator for turns
     private final Board board;
@@ -40,15 +39,11 @@ public class RunGame {
         while (true) {
             if (checkForStaleMate()) {
                 System.out.println("Game ended in a stalemate.");
-                gameOver = true;
                 return;
             }
 
-            /*if (checkForCheckMate()) {
-                String winner = isWhite ? "Black" : "White";
-                System.out.println(winner + " has won by checkmate!");
-                board.setCheckMate(true);
-                gameOver = true;
+            /*if (checkForCheckmate()) {
+                System.out.println("Checkmate!");
                 return;
             }*/
 
@@ -160,29 +155,33 @@ public class RunGame {
 
                 ChessPiece piece = board.board[1][j];
                 // skip same colored pieces. This includes spaces.
-                if (color.equals(piece.color)) continue;
+                if (!color.equals(piece.color)) continue;
                 List<int[]> moves = new ArrayList<>();
                 moves = piece.getMoves(board);
                 if (moves == null) continue;
 
                 // get the opponents king
-                String opponentsColor;
-                if (color.equals("W")) opponentsColor = "B";
-                else opponentsColor = "W";
 
                 // try all moves to remove the check and if this is not possible declare checkmate
                 for (int[] move : moves) {
                     // clone the board to check if move removes check
                     Board clonedBoard = Board.clone(board);
+                    // move on the cloned board
                     piece.move(clonedBoard, move);
-                    King opponentsKing = Board.findKing(opponentsColor, clonedBoard);
+                    if (piece instanceof King) {
+                        System.out.println("kuningase");
+                    }
+                    King opponentsKing = Board.findKing(color, clonedBoard);
                     assert opponentsKing != null;
+
+                    // check if a move removes the checking
                     if (!opponentsKing.isUnderAttack(clonedBoard)) {
                         return false;
                     }
                 }
             }
         }
+        board.setCheckMate(true);
         return true;
     }
 
