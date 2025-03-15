@@ -10,17 +10,13 @@ import java.util.List;
 
 public class MinMax {
 
-    private final int DEPTH = 3; // depth of search for the minimax
-    private final String MAXING = "B"; // black is the maximizing player
+    private final int DEPTH = 3;
+    private final String MAXING = "B";
 
     public MinMax(Board board) {
         init(board);
     }
 
-    /**
-     * The initial call for the minimax algo.
-     * @param board instance of the played board
-     */
     public void init(Board board) {
 
         double bestScore = Integer.MIN_VALUE;
@@ -68,15 +64,6 @@ public class MinMax {
         bestPiece.move(board, bestMove);
     }
 
-    /**
-     * Minimax with alpha beta pruning for chess decision-making
-     * @param board         current board state
-     * @param depth         depth of search
-     * @param alpha         min integer
-     * @param beta          max integer
-     * @param isMaximizing  black is maxing
-     * @return min or max eval
-     */
     private double minimax(Board board, int depth, double alpha, double beta, boolean isMaximizing) {
         if (board.isCheckMate()) {
             // if the winner is white
@@ -171,11 +158,6 @@ public class MinMax {
         }
     }
 
-    /**
-     * Evaluation function for the board status
-     * @param board the board
-     * @return value
-     */
     private double evaluateBoard(Board board) {
         double blackScore = 0;
         double whiteScore = 0;

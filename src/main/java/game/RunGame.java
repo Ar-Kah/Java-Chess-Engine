@@ -74,6 +74,7 @@ public class RunGame {
                 System.out.println("Blacks turn to move: ");
             }
 
+
             try {
 
                 String input = scanner.nextLine();
