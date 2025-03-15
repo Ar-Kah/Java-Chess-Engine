@@ -2,7 +2,6 @@ package game;
 
 /**
  * @author Aaro Karhu
- * Email: aaro.karhu19@gmail.com
  * University of Tampere
  */
 public class Main {
