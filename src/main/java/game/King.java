@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
-    private final int value = Integer.MAX_VALUE;
+    private final int value = 90;
 
     private final double[][] placeValueWhite = {
             {-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},
@@ -33,7 +33,7 @@ public class King extends ChessPiece{
     private boolean hasMoved = false;
     private boolean hasCastled = false;
     private final int[][] kingMoves = new int[][] {
-        {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}, {-1, 1}, {1, -1}
+        {1, 0}, {1, 1}, {0, 1}, {-1, 0}, {-1, -1}, {0, -1}
     };
 
     public King(String color, int[] position) {
@@ -88,14 +88,9 @@ public class King extends ChessPiece{
             if (newRow > 7 | newColumn > 7 | newRow < 0 | newColumn < 0) {
                 continue;
             }
-
             // can't capture same color piece
             ChessPiece piece = board.board[newRow][newColumn];
-
-            if (piece.color.equals(this.color)) {
-                continue;
-            }
-
+            if (piece.color.equals(this.color)) continue;
             moves.add(new int[]{newRow, newColumn});
         }
 
@@ -104,6 +99,7 @@ public class King extends ChessPiece{
         List<int[]> unsafeMoves = getUnsafeMoves(board);
         moves.addAll(castlingMoves);
         moves.removeIf(move -> unsafeMoves.stream().anyMatch(unsafe -> Arrays.equals(move, unsafe)));
+
         return moves;
     }
 
@@ -145,12 +141,12 @@ public class King extends ChessPiece{
         return castleMoves;
     }
 
-    /**
-     * This method is used to get all the moves where the king would be checked if moved
-     * @param board current instance of the board
-     * @return all unsafe moves
-     */
     private List<int[]> getUnsafeMoves(Board board) {
+        /*
+        in this method I have used AI to help me solve a stack overflow problem
+        which came from an infinite recursion when checking for moves
+        from the other king
+         */
 
         List<int[]> unsafeMoves = new ArrayList<>();
 
@@ -171,6 +167,7 @@ public class King extends ChessPiece{
                 unsafeMoves.addAll(chessPiece.getMoves(board));
             }
         }
+
         return unsafeMoves;
     }
 
