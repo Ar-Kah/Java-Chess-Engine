@@ -47,18 +47,25 @@ public abstract class ChessPiece {
             return false;
         }
 
-        // Check if the move leaves the king in check
+        /*
+        this method is used to check if your own king is checked after a move.
+        if this is the case the move will be flagged invalid, and you will
+        have to think of another move that is valid
+         */
         if (isKingCheckedAfterMove(board, moveTo)) {
             System.out.println("Invalid move, your king would be checked or is checked currently");
             return false;
         }
 
-        // Perform the move
+        // Perform the move on the game board
         board.board[oldPosition[0]][oldPosition[1]] = new Space(oldPosition);
         board.board[moveTo[0]][moveTo[1]] = this;
         this.position = moveTo;
 
-        // Check if the opponent's king is in check
+        /*
+        Compared to the other king checking checker method this method is called
+        to determine if this move creates a checking of the opponents king.
+         */
         if (isCheckingKing(board)) {
             board.setCheckingPiece(this);
             board.setCheck(true);
@@ -67,7 +74,7 @@ public abstract class ChessPiece {
             board.setCheckingPiece(null);
         }
 
-        // Update the board
+        // Update the game board
         updateBoard(board, moveTo[0], moveTo[1], oldPosition);
         return true;
     }
@@ -89,6 +96,11 @@ public abstract class ChessPiece {
      */
     public abstract List<int[]> getMoves(Board board);
 
+    /**
+     * this is a method for pawn to check if it is checking the opponents king after a move
+     * @param board current board
+     * @return true if checking king
+     */
     public boolean isCheckingKing(Board board) {
         List<int[]> moves = this.getMoves(board);
         if (moves == null) return false;
@@ -129,7 +141,7 @@ public abstract class ChessPiece {
         } */
 
         // Move space to pawn's last position
-        board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);
+        // board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);
 
         // Move piece to new location
         this.position[0] = row;
