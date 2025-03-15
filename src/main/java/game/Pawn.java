@@ -59,7 +59,7 @@ public class Pawn extends ChessPiece {
         }
 
         // on the first move you can double step forward
-        if (firstMove && board.board[row + direction][column] instanceof Space) {
+        if (firstMove) {
             if (isValidMove(row + 2 * direction, column, board, true)) {
                 moves.add(new int[]{row + 2 * direction, column});
             }
