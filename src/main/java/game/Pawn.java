@@ -158,12 +158,6 @@ public class Pawn extends ChessPiece {
         return false;
     }
 
-    /**
-     * This is a helper method for checking can a pawn check the opposite king
-     * in the next move.
-     * @param board: instance of the game board
-     * @return List of coordinates where a pawn can move
-     */
     @Override
     public List<int[]> getMoves(Board board) {
         // generate next capture moves to check if king is checked

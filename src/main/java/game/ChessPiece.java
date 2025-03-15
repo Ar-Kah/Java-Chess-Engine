@@ -8,12 +8,6 @@ public abstract class ChessPiece {
     protected String color;      // White or black
     protected String name;
 
-    /**
-     * Constructs a Chess piece
-     * @param gamePiece     name of the piece
-     * @param color         white or black
-     * @param position      position where the piece will be placed of the game board
-     */
     public ChessPiece(String gamePiece, String color, int[] position) {
         // white game pieces ar in lowercase
         if (color.equals("W")) {
@@ -104,7 +98,7 @@ public abstract class ChessPiece {
 
     /**
      * This method is primarily used to move in the minimax algorithm
-     * but is also called in for the player when he/she moves.
+     * but is also called in for the player when he/she moves
      *
      * @param board     Pointer to the instance of the game board
      * @param row       Index row where the piece will be drawn
@@ -117,16 +111,16 @@ public abstract class ChessPiece {
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
 
         // TODO: fix the en passant bug "will eat random stuff and the en passant piece does not update correctly"
-        /* if (this instanceof Pawn && board.enPassantActive) {
+        if (this instanceof Pawn && board.enPassantActive) {
             int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
-            if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
+            /*if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
                 // Remove the pawn that was captured by en passant
                 board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
                 // Reset en passant state
                 board.enPassantActive = false;
                 board.enPassant = null;
-            }
-        } */
+            }*/
+        }
 
         // Move space to pawn's last position
         board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);
@@ -143,6 +137,10 @@ public abstract class ChessPiece {
         } else {
             board.board[row][column] = this;
         }
+
+        if (board.isCheck()) {
+            System.out.println("King is checked");
+        }
     }
 
     /**
@@ -151,10 +149,8 @@ public abstract class ChessPiece {
      * @return              true if own king is checked
      */
     private boolean unsafeMove(Board clonedBoard) {
-        for (int i = 0; i < 7; i++)
-        {
-            for (int j = 0; j < 7; j++)
-            {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
                 ChessPiece piece = clonedBoard.board[i][j];
                 if (piece.color.equals(this.color) | piece instanceof Space) continue;
                 if (piece.isCheckingKing(clonedBoard)) return true;
@@ -163,12 +159,6 @@ public abstract class ChessPiece {
         return false;
     }
 
-    /**
-     * Method for checking if the opponents king is checked after a move
-     * @param board     current game board
-     * @param moveTo    target place
-     * @return is king in check
-     */
     private boolean isKingCheckedAfterMove(Board board, int[] moveTo) {
         // Save the original state of the board
         ChessPiece originalTarget = board.board[moveTo[0]][moveTo[1]];
@@ -194,13 +184,7 @@ public abstract class ChessPiece {
         return isInCheck;
     }
 
-    /**
-     * Helper method to find the king.
-     * @param color     color of the player who is taking the turn
-     * @param board     current game board
-     * @return instance of King
-     */
-    private King findKing(String color, Board board) {
+    public King findKing(String color, Board board) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = board.board[i][j];
@@ -211,25 +195,12 @@ public abstract class ChessPiece {
         }
         return null; // If no king is found (shouldn't happen in a valid game)
     }
-
-    /**
-     * Checks if the king is under attack after a move.
-     * This was made so that we can detect if an invalid move would be
-     * made so that our own king would be in danger.
-     *
-     * @param board board after a move has been simulated
-     * @return true if something could check the king
-     */
     public boolean isUnderAttack(Board board) {
-        for (int i = 0; i < board.board.length; i++)
-        {
-            for (int j = 0; j < board.board[i].length; j++)
-            {
+        for (int i = 0; i < board.board.length; i++) {
+            for (int j = 0; j < board.board[i].length; j++) {
                 ChessPiece piece = board.board[i][j];
-
                 // Check if the piece is an opponent and can attack the king's position
                 if (piece != null && !piece.color.equals(this.color)) {
-
                     List<int[]> moves = piece.getMoves(board);
                     if (moves != null) {
                         for (int[] move : moves) {
@@ -244,36 +215,13 @@ public abstract class ChessPiece {
         return false;
     }
 
-    /**
-     * Returns the value of the given chess piece for the minimax evaluation function.
-     * @return value
-     */
     public abstract int getValue();
 
-    /**
-     * Returns the weight of the placement of given white piece
-     * @param position position of the chess piece
-     * @return value
-     */
     public abstract double getPlaceValueWhite(int[] position);
-
-    /**
-     * Returns the weight of the placement of given black piece
-     * @param position position of the chess piece
-     * @return value
-     */
     public abstract double getPlaceValueBlack(int[] position);
 
-    /**
-     * Clone the given chess piece.
-     * @return cloned piece
-     */
     public abstract ChessPiece clone();
 
-    /**
-     * Getter for the color of the piece (white or black).
-     * @return the color
-     */
     public String getColor() {
         return color;
     }

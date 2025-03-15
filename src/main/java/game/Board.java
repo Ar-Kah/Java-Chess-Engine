@@ -3,7 +3,7 @@ package game;
 
 public class Board {
 
-    public ChessPiece[][] board; // board where all the pieces will be stored
+    public ChessPiece[][] board;
     private boolean check = false;
     private boolean checkMate = false;
     private boolean staleMate = false;
@@ -11,11 +11,6 @@ public class Board {
     public ChessPiece enPassant = null;
     public int turnsAfterEnPassant = 0;
     public boolean enPassantActive = false;
-
-    /**
-     * Create a new chess board.
-     * @param init if true the constructor will make a standard game board
-     */
     public Board(boolean init) {
         this.board = new ChessPiece[8][8];
         if (init) {
@@ -25,9 +20,6 @@ public class Board {
         }
     }
 
-    /**
-     * Make all the empty spaces. for a standard board setup.
-     */
     private void initSpace() {
         for (int column = 2; column < 7; column++) {
             for (int row = 0; row < 8; row++) {
@@ -45,9 +37,6 @@ public class Board {
         }
     }
 
-    /**
-     * Method for printing the game board.
-     */
     public void printBoard() {
         System.out.print("  |----------------|\n");
         int number = 8;
@@ -69,9 +58,6 @@ public class Board {
         System.out.println();
     }
 
-    /**
-     * Initialize a standard board for black
-     */
     private void initBlack() {
         this.board[0][0] = new Rook("B", new int[] {0, 0});
         this.board[0][1] = new Knight("B", new int[]{0, 1});
@@ -87,9 +73,6 @@ public class Board {
         }
     }
 
-    /**
-     * Initialize a standard board for white
-     */
     private void initWhite() {
         // initialize pawns
         for (int i = 0; i < 8; i++) {
@@ -106,11 +89,7 @@ public class Board {
         this.board[7][7] = new Rook("W", new int[]{7, 7});
     }
 
-    /**
-     * Cloning method for minimax move making.
-     * @param board board to be cloned
-     * @return cloned board
-     */
+
     public static Board clone(Board board) {
         Board clonedBoard = new Board(false);
 
@@ -129,6 +108,7 @@ public class Board {
 
         return clonedBoard;
     }
+
 
     public void setCheck(boolean check) {
         this.check = check;
