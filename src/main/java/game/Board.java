@@ -130,6 +130,24 @@ public class Board {
         return clonedBoard;
     }
 
+    /**
+     * Helper method to find the king.
+     * @param color     color of the player who is taking the turn
+     * @param board     current game board
+     * @return instance of King
+     */
+    public static King findKing(String color, Board board) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board.board[i][j];
+                if (piece instanceof King && piece.color.equals(color)) {
+                    return (King) piece;
+                }
+            }
+        }
+        return null; // If no king is found (shouldn't happen in a valid game)
+    }
+
     public void setCheck(boolean check) {
         this.check = check;
     }
