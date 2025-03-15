@@ -65,7 +65,8 @@ public class MinMax {
     }
 
     private double minimax(Board board, int depth, double alpha, double beta, boolean isMaximizing) {
-        if (board.isCheckMate()) {
+        String color = isMaximizing ? "B" : "W";
+        if (board.checkForCheckmate(color)) {
             // if the winner is white
             if (isMaximizing) return Integer.MIN_VALUE;
             // winner is black

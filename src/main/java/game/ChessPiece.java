@@ -31,28 +31,43 @@ public abstract class ChessPiece {
      * @return return true if the move was good
      */
     public final boolean move(Board board, int[] moveTo) {
-        int[] oldPosition = this.position;
-        ChessPiece target = board.board[moveTo[0]][moveTo[1]];
-
-        boolean isValid = canMoveTo(target, board);
-
-        if (!isValid) {
+        if (!isValidMove(board, moveTo)) {
             System.out.println("Invalid move");
             return false;
         }
 
-        // Check if the move leaves the king in check
+        // Perform the move
+        performMove(board, moveTo);
+
+        // Check if the opponent's king is in check
+        updateCheckStatus(board);
+
+        return true;
+    }
+
+    private boolean isValidMove(Board board, int[] moveTo) {
+        ChessPiece target = board.board[moveTo[0]][moveTo[1]];
+
+        if (!canMoveTo(target, board)) return false;
         if (isKingCheckedAfterMove(board, moveTo)) {
-            System.out.println("Invalid move, your king would be checked or is checked currently");
+            System.out.println("Invalid move, your king would be checked.");
             return false;
         }
 
-        // Perform the move
+        return true;
+    }
+
+    private void performMove(Board board, int[] moveTo) {
+        int[] oldPosition = this.position.clone();
+
         board.board[oldPosition[0]][oldPosition[1]] = new Space(oldPosition);
         board.board[moveTo[0]][moveTo[1]] = this;
         this.position = moveTo;
 
-        // Check if the opponent's king is in check
+        updateBoard(board, moveTo[0], moveTo[1], oldPosition);
+    }
+
+    private void updateCheckStatus(Board board) {
         if (isCheckingKing(board)) {
             board.setCheckingPiece(this);
             board.setCheck(true);
@@ -60,12 +75,7 @@ public abstract class ChessPiece {
             board.setCheck(false);
             board.setCheckingPiece(null);
         }
-
-        // Update the board
-        updateBoard(board, moveTo[0], moveTo[1], oldPosition);
-        return true;
     }
-
 
     /**
      * This method checks if the players given target position matches with a possible move
@@ -115,17 +125,15 @@ public abstract class ChessPiece {
         // Create a copy of oldPosition for the Space object
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
 
-        // TODO: fix the en passant bug "will eat random stuff and the en passant piece does not update correctly"
         if (this instanceof Pawn && board.enPassantActive) {
             int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
-            /*if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
-                // Remove the pawn that was captured by en passant
+            if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
                 board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
-                // Reset en passant state
                 board.enPassantActive = false;
                 board.enPassant = null;
-            }*/
+            }
         }
+
 
         // Move space to pawn's last position
         board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);
@@ -160,7 +168,7 @@ public abstract class ChessPiece {
         return false;
     }
 
-    private boolean isKingCheckedAfterMove(Board board, int[] moveTo) {
+    public boolean isKingCheckedAfterMove(Board board, int[] moveTo) {
         // Save the original state of the board
         ChessPiece originalTarget = board.board[moveTo[0]][moveTo[1]];
         int[] originalPosition = this.position.clone();
@@ -185,7 +193,7 @@ public abstract class ChessPiece {
         return isInCheck;
     }
 
-    public King findKing(String color, Board board) {
+    public static King findKing(String color, Board board) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = board.board[i][j];

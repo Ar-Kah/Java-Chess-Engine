@@ -1,6 +1,8 @@
 package game;
 
 
+import java.util.List;
+
 public class Board {
 
     public ChessPiece[][] board;
@@ -108,6 +110,31 @@ public class Board {
 
         return clonedBoard;
     }
+
+    public boolean checkForCheckmate(String color) {
+        King king = ChessPiece.findKing(color, this);
+        if (king == null) return false; // Should never happen in a valid game
+
+        if (!king.isUnderAttack(this)) return false; // King is not in check, so no checkmate
+
+        // Check if any move can save the king
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board[i][j];
+                if (piece != null && piece.getColor().equals(color)) {
+                    List<int[]> moves = piece.getMoves(this);
+                    for (int[] move : moves) {
+                        if (!piece.isKingCheckedAfterMove(this, move)) {
+                            return false; // There exists a legal move to escape check
+                        }
+                    }
+                }
+            }
+        }
+
+        return true; // No legal moves left, and king is in check → Checkmate
+    }
+
 
 
     public void setCheck(boolean check) {

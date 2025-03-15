@@ -43,17 +43,11 @@ public class RunGame {
                 gameOver = true;
                 return;
             }
-
-            /*if (checkForCheckMate()) {
-                String winner = isWhite ? "Black" : "White";
-                System.out.println(winner + " has won by checkmate!");
-                board.setCheckMate(true);
-                gameOver = true;
+            String color = isWhite ? "W" : "B";
+            if (board.checkForCheckmate(color)) {
                 return;
-            }*/
+            }
 
-
-            String color = isWhite ? "Whites" : "Blacks";
             if (board.isCheck()) {
                 System.out.println(color + " king is checked");
             }
@@ -63,6 +57,7 @@ public class RunGame {
                 System.out.println("Whites turn to move: ");
 
             } else if(playWithBot) {
+
                 System.out.println("Blacks turn to move: ");
 
                 MinMax minMax = new MinMax(board);
