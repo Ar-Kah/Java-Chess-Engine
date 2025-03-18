@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class King extends ChessPiece{
-    private final int value = 90;
+    private final int value = 0;
 
     private final double[][] placeValueWhite = {
             {-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0},

@@ -125,15 +125,23 @@ public abstract class ChessPiece {
         // Create a copy of oldPosition for the Space object
         int[] spacePosition = new int[]{oldPosition[0], oldPosition[1]};
 
+        /* Check if en passant is active and this is a pawn that is being moved */
         if (this instanceof Pawn && board.enPassantActive) {
             int enPassantRow = this.color.equals("W") ? row + 1 : row - 1;
-            if (column == board.enPassant.position[1] && Math.abs(row - oldPosition[0]) == 1) {
-                board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column});
-                board.enPassantActive = false;
+            /* Capture en passant pawn when this is on the same column as the en passant
+            *  and depending on the color of the piece the en passant piece is directly
+            *  below where we are going */
+            if (column == board.enPassant.position[1] && board.board[enPassantRow][column] == board.enPassant) {
+                board.board[enPassantRow][column] = new Space(new int[]{enPassantRow, column}); // capture en passant pawn
+                board.enPassantActive = false; // deactivate en passant
                 board.enPassant = null;
             }
         }
-
+        // deactivate en passant when moving anything else than a pawn
+        if (!(this instanceof Pawn)) {
+            board.enPassant = null;
+            board.enPassantActive = false;
+        }
 
         // Move space to pawn's last position
         board.board[oldPosition[0]][oldPosition[1]] = new Space(spacePosition);

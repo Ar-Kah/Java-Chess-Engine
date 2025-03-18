@@ -23,7 +23,7 @@ public class RunGame {
             put("h", 7);
         }
     };
-    private final boolean playWithBot = true;
+    private final boolean playWithBot = false;
     private boolean gameOver = false;
     private int totalMoves = 1;
     private boolean isWhite = true;     // oscillator for turns
